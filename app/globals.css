@@ -39,8 +39,6 @@
 
   /* --- Dark theme (default) --------------------------------------------- */
   --accent-text: #ffcc00;
-  --grid-line: rgba(255, 255, 255, 0.17);
-  --grid-mark: rgba(255, 255, 255, 0.22);
   --grain-blend: overlay;
   --grain-opacity: 0.32;
   /* Hero scrim: light through the middle where the mark opens, solid at the
@@ -85,8 +83,6 @@
      identically. The two prints differ only in black and white. */
   --rule-dark: rgba(10, 10, 10, 0.16);
   --rule-light: rgba(255, 255, 255, 0.16);
-  --grid-line: rgba(10, 10, 10, 0.16);
-  --grid-mark: rgba(10, 10, 10, 0.2);
   --grain-blend: multiply;
   --grain-opacity: 0.16;
   --hero-scrim: linear-gradient(
@@ -386,21 +382,13 @@ body {
     opacity 420ms linear 680ms;
 }
 
-/* The curtain is dark on both prints, so its construction lines stay light. */
-.ap-root .ap-grid {
-  --grid-line: rgba(255, 255, 255, 0.05);
-  --grid-mark: rgba(255, 255, 255, 0.11);
-}
-
-.ap-rays,
-.ap-grid {
+.ap-rays {
   position: absolute;
   inset: 0;
   transition: opacity 500ms ease-out;
 }
 
-.ap-root[data-state="open"] .ap-rays,
-.ap-root[data-state="open"] .ap-grid {
+.ap-root[data-state="open"] .ap-rays {
   opacity: 0;
 }
 
@@ -518,3 +506,25 @@ body {
 .on-light { display: none; }
 :root[data-theme="light"] .on-dark { display: none; }
 :root[data-theme="light"] .on-light { display: block; }
+
+/* --------------------------------------------------------------------------
+   Hero wireframe
+
+   Sits in the plate rather than on it: a hair of rotation so it reads as
+   pinned rather than placed, and a soft mask that lets the drawing dissolve
+   into the haze at its edges instead of stopping at a hard boundary.
+   -------------------------------------------------------------------------- */
+
+.wireframe-plate {
+  transform: rotate(-1.4deg);
+  -webkit-mask-image: radial-gradient(
+    ellipse 78% 82% at 50% 48%,
+    #000 62%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    ellipse 78% 82% at 50% 48%,
+    #000 62%,
+    transparent 100%
+  );
+}

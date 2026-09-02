@@ -350,27 +350,26 @@ why this is the one component allowed borders. Spec rows live in
 `SERVICE_SPECS` in `components/content.ts`, keyed by service name; keys stay
 one short word so they fit the key column.
 
-### Quilt
-`components/Quilt.tsx`. The texture over the hero plate: diagonals crossing
-into diamonds, with `202` set in the bitmap face at every crossing, where a
-quilt would carry a stitch point. Quiet-luxury quilting rather than a grid or a
-chart — chosen over a rhumb-line chart and a graticule because those are single
-large objects that compete with the composition, and a tiled texture recedes
-behind type.
+### Wireframe (signature)
+`components/Wireframe.tsx`. A hand-drawn browser wireframe floating in the
+cloud plate, annotated in Signal like a red-pen markup pass. The concept is
+literal rather than decorative: wireframes are the first thing listed under
+Brand & launch kits, so the hero shows the studio's own first deliverable
+sketched into the sky instead of a stock device mockup.
 
-Tiled at a fixed 124px in user space rather than stretched to the container, so
-the diamonds stay square on any viewport instead of shearing. The mark is drawn
-at the tile centre and all four corners; the corner copies are clipped by the
-tile and reassemble across neighbours, so the lattice is seamless.
+Every rule is a shallow quadratic rather than a straight line, with rounded
+joins, so it reads as drawn by hand against the machined type around it. The
+structure inherits `currentColor` and follows the theme; the annotation is the
+one place Signal behaves like a pen.
 
-It draws from `--grid-line` and `--grid-mark`, so it flips with the theme.
-Those sit at 16–22% rather than the 4–5% the old grid used: a 1px hairline over
-a mid-grey photograph is imperceptible below roughly 15%, even though it
-renders. The mark runs a few points above the line so the glyphs hold their
-own against the diagonals.
+It sits *in* the plate rather than on it: a hair of rotation so it reads as
+pinned rather than placed, and a radial mask so the drawing dissolves into the
+haze at its edges instead of stopping at a hard boundary. Hidden below `md`,
+where the hero has no room to spare.
 
-**Hero only.** It is a treatment for the photograph, not a system texture — the
-intro curtain and the 404 carry no pattern.
+**The plate carries no pattern.** Earlier passes ran a square grid, then
+construction lines, then a quilted lattice over the photograph; all are gone.
+A photograph is already texture, and a second one competes with it.
 
 ### Sun (signature)
 `components/Sun.tsx`. The theme control, disguised as the sun breaking through
@@ -439,6 +438,8 @@ Transforms and opacity only. Everything above is disabled under
   studio section the only place that states a claim.
 - **Do** reach for a spec label when a section needs to enumerate what is
   actually delivered — that is what the form is for.
+- **Do** leave the photography alone. It is the texture; it does not need a
+  pattern laid over it.
 
 ### Don't
 - **Don't** add a shadow, a glow, a color gradient, or a rounded rectangle.
@@ -454,7 +455,4 @@ Transforms and opacity only. Everything above is disabled under
   (or it flashes) *and* fail closed (or a bad browser gets a black screen).
 - **Don't** fabricate testimonials, metrics, or claims. Copy comes from
   `components/content.ts`, which is product truth.
-- **Don't** write "202" as the agency's name — that is always "2zero2". The
-  quilt's stitch marks are the one exception: there it is a shorthand used as
-  a graphic element, at a size where it reads as texture rather than as a
-  wordmark.
+- **Don't** write "202" — the agency is always "2zero2".

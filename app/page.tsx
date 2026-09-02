@@ -7,8 +7,8 @@ import ProjectCard from "@/components/ProjectCard";
 import Reveal from "@/components/Reveal";
 import SpecLabel from "@/components/SpecLabel";
 import SiteChrome from "@/components/SiteChrome";
-import Quilt from "@/components/Quilt";
 import Sun from "@/components/Sun";
+import Wireframe from "@/components/Wireframe";
 import { ABOUT, BOOKING_URL, PROJECTS, SERVICES, STEPS } from "@/components/content";
 
 const HERO_PLATE = "/brand/plate-hero.webp";
@@ -65,8 +65,12 @@ export default function Home() {
                 background: "var(--hero-scrim)",
               }}
             />
-            <Quilt />
           </div>
+
+          {/* Sits in the open sky on the right, low enough to clear the sun
+              and the headline. Hidden below md, where the hero has no room to
+              spare. */}
+          <Wireframe className="intro-enter wireframe-plate pointer-events-none absolute top-[26%] right-[4%] hidden w-[min(38vw,440px)] text-paper/40 md:block" />
 
           <Sun />
 
