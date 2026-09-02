@@ -16,6 +16,7 @@
   --font-display: var(--font-archivo), "Helvetica Neue", Arial, sans-serif;
   --font-serif: var(--font-instrument), Georgia, serif;
   --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+  --font-script: var(--font-milkstore), "Brush Script MT", cursive;
 }
 
 :root {
@@ -99,6 +100,16 @@ body {
   font-variation-settings: "wdth" 100;
   line-height: 1.6;
   letter-spacing: 0.004em;
+}
+
+/* The script half of the bold/script contrast — the wordmark's own face.
+   Display sizes only; it is not legible as copy. */
+.t-script {
+  font-family: var(--font-script);
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0.01em;
+  line-height: 0.9;
 }
 
 /* Outline display type — the "TWO / ZERO / TWO" plate treatment. */
@@ -264,10 +275,10 @@ body {
 
   /* Opening size comes from CSS, not JS, so the first painted frame is
      already correct and nothing animates on arrival. */
-  --ap-ms: min(46vw, 470px);
+  --ap-ms: min(62vw, 420px);
 
-  -webkit-mask-image: url("/brand/2zero2_mark_white.svg"), linear-gradient(#000, #000);
-  mask-image: url("/brand/2zero2_mark_white.svg"), linear-gradient(#000, #000);
+  -webkit-mask-image: url("/brand/2zero2_globe_mask.svg"), linear-gradient(#000, #000);
+  mask-image: url("/brand/2zero2_globe_mask.svg"), linear-gradient(#000, #000);
   -webkit-mask-repeat: no-repeat, no-repeat;
   mask-repeat: no-repeat, no-repeat;
   -webkit-mask-position: center, center;
@@ -310,4 +321,41 @@ body {
 .ap-root[data-state="open"] .ap-counter {
   opacity: 0;
   transform: translateY(14px);
+}
+
+/* --------------------------------------------------------------------------
+   Spec labels
+
+   Product-label furniture: a white card with a hard black border, boxed
+   header, bulleted spec rows, and an inverted footer bar. The one place the
+   system is allowed boxes and borders — everywhere else structure is still
+   hairlines and space. They read as physical labels laid on the black page.
+   -------------------------------------------------------------------------- */
+
+.spec {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  border: 2px solid var(--color-ink);
+}
+
+.spec-divide {
+  border-top: 1.5px solid var(--color-ink);
+}
+
+.spec-rule {
+  border-bottom: 1.5px solid var(--color-ink);
+}
+
+/* The seal: circular lockup, set on a path. */
+.seal-rotate {
+  animation: seal-spin 26s linear infinite;
+  transform-origin: 50% 50%;
+}
+
+@keyframes seal-spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .seal-rotate { animation: none; }
 }

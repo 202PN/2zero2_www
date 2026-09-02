@@ -14,7 +14,8 @@ from there, it is not invented in components.
 - [React 19](https://react.dev) · TypeScript
 - [Tailwind CSS 4](https://tailwindcss.com)
 - [Lenis](https://lenis.darkroom.engineering) for smooth scroll (~3KB, lazily imported)
-- `next/font` — Archivo self-hosted (OFL), Instrument Serif + JetBrains Mono from Google
+- `next/font` — Archivo and Milkstore self-hosted (subset to woff2), Instrument
+  Serif + JetBrains Mono from Google
 
 ## Getting started
 
@@ -72,8 +73,9 @@ app/
 components/
   Aperture.tsx         The intro. See DESIGN.md before changing it.
   SiteChrome.tsx       Client shell — smooth scroll + header
-  Header.tsx  Footer.tsx  Plate.tsx  ProjectCard.tsx
-  ServiceIndex.tsx  ContactForm.tsx  Reveal.tsx
+  SpecLabel.tsx        Services as product labels — the signature component
+  Seal.tsx             Circular stamp, the site's only saturated fill
+  Header.tsx  Footer.tsx  Plate.tsx  ProjectCard.tsx  ContactForm.tsx  Reveal.tsx
   useLenis.ts          Smooth scroll, hash links, plate scale loop
   useContactForm.ts    POST /api/contact client
   content.ts           Product truth
@@ -89,3 +91,17 @@ Every text color clears 4.5:1 against its background. Reveals, smooth scroll, an
 the intro aperture are all disabled under `prefers-reduced-motion`; the aperture
 additionally never renders on the server, so the site ships open without
 JavaScript and the contact form falls back to a plain `POST`.
+
+## Fonts
+
+Archivo and Milkstore are self-hosted and subset to Latin + punctuation with
+`fontTools`, which takes Archivo from 652KB to 62KB (both variable axes intact)
+and Milkstore from 92KB to 25KB. To re-subset after replacing a source file:
+
+```bash
+python3 -m fontTools.subset SOURCE.ttf --unicodes="U+0020-007E,U+00A0,U+2010-2015,U+2018-201D,U+2022,U+2026,U+2192,U+00B7,U+00A9,U+00D7" --flavor=woff2 --layout-features='*' --output-file=app/fonts/OUT.woff2
+```
+
+**Licensing:** Milkstore is a commercial font. Confirm the licence covers
+webfont embedding before this goes to production — a desktop licence often does
+not, and it is only used for a handful of display words.

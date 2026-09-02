@@ -10,7 +10,8 @@ export const PROJECT_TYPES = [
   "Web app",
   "Marketing site",
   "Redesign & rebuild",
-  "MVP",
+  "Brand & launch kit",
+  "Events & nightlife",
   "Not sure yet",
 ];
 
@@ -44,10 +45,16 @@ export const SERVICES: Service[] = [
     type: "Redesign & rebuild",
   },
   {
-    tag: "MVP",
-    name: "MVPs for founders",
-    copy: "A first version real users can touch, shipped in weeks and ready to learn from.",
-    type: "MVP",
+    tag: "Launch",
+    name: "Brand & launch kits",
+    copy: "Wireframes, landing pages, identity, and pitch decks — the pieces a first release needs before anyone writes production code.",
+    type: "Brand & launch kit",
+  },
+  {
+    tag: "Events",
+    name: "Events & nightlife",
+    copy: "Flyers, social posts, and mockups for DJs, promoters, and the nights they put on.",
+    type: "Events & nightlife",
   },
   {
     tag: "Care",
@@ -56,6 +63,40 @@ export const SERVICES: Service[] = [
     type: null,
   },
 ];
+
+/** Spec rows for the label cards in the services section. */
+export const SERVICE_SPECS: Record<string, [string, string][]> = {
+  "Web applications": [
+    ["Output", "Dashboards · Portals · Internal tools"],
+    ["Stack", "Next.js · TypeScript · Serverless"],
+    ["Handoff", "Production deploy + docs"],
+  ],
+  "Marketing sites": [
+    ["Output", "Multi-page site · CMS optional"],
+    ["Built for", "Speed, clarity, inbound"],
+    ["Handoff", "Yours to run, or we run it"],
+  ],
+  "Website redesign & rebuild": [
+    ["Output", "Rebuilt site · Same URLs"],
+    ["Keeps", "Rankings, content, what works"],
+    ["Drops", "The parts that never did"],
+  ],
+  "Brand & launch kits": [
+    ["Output", "Wireframes · Landing page · Identity"],
+    ["Also", "Pitch deck design"],
+    ["Note", "Design and first release — not a full build"],
+  ],
+  "Events & nightlife": [
+    ["Output", "Flyers · Social posts · Mockups"],
+    ["For", "DJs · Promoters · Venues"],
+    ["Timing", "Built around your date"],
+  ],
+  "Support & iteration": [
+    ["Output", "Fixes · Features · Performance"],
+    ["Cadence", "Ongoing, after launch"],
+    ["Scope", "Whatever the site needs next"],
+  ],
+};
 
 export type ProjectImage = { src: string; alt: string };
 

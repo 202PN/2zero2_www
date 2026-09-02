@@ -7,10 +7,19 @@ import "./globals.css";
 /* Archivo variable (OFL) — self-hosted so the wdth axis is available and
    no request leaves the origin. Display and body both ride this family. */
 const archivo = localFont({
-  src: "./fonts/Archivo-Variable.ttf",
+  src: "./fonts/Archivo-Variable.woff2",
   weight: "100 900",
   display: "swap",
   variable: "--font-archivo",
+});
+
+/* Milkstore — the face the 2zero2 wordmark is drawn in. Used only as the
+   script half of the bold/script contrast, never for reading copy. */
+const milkstore = localFont({
+  src: "./fonts/Milkstore-Clean.woff2",
+  weight: "400",
+  display: "swap",
+  variable: "--font-milkstore",
 });
 
 /* Numerals and editorial accents only — the intro counter, section
@@ -36,11 +45,11 @@ export const metadata: Metadata = {
     template: "%s · 2zero2",
   },
   description:
-    "2zero2 is a digital agency building web applications, marketing sites, and MVPs for small businesses, owners, and founders. Scoping crew is the build crew.",
+    "2zero2 is a digital agency building web applications, marketing sites, and launch design for owners, founders, DJs, and promoters. Scoping crew is the build crew.",
   openGraph: {
     title: "2zero2 — Digital agency",
     description:
-      "Web applications, marketing sites, and MVPs. Shipped fast, built to last.",
+      "Web applications, marketing sites, and launch design. Shipped fast, built to last.",
     images: [{ url: "/brand/og.jpg", width: 1200, height: 630 }],
     type: "website",
   },
@@ -51,7 +60,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${archivo.variable} ${instrument.variable} ${jetbrains.variable}`}
+      className={`${archivo.variable} ${milkstore.variable} ${instrument.variable} ${jetbrains.variable}`}
     >
       <head>
         {/* Runs before the first paint and decides whether the intro plays at

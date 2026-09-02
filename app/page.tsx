@@ -5,9 +5,10 @@ import Footer from "@/components/Footer";
 import Plate from "@/components/Plate";
 import ProjectCard from "@/components/ProjectCard";
 import Reveal from "@/components/Reveal";
-import ServiceIndex from "@/components/ServiceIndex";
+import Seal from "@/components/Seal";
+import SpecLabel from "@/components/SpecLabel";
 import SiteChrome from "@/components/SiteChrome";
-import { ABOUT, BOOKING_URL, PROJECTS, STEPS } from "@/components/content";
+import { ABOUT, BOOKING_URL, PROJECTS, SERVICES, STEPS } from "@/components/content";
 
 const HERO_PLATE = "/brand/plate-hero.webp";
 /* Module constant so the array identity is stable across renders and the
@@ -27,7 +28,8 @@ const MARQUEE = [
   "Web applications",
   "Marketing sites",
   "Redesign & rebuild",
-  "MVPs for founders",
+  "Brand & launch kits",
+  "Events & nightlife",
   "Support & iteration",
 ];
 
@@ -70,15 +72,24 @@ export default function Home() {
             <p className="t-label text-dim">(00) Digital agency · Est. 2024</p>
             {/* The wordmark set in the display face — the script mark in the
                 header and this are the same name in two registers. */}
-            <h1
-              className="t-display mt-7"
-              style={{ fontSize: "clamp(3.6rem, 13vw, 11rem)" }}
-            >
-              2zero2
+            <h1 className="mt-7 flex flex-col">
+              <span
+                className="t-display"
+                style={{ fontSize: "clamp(3.6rem, 13vw, 11rem)" }}
+              >
+                2zero2
+              </span>
+              {/* The logo's own tagline, in the logo's own face. */}
+              <span
+                className="t-script -mt-[0.12em] self-end pr-[0.06em] text-signal"
+                style={{ fontSize: "clamp(1.6rem, 5vw, 4rem)" }}
+              >
+                digital design
+              </span>
             </h1>
             <p className="t-body mt-9 max-w-[46ch] text-[1.05rem] text-paper/80">
-              Web applications, marketing sites, and first releases for owners
-              and founders.
+              Web applications, marketing sites, and launch design — for
+              owners, founders, DJs, and promoters.
             </p>
             <div className="mt-10 flex flex-wrap items-center gap-x-10 gap-y-4">
               <Link
@@ -130,9 +141,13 @@ export default function Home() {
               Capabilities
             </h2>
           </Reveal>
-          <Reveal delay={80} className="mt-14">
-            <ServiceIndex />
-          </Reveal>
+          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {SERVICES.map((service, i) => (
+              <Reveal key={service.name} delay={(i % 3) * 70} className="h-full">
+                <SpecLabel service={service} index={i} total={SERVICES.length} />
+              </Reveal>
+            ))}
+          </div>
         </section>
 
         {/* ---------------------------------------------------------------
@@ -195,8 +210,9 @@ export default function Home() {
           <div
             style={{ paddingInline: "var(--gutter)", paddingBlock: "clamp(5rem,11vw,9rem)" }}
           >
-            <Reveal>
+            <Reveal className="flex items-start justify-between gap-6">
               <Eyebrow n="03">Studio</Eyebrow>
+              <Seal className="h-24 w-24 shrink-0 sm:h-32 sm:w-32" />
             </Reveal>
             <div className="mt-10 grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
               <Reveal>

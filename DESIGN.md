@@ -30,6 +30,10 @@ typography:
     fontSize: "1.05rem"
     fontWeight: 400
     lineHeight: 1.6
+  script:
+    fontFamily: "Milkstore, Brush Script MT, cursive"
+    fontWeight: 400
+    lineHeight: 0.9
   label:
     fontFamily: "JetBrains Mono, ui-monospace, monospace"
     fontSize: "0.6875rem"
@@ -69,8 +73,10 @@ typographic voice, and one accent.
   out of it, growing until the page is simply open.
 - Radius 0 on every rectangle. No shadows. No gradients used as color.
 - Hairline rules at 12–14% ink are the only dividers.
-- Four type roles, three families: Archivo (display + body), JetBrains Mono
-  (labels), Instrument Serif (numerals only).
+- Five type roles, four families: Archivo (display + body), JetBrains Mono
+  (labels), Instrument Serif (numerals), Milkstore (script accents).
+- Bold against script: the wordmark's own face is the counterweight to the
+  monumental grotesque.
 
 ## Colors
 
@@ -92,10 +98,13 @@ Defined as Tailwind theme tokens in `app/globals.css`.
 ### Named Rules
 
 **The One Percent Rule.** Signal appears only on: the intro counter as it reaches
-100, nav and link hover, the active form pill, the "available" status dot, and focus
-rings. It is never a fill behind body text, never a second accent, and never joined
-by another saturated color. If a new element wants color, it gets white or it gets
-a rule.
+100, nav and link hover, the active form pill, the "available" status dot, focus
+rings, the hero's script tagline, and the seal. It is never a fill behind body
+text, never a second accent, and never joined by another saturated color. If a
+new element wants color, it gets white or it gets a rule.
+
+The seal is the single exception to "never a fill" — a stamp is small, and the
+yellow is the logo's own. Nothing else on the site may take a saturated fill.
 
 **The Monochrome Photography Rule.** Every photographic asset is desaturated at the
 asset level, not with a CSS filter — `plate-hero.webp` and `plate-band.webp` ship
@@ -115,6 +124,8 @@ display type from reading as default Helvetica — headlines run `wdth 112`,
 sub-heads `wdth 105`, body `wdth 100`.
 **Label:** JetBrains Mono, 11px, `0.2em` tracking, uppercase.
 **Serif:** Instrument Serif, numerals and editorial accents only.
+**Script:** Milkstore Clean — the face the 2zero2 wordmark itself is drawn in,
+self-hosted and subset. Display sizes only.
 
 ### Hierarchy
 - **Display** (`.t-display`): the page h1 only. `clamp(3.2rem, 10.5vw, 9rem)`,
@@ -125,6 +136,10 @@ sub-heads `wdth 105`, body `wdth 100`.
   nav, footer. The connective tissue of the whole page.
 - **Serif** (`.t-serif`): index numbers, project years, the intro counter. Never
   used for prose, never italic.
+- **Script** (`.t-script`): the other half of the bold/script contrast. One or
+  two words at a time, always adjacent to something set in the display face —
+  never a line of its own, never body copy. It is the logo speaking, so it
+  carries the logo's yellow where it appears against black.
 - **Outline** (`.t-outline`): display type with the fill knocked out and a 1px
   stroke on `currentColor`. Used once per page at most, as a plate overlay — on
   the home page it is "TWO ZERO TWO" across the studio band. Knock out the fill
@@ -139,10 +154,13 @@ No italics anywhere.
 
 **The Nouns Rule.** Section headers are nouns, not sentences and not questions.
 `CAPABILITIES`, `SELECTED WORK`, `SMALL ON PURPOSE`, `START A PROJECT`. The hero
-h1 is the wordmark itself, set in the display face — the script mark in the
-header and the grotesque `2ZERO2` in the hero are the same name in two
-registers. Explaining goes in the mono eyebrow above or the body line below,
-never in the header.
+h1 is the wordmark itself — grotesque `2ZERO2` with the logo's own tagline,
+`digital design`, set in Milkstore beneath it. Explaining goes in the mono
+eyebrow above or the body line below, never in the header.
+
+**The Bold/Script Rule.** Script never stands alone. It is always the small,
+warm counterweight to something large and cold — a tagline under a wordmark,
+a name inside a stamp. Two registers of the same voice, never two voices.
 
 **The Serif-Is-Numerals Rule.** Instrument Serif exists to set numbers against the
 grotesque. The moment it sets a sentence, the system has drifted.
@@ -182,11 +200,23 @@ the letterforms of the logo itself.
 
 **The Square Corner Rule.** Nothing in between — no 4px "softening."
 
+**The Borders Belong To Labels Rule.** Spec labels are the one place hard
+borders and boxes are allowed, because a label is a physical object. Everywhere
+else structure stays hairlines and negative space. Do not let box-drawing leak
+out of the label system into the editorial sections.
+
 ## Components
 
 ### The Aperture (signature)
-`components/Aperture.tsx`. A fixed black curtain with the 2zero2 mark knocked out
-of it, laid over the page. Two mask layers — the mark and a solid fill —
+`components/Aperture.tsx`. A fixed black curtain with the 2zero2 globe badge
+knocked out of it, laid over the page. The badge — arched wordmark over a
+wireframe globe over `DIGITAL DESIGN` — is used rather than the script mark
+because it is compact and centred, so it holds the middle of the frame the way
+the reference does; the globe's wireframe also lets the plate through as fine
+lines rather than solid slabs. The mask asset is
+`public/brand/2zero2_globe_mask.svg`, a pure-white copy of the badge (only
+alpha matters to a mask, but being explicit beats relying on the coloured
+original). Two mask layers — the mark and a solid fill —
 composited with `mask-composite: exclude` (`-webkit-mask-composite: xor`) give
 everything-except-the-mark, so the page shows through the letterforms. An
 Instrument Serif counter climbs to 100 against real load progress
@@ -219,6 +249,27 @@ growing, copy entering behind it) → removed (curtain unmounted, scroll release
 Anything the gate script needs must come from a plain module, never from a
 `"use client"` file — a constant imported from one reaches the server-rendered
 script as `undefined` rather than its value.
+
+### Spec labels (signature)
+`components/SpecLabel.tsx`. Services are rendered as product labels: a white
+card with a hard 2px black border, a boxed header pairing the service name
+against a `2ZERO2 / SERVICE / UNIT NN` stamp cell, bulleted `KEY: value` spec
+rows in mono, and an inverted black footer bar carrying `2zero2.build`, the
+unit count, and an abstract registration glyph. They lift 4px on hover and
+pre-select their project type in the contact form.
+
+White objects laid on the black page — that inversion is the point, and it is
+why this is the one component allowed borders. Spec rows live in
+`SERVICE_SPECS` in `components/content.ts`, keyed by service name; keys stay
+one short word so they fit the key column.
+
+### Seal (signature)
+`components/Seal.tsx`. A circular stamp: caps set around the ring on an SVG
+`textPath`, rotating slowly, with the wordmark's script in the middle and
+`TRD · MRK` beneath it. Yellow fill, black ink. The bold/script contrast at its
+smallest scale, and the only saturated fill on the site. Keep it stamp-sized
+(96–128px) — at billboard scale it stops reading as a mark and starts reading
+as a banner. Rotation stops under `prefers-reduced-motion`.
 
 ### Buttons / Links
 Text on a 2px bottom rule, uppercase Archivo, with an arrow that translates 4px on
@@ -268,9 +319,15 @@ Transforms and opacity only. Everything above is disabled under
 - **Do** hold every text color to 4.5:1 against its background.
 - **Do** keep motion to transforms and opacity, and honor reduced motion.
 - **Do** keep new section headers to nouns (see The Nouns Rule).
+- **Do** reach for a spec label when a section needs to enumerate what is
+  actually delivered — that is what the form is for.
 
 ### Don't
 - **Don't** add a shadow, a glow, a color gradient, or a rounded rectangle.
+- **Don't** draw a box outside the label system, and don't give anything but
+  the seal a saturated fill.
+- **Don't** set a line of copy in the script face, or use it without something
+  in the display face next to it.
 - **Don't** introduce a second accent color, or use Signal as a background for prose.
 - **Don't** set prose in Instrument Serif, or use italics anywhere.
 - **Don't** let the aperture become load-bearing. It must stay server-rendered
