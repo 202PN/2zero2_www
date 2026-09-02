@@ -1,4 +1,4 @@
-const RING_TEXT = "2ZERO2 · DIGITAL AGENCY · WORLDWIDE · EST. 2024 · ";
+const RING_TEXT = "2ZERO2 · DIGITAL AGENCY · WORLDWIDE · EST. 2022 · ";
 
 /**
  * Circular stamp — caps set around the ring against the wordmark's script in
@@ -13,7 +13,7 @@ export default function Seal({ className = "" }: { className?: string }) {
       viewBox="0 0 200 200"
       className={className}
       role="img"
-      aria-label="2zero2, digital agency, worldwide, established 2024"
+      aria-label="2zero2, digital agency, worldwide, established 2022"
     >
       <defs>
         {/* Inset from the edge, and started at the bottom so the text reads

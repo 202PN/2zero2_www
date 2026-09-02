@@ -69,7 +69,7 @@ export default function Home() {
           </div>
 
           <div className="intro-enter relative max-w-[62rem] pt-32">
-            <p className="t-label text-dim">(00) Digital agency · Est. 2024</p>
+            <p className="t-label text-dim">(00) Digital agency · Est. 2022</p>
             {/* The wordmark set in the display face — the script mark in the
                 header and this are the same name in two registers. */}
             <h1 className="mt-7 flex flex-col">
