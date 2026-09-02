@@ -350,16 +350,27 @@ why this is the one component allowed borders. Spec rows live in
 `SERVICE_SPECS` in `components/content.ts`, keyed by service name; keys stay
 one short word so they fit the key column.
 
-### Geo field
-`components/GeoField.tsx`. The texture over photography and empty sections:
-frame diagonals, a diamond on the edge midpoints, an inset frame, and a
-half-scale diamond, drawn at 4–5% ink. It replaced a square grid because a
-rectilinear grid fights a photograph, where lines converging on the centre
-agree with it. `preserveAspectRatio="none"` is deliberate — the geometry
-stretches to its container, so the diamond widens on a landscape hero and
-stands up on a phone while always meeting the edge midpoints; strokes stay
-hairline via `vectorEffect`. It sits behind the hero plate, the intro curtain
-and the 404.
+### Quilt
+`components/Quilt.tsx`. The texture over the hero plate: diagonals crossing
+into diamonds, with `202` set in the bitmap face at every crossing, where a
+quilt would carry a stitch point. Quiet-luxury quilting rather than a grid or a
+chart — chosen over a rhumb-line chart and a graticule because those are single
+large objects that compete with the composition, and a tiled texture recedes
+behind type.
+
+Tiled at a fixed 124px in user space rather than stretched to the container, so
+the diamonds stay square on any viewport instead of shearing. The mark is drawn
+at the tile centre and all four corners; the corner copies are clipped by the
+tile and reassemble across neighbours, so the lattice is seamless.
+
+It draws from `--grid-line` and `--grid-mark`, so it flips with the theme.
+Those sit at 16–22% rather than the 4–5% the old grid used: a 1px hairline over
+a mid-grey photograph is imperceptible below roughly 15%, even though it
+renders. The mark runs a few points above the line so the glyphs hold their
+own against the diagonals.
+
+**Hero only.** It is a treatment for the photograph, not a system texture — the
+intro curtain and the 404 carry no pattern.
 
 ### Sun (signature)
 `components/Sun.tsx`. The theme control, disguised as the sun breaking through
@@ -443,4 +454,7 @@ Transforms and opacity only. Everything above is disabled under
   (or it flashes) *and* fail closed (or a bad browser gets a black screen).
 - **Don't** fabricate testimonials, metrics, or claims. Copy comes from
   `components/content.ts`, which is product truth.
-- **Don't** write "202" — the agency is always "2zero2".
+- **Don't** write "202" as the agency's name — that is always "2zero2". The
+  quilt's stitch marks are the one exception: there it is a shorthand used as
+  a graphic element, at a size where it reads as texture rather than as a
+  wordmark.

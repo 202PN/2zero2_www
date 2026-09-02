@@ -7,7 +7,7 @@ import ProjectCard from "@/components/ProjectCard";
 import Reveal from "@/components/Reveal";
 import SpecLabel from "@/components/SpecLabel";
 import SiteChrome from "@/components/SiteChrome";
-import GeoField from "@/components/GeoField";
+import Quilt from "@/components/Quilt";
 import Sun from "@/components/Sun";
 import { ABOUT, BOOKING_URL, PROJECTS, SERVICES, STEPS } from "@/components/content";
 
@@ -65,7 +65,7 @@ export default function Home() {
                 background: "var(--hero-scrim)",
               }}
             />
-            <GeoField className="opacity-70" />
+            <Quilt />
           </div>
 
           <Sun />

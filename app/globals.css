@@ -39,7 +39,8 @@
 
   /* --- Dark theme (default) --------------------------------------------- */
   --accent-text: #ffcc00;
-  --grid-line: rgba(255, 255, 255, 0.04);
+  --grid-line: rgba(255, 255, 255, 0.17);
+  --grid-mark: rgba(255, 255, 255, 0.22);
   --grain-blend: overlay;
   --grain-opacity: 0.32;
   /* Hero scrim: light through the middle where the mark opens, solid at the
@@ -84,7 +85,8 @@
      identically. The two prints differ only in black and white. */
   --rule-dark: rgba(10, 10, 10, 0.16);
   --rule-light: rgba(255, 255, 255, 0.16);
-  --grid-line: rgba(10, 10, 10, 0.05);
+  --grid-line: rgba(10, 10, 10, 0.16);
+  --grid-mark: rgba(10, 10, 10, 0.2);
   --grain-blend: multiply;
   --grain-opacity: 0.16;
   --hero-scrim: linear-gradient(
@@ -387,6 +389,7 @@ body {
 /* The curtain is dark on both prints, so its construction lines stay light. */
 .ap-root .ap-grid {
   --grid-line: rgba(255, 255, 255, 0.05);
+  --grid-mark: rgba(255, 255, 255, 0.11);
 }
 
 .ap-rays,

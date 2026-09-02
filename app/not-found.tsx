@@ -1,5 +1,4 @@
 import Link from "next/link";
-import GeoField from "@/components/GeoField";
 
 export default function NotFound() {
   return (
@@ -7,7 +6,6 @@ export default function NotFound() {
       className="relative flex min-h-[100svh] flex-col justify-center"
       style={{ paddingInline: "var(--gutter)" }}
     >
-      <GeoField className="opacity-60" />
       <p className="t-serif text-dim relative text-4xl">404</p>
       <h1 className="t-display mt-6" style={{ fontSize: "clamp(2.5rem, 8vw, 6rem)" }}>
         Nothing here
