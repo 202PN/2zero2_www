@@ -12,7 +12,7 @@ export default function NotFound() {
       </h1>
       <Link
         href="/"
-        className="t-headline mt-10 w-fit border-b-2 border-b-paper pb-1 text-[1.4rem] hover:border-b-signal hover:text-signal"
+        className="t-headline mt-10 w-fit border-b-2 border-b-paper pb-1 text-[1.4rem] hover:border-b-accent hover:text-accent"
       >
         Back to 2zero2
       </Link>

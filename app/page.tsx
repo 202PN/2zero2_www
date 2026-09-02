@@ -7,6 +7,7 @@ import ProjectCard from "@/components/ProjectCard";
 import Reveal from "@/components/Reveal";
 import SpecLabel from "@/components/SpecLabel";
 import SiteChrome from "@/components/SiteChrome";
+import Sun from "@/components/Sun";
 import { ABOUT, BOOKING_URL, PROJECTS, SERVICES, STEPS } from "@/components/content";
 
 const HERO_PLATE = "/brand/plate-hero.webp";
@@ -60,12 +61,13 @@ export default function Home() {
             <div
               className="absolute inset-0"
               style={{
-                background:
-                  "linear-gradient(to bottom, rgba(10,10,10,0.62) 0%, rgba(10,10,10,0.34) 34%, rgba(10,10,10,0.88) 78%, var(--color-ink) 100%)",
+                background: "var(--hero-scrim)",
               }}
             />
             <div className="grid-field absolute inset-0 opacity-70" />
           </div>
+
+          <Sun />
 
           <div className="intro-enter relative max-w-[62rem] pt-32">
             <p className="t-label text-dim">(00) Digital agency · Est. 2022</p>
@@ -80,7 +82,7 @@ export default function Home() {
               </span>
               {/* The logo's tagline, split across two registers: bitmap
                   against script, both against the display grotesque above. */}
-              <span className="-mt-[0.12em] flex items-baseline gap-[0.3em] self-end pr-[0.06em] text-signal">
+              <span className="-mt-[0.12em] flex items-baseline gap-[0.3em] self-end pr-[0.06em] text-accent">
                 <span
                   className="t-pixel"
                   style={{ fontSize: "clamp(1rem, 3.2vw, 2.55rem)" }}
@@ -109,7 +111,7 @@ export default function Home() {
                 {MARQUEE.map((item) => (
                   <span key={item} className="t-label flex items-center gap-12 text-dim">
                     {item}
-                    <span className="text-signal">◆</span>
+                    <span className="text-accent">◆</span>
                   </span>
                 ))}
               </div>
@@ -161,7 +163,7 @@ export default function Home() {
                 Selected work
               </h2>
             </div>
-            <Link href="/work" className="t-label text-dim hover:text-signal">
+            <Link href="/work" className="t-label text-dim hover:text-accent">
               All work →
             </Link>
           </Reveal>
@@ -188,8 +190,7 @@ export default function Home() {
             <div
               className="pointer-events-none absolute inset-0"
               style={{
-                background:
-                  "linear-gradient(to bottom, var(--color-ink) 0%, rgba(10,10,10,0.45) 28%, rgba(10,10,10,0.45) 66%, var(--color-ink) 100%)",
+                background: "var(--band-scrim)",
               }}
             />
             <span
@@ -267,7 +268,7 @@ export default function Home() {
               </p>
               <a
                 href={BOOKING_URL}
-                className="t-label mt-8 inline-block border-b border-b-dim/50 pb-1 text-dim transition-colors hover:border-b-signal hover:text-signal"
+                className="t-label mt-8 inline-block border-b border-b-dim/50 pb-1 text-dim transition-colors hover:border-b-accent hover:text-accent"
               >
                 Or book 30 minutes →
               </a>

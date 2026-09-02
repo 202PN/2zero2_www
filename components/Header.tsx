@@ -1,7 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import Wordmark from "./Wordmark";
 import { useEffect, useState } from "react";
+
+/* Styling lives in globals.css so the light print can fill it rather than
+   outline it. */
+const CONTACT_CELL = "t-label contact-cell";
 
 const NAV = [
   { label: "Work", href: "/work" },
@@ -56,14 +61,7 @@ export default function Header() {
             aria-label="2zero2, home"
             className="shrink-0 transition-opacity hover:opacity-70"
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/brand/2zero2_wordmark_white.svg"
-              alt="2zero2"
-              width={92}
-              height={50}
-              className="h-[26px] w-auto sm:h-[30px]"
-            />
+            <Wordmark className="h-[26px] w-auto sm:h-[30px]" />
           </Link>
 
           <nav className="hidden items-center gap-9 md:flex">
@@ -72,7 +70,7 @@ export default function Header() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="t-label border border-signal px-3.5 py-2 text-paper transition-colors hover:bg-signal hover:text-ink"
+                  className={`${CONTACT_CELL} px-3.5 py-2`}
                 >
                   {item.label}
                 </Link>
@@ -80,7 +78,7 @@ export default function Header() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="t-label text-paper/70 transition-colors hover:text-signal"
+                  className="t-label text-paper/70 transition-colors hover:text-accent"
                 >
                   {item.label}
                 </Link>
@@ -88,15 +86,37 @@ export default function Header() {
             )}
           </nav>
 
-          <button
-            type="button"
-            onClick={() => setOpen((v) => !v)}
-            aria-expanded={open}
-            aria-controls="mobile-index"
-            className="t-label -mr-1 flex h-11 items-center px-1 text-paper md:hidden"
-          >
-            {open ? "Close" : "Index"}
-          </button>
+          <div className="flex items-center gap-2.5 md:hidden">
+            <Link href="/#contact" className={`${CONTACT_CELL} px-3 py-1.5`}>
+              Contact
+            </Link>
+            <button
+              type="button"
+              onClick={() => setOpen((v) => !v)}
+              aria-expanded={open}
+              aria-controls="mobile-index"
+              aria-label={open ? "Close menu" : "Open menu"}
+              className="-mr-2 flex h-11 w-11 items-center justify-center text-paper"
+            >
+              {/* Three bars that collapse into a cross while the index is open. */}
+              <span className="relative block h-[14px] w-[22px]" aria-hidden="true">
+                {[0, 1, 2].map((i) => (
+                  <span
+                    key={i}
+                    className="absolute left-0 block h-[2px] w-full bg-current transition-transform duration-300"
+                    style={{
+                      top: i === 1 ? "6px" : i === 0 ? "0px" : "12px",
+                      transform: open
+                        ? i === 1
+                          ? "scaleX(0)"
+                          : `translateY(${i === 0 ? 6 : -6}px) rotate(${i === 0 ? 45 : -45}deg)`
+                        : "none",
+                    }}
+                  />
+                ))}
+              </span>
+            </button>
+          </div>
         </div>
       </header>
 

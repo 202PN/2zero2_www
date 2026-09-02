@@ -5,7 +5,7 @@ import { PROJECT_TYPES, TIMELINES } from "./content";
 import { useContactForm } from "./useContactForm";
 
 const field =
-  "t-body w-full border-0 border-b border-b-paper/30 bg-transparent pt-2 pb-3 text-[1.05rem] text-paper transition-colors placeholder:text-dim/70 hover:border-b-paper/55 focus:border-b-signal focus:outline-none";
+  "t-body w-full border-0 border-b border-b-paper/30 bg-transparent pt-2 pb-3 text-[1.05rem] text-paper transition-colors placeholder:text-dim/70 hover:border-b-paper/55 focus:border-b-accent focus:outline-none";
 
 function Pills({
   label,
@@ -32,7 +32,7 @@ function Pills({
               onClick={() => onChange(on ? null : option)}
               className={`t-label min-h-11 border px-4 py-2 transition-colors ${
                 on
-                  ? "border-signal bg-signal text-ink"
+                  ? "border-signal bg-signal text-onsignal"
                   : "border-[color:var(--rule-dark)] text-paper/70 hover:border-paper/50 hover:text-paper"
               }`}
             >
@@ -59,7 +59,7 @@ export default function ContactForm() {
   if (status === "success") {
     return (
       <div className="rule-t rule-b py-14">
-        <p className="t-headline text-[2rem] text-signal">Received.</p>
+        <p className="t-headline text-[2rem] text-accent">Received.</p>
         <p className="t-body mt-4 max-w-[42ch] text-dim">
           We read every message ourselves. Expect a reply within one business day.
         </p>
@@ -128,7 +128,7 @@ export default function ContactForm() {
       <input type="hidden" name="timeline" value={timeline ?? ""} />
 
       {error && (
-        <p role="alert" className="t-label text-signal">
+        <p role="alert" className="t-label text-accent">
           {error}
         </p>
       )}
@@ -136,7 +136,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={status === "submitting"}
-        className="t-headline group flex w-fit items-center gap-4 border-b-2 border-b-paper pb-2 text-[1.75rem] transition-colors hover:border-b-signal hover:text-signal disabled:opacity-50 sm:text-[2.25rem]"
+        className="t-headline group flex w-fit items-center gap-4 border-b-2 border-b-paper pb-2 text-[1.75rem] transition-colors hover:border-b-accent hover:text-accent disabled:opacity-50 sm:text-[2.25rem]"
       >
         {status === "submitting" ? "Sending" : "Send"}
         <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">

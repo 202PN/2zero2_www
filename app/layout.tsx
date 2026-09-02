@@ -81,8 +81,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       className={`${archivo.variable} ${yellowtail.variable} ${pressStart.variable} ${instrument.variable} ${jetbrains.variable}`}
     >
       <head>
-        {/* Runs before the first paint and decides whether the intro plays at
-            all. The curtain is hidden by default (see globals.css), so this
+        {/* Applies the saved theme and decides whether the intro plays, both
+            before the first paint so neither can flash. The curtain is hidden by default (see globals.css), so this
             script can only ever turn it ON — if it throws, or never runs, the
             visitor gets the open site rather than a black screen.
 
@@ -91,6 +91,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <script
           dangerouslySetInnerHTML={{
             __html: `(function(){try{
+if(localStorage.getItem('2z-theme')==='light')document.documentElement.dataset.theme='light';
+}catch(e){}
+try{
 if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
 if(!(CSS.supports('mask-composite','exclude')||CSS.supports('-webkit-mask-composite','xor')))return;
 document.documentElement.dataset.intro='hold';

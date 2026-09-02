@@ -6,12 +6,22 @@
    ========================================================================== */
 
 @theme {
+  /* `ink` is the page and `paper` is the type. In the light theme the two
+     swap, so every utility built on them inverts without touching a
+     component. See "Two themes" below. */
   --color-ink: #0a0a0a;
   --color-elevated: #1c1c1c;
   --color-paper: #ffffff;
   --color-panel: #f4f4f4;
   --color-dim: #8a8a8a;
   --color-signal: #ffcc00;
+  /* Type sitting on a Signal fill. Near-black in BOTH themes — it cannot
+     ride `ink`, which turns white when the theme flips. */
+  --color-onsignal: #0a0a0a;
+  /* Signal as a text colour. Yellow on a light page fails contrast badly, so
+     in the light theme this resolves to ink instead and the yellow survives
+     as fills only. */
+  --color-accent: var(--accent-text);
 
   --font-display: var(--font-archivo), "Helvetica Neue", Arial, sans-serif;
   --font-serif: var(--font-instrument), Georgia, serif;
@@ -26,6 +36,69 @@
   --rule-light: rgba(10, 10, 10, 0.14);
   /* Gutter used by the page frame and every full-bleed section. */
   --gutter: clamp(1.25rem, 4vw, 4.5rem);
+
+  /* --- Dark theme (default) --------------------------------------------- */
+  --accent-text: #ffcc00;
+  --grid-line: rgba(255, 255, 255, 0.04);
+  --grain-blend: overlay;
+  --grain-opacity: 0.32;
+  /* Hero scrim: light through the middle where the mark opens, solid at the
+     bottom where the headline sits. */
+  --hero-scrim: linear-gradient(
+    to bottom,
+    rgba(10, 10, 10, 0.62) 0%,
+    rgba(10, 10, 10, 0.34) 34%,
+    rgba(10, 10, 10, 0.88) 78%,
+    var(--color-ink) 100%
+  );
+  --band-scrim: linear-gradient(
+    to bottom,
+    var(--color-ink) 0%,
+    rgba(10, 10, 10, 0.45) 28%,
+    rgba(10, 10, 10, 0.45) 66%,
+    var(--color-ink) 100%
+  );
+}
+
+/* --------------------------------------------------------------------------
+   Two themes
+
+   The light theme swaps `ink` and `paper` rather than restyling components,
+   so the whole page inverts from six declarations. The photography is NOT
+   inverted — a negative of a cloud is just an ugly cloud — only the scrims
+   over it flip, so the plate reads as bright sky instead of storm.
+   -------------------------------------------------------------------------- */
+
+:root[data-theme="light"] {
+  /* Barely warm rather than pure white: a full-bleed #fff glares at this
+     scale, and the warmth is what makes the light print read as paper. */
+  --color-ink: #fbfbfa;
+  --color-paper: #0a0a0a;
+  --color-elevated: #ececea;
+  --color-panel: #ffffff;
+  /* #8a8a8a fails AA on a light ground; this clears 5.1:1. */
+  --color-dim: #6b6b6b;
+
+  --accent-text: #0a0a0a;
+  --rule-dark: rgba(10, 10, 10, 0.16);
+  --rule-light: rgba(255, 255, 255, 0.16);
+  --grid-line: rgba(10, 10, 10, 0.05);
+  --grain-blend: multiply;
+  --grain-opacity: 0.16;
+  --hero-scrim: linear-gradient(
+    to bottom,
+    rgba(251, 251, 250, 0.42) 0%,
+    rgba(251, 251, 250, 0.16) 34%,
+    rgba(251, 251, 250, 0.86) 78%,
+    var(--color-ink) 100%
+  );
+  --band-scrim: linear-gradient(
+    to bottom,
+    var(--color-ink) 0%,
+    rgba(251, 251, 250, 0.3) 28%,
+    rgba(251, 251, 250, 0.3) 66%,
+    var(--color-ink) 100%
+  );
 }
 
 html {
@@ -45,7 +118,7 @@ body {
 
 ::selection {
   background: var(--color-signal);
-  color: var(--color-ink);
+  color: var(--color-onsignal);
 }
 
 :focus-visible {
@@ -140,8 +213,8 @@ body {
 /* 4% grid behind dark sections, carried from the reference backdrop. */
 .grid-field {
   background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
   background-size: 88px 88px;
   background-position: center center;
 }
@@ -153,8 +226,8 @@ body {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: 0.32;
-  mix-blend-mode: overlay;
+  opacity: var(--grain-opacity);
+  mix-blend-mode: var(--grain-blend);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
 }
 
@@ -283,7 +356,10 @@ body {
 .ap-curtain {
   position: absolute;
   inset: 0;
-  background: var(--color-ink);
+  /* Literal, not themed: the curtain is dark in both themes. A black screen
+     opening onto a light page is a better reveal than white onto white, and
+     it keeps the counter and rays legible without a second set of tokens. */
+  background: #0a0a0a;
 
   /* Opening size comes from CSS, not JS, so the first painted frame is
      already correct and nothing animates on arrival. */
@@ -310,6 +386,10 @@ body {
   transition:
     --ap-ms 1150ms cubic-bezier(0.76, 0, 0.24, 1),
     opacity 420ms linear 680ms;
+}
+
+.ap-root .ap-grid {
+  --grid-line: rgba(255, 255, 255, 0.04);
 }
 
 .ap-rays,
@@ -357,3 +437,94 @@ body {
 .spec-rule {
   border-bottom: 1.5px solid var(--color-ink);
 }
+
+/* --------------------------------------------------------------------------
+   Contact cell
+
+   Outlined on the dark print. On the light print it fills, because a #ffcc00
+   hairline on near-white is invisible — filling keeps the yellow present and
+   puts near-black type on it instead.
+   -------------------------------------------------------------------------- */
+
+.contact-cell {
+  border: 1px solid var(--color-signal);
+  color: var(--color-paper);
+  transition:
+    background-color 220ms ease,
+    color 220ms ease;
+}
+
+.contact-cell:hover {
+  background: var(--color-signal);
+  color: var(--color-onsignal);
+}
+
+:root[data-theme="light"] .contact-cell {
+  background: var(--color-signal);
+  color: var(--color-onsignal);
+}
+
+:root[data-theme="light"] .contact-cell:hover {
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+/* --------------------------------------------------------------------------
+   Sun
+
+   The theme control, sitting in a gap in the cloud plate rather than in the
+   chrome. Flat fill and hard rays like everything else; the one soft edge in
+   the system is its halo, which exists because a sun without light around it
+   reads as a sticker.
+   -------------------------------------------------------------------------- */
+
+.sun {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sun:hover { transform: scale(1.08); }
+
+.sun-halo {
+  position: absolute;
+  inset: -85%;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 204, 0, 0.4) 0%,
+    rgba(255, 204, 0, 0.14) 38%,
+    rgba(255, 204, 0, 0) 68%
+  );
+  transition: opacity 700ms ease;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.sun-rays {
+  transition:
+    transform 900ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 500ms ease;
+  transform-origin: 50% 50%;
+  opacity: 0.75;
+}
+
+/* Risen: the halo swells and the rays extend once the light print is on. */
+:root[data-theme="light"] .sun-halo { opacity: 1; }
+:root[data-theme="light"] .sun-rays {
+  transform: rotate(22.5deg) scale(1.12);
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sun,
+  .sun-halo,
+  .sun-rays { transition: none; }
+}
+
+/* Print-specific assets: both ship, CSS chooses. Avoids a wrong-colour flash
+   while the theme is applied, and needs no JavaScript. */
+.on-light { display: none; }
+:root[data-theme="light"] .on-dark { display: none; }
+:root[data-theme="light"] .on-light { display: block; }

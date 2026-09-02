@@ -78,6 +78,8 @@ typographic voice, and one accent.
   out of it, growing until the page is simply open.
 - Radius 0 on every rectangle. No shadows. No gradients used as color.
 - Hairline rules at 12–14% ink are the only dividers.
+- Two prints, one composition: a dark default and a light theme that swaps
+  `ink` and `paper`. Nothing moves between them.
 - Six type roles, five families: Archivo (display + body), JetBrains Mono
   (labels), Instrument Serif (numerals), Yellowtail (script accents),
   Press Start 2P (bitmap accents). Every face is SIL OFL — see Typography.
@@ -100,6 +102,37 @@ Defined as Tailwind theme tokens in `app/globals.css`.
 - **Paper** (`#ffffff`) / **Panel** (`#f4f4f4`): inverted sections.
 - **Dim** (`#8a8a8a`): micro-labels and secondary prose. 5.7:1 on ink — passes AA
   for body text, which is the floor for any text color in this system.
+
+### Two prints
+
+The light theme is a token swap, not a second stylesheet: `--color-ink` (the
+page) and `--color-paper` (the type) exchange values on
+`:root[data-theme="light"]`, and every utility built on them inverts for free.
+Spec labels become black cards on white, the header flips, the grain switches
+from `overlay` to `multiply`.
+
+Three things do **not** simply invert, and each is a deliberate token:
+
+- **The photography.** A negative of a cloud is an ugly cloud. The plates stay
+  as shot; only the scrims over them flip (`--hero-scrim`, `--band-scrim`), so
+  the same image reads as storm on the dark print and open sky on the light one.
+- **Yellow as text.** `#ffcc00` on near-white is about 1.7:1. `--accent`
+  resolves to Signal on the dark print and to ink on the light one, so hovers,
+  the hero lockup and error text stay legible; the yellow survives as *fills*
+  (the sun, the Contact cell, the selected pill) where near-black type sits on
+  it. `--color-onsignal` is near-black in both prints for exactly that reason.
+- **The intro curtain.** Always dark. Black opening onto a light page is a
+  better reveal than white onto white, and it keeps the counter and rays
+  legible without a second set of tokens.
+
+Light-print `--color-dim` is `#6b6b6b`, not `#8a8a8a`, which would fail AA on a
+light ground. The page is `#fbfbfa` rather than `#ffffff`: a full-bleed pure
+white glares at this scale, and the warmth is what makes it read as paper.
+
+Theme is stored at `localStorage["2z-theme"]` and applied by the same pre-paint
+script that gates the intro, so it cannot flash. There is no
+`prefers-color-scheme` default — the studio is dark unless a visitor says
+otherwise.
 
 ### Named Rules
 
@@ -301,9 +334,21 @@ why this is the one component allowed borders. Spec rows live in
 `SERVICE_SPECS` in `components/content.ts`, keyed by service name; keys stay
 one short word so they fit the key column.
 
+### Sun (signature)
+`components/Sun.tsx`. The theme control, disguised as the sun breaking through
+the cloud plate: it sits at a percentage position tuned to a bright pocket of
+open sky rather than living in the chrome, so switching prints reads as the
+weather changing. Flat fill and hard rays like everything else; its halo is the
+one soft edge in the system, allowed because a sun with no light around it
+reads as a sticker. On the light print the halo swells and the rays rotate out.
+
 ### Navigation
-Mono micro-labels at 70% paper, going Signal on hover. `Contact` is the one
-exception: a Signal-bordered cell that fills Signal on hover. It is the
+Mono micro-labels at 70% paper, going accent on hover. `Contact` is the one
+exception: a Signal-bordered cell that fills Signal on hover — and on the light
+print it is filled by default, because a `#ffcc00` hairline on near-white is
+invisible. Below `md` the nav collapses to a three-bar control that morphs into
+a cross, with the Contact cell staying beside it: on a phone the one thing
+worth reaching is always one tap away, never behind a menu. It is the
 only nav item that reads as a control, and it exists precisely because the hero
 carries no call to action (see The Quiet Hero Rule) — the path to contact has to
 live somewhere permanent, and the header is always on screen. Do not box a
@@ -351,6 +396,8 @@ Transforms and opacity only. Everything above is disabled under
 - **Do** desaturate any new photographic asset at the asset level.
 - **Do** hold every text color to 4.5:1 against its background.
 - **Do** keep motion to transforms and opacity, and honor reduced motion.
+- **Do** check both prints when adding colour, and route any new accent text
+  through `--accent` rather than `--color-signal`.
 - **Do** keep new section headers to nouns (see The Nouns Rule), and keep the
   studio section the only place that states a claim.
 - **Do** reach for a spec label when a section needs to enumerate what is

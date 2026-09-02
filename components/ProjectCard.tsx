@@ -25,7 +25,7 @@ export default function ProjectCard({
         imgClassName="grayscale transition-[filter,opacity] duration-700 group-hover:grayscale-0 group-hover:opacity-95"
       />
       <div className="rule-b flex items-baseline justify-between pt-5 pb-4">
-        <h3 className="t-headline text-[1.5rem] transition-colors group-hover:text-signal sm:text-[1.9rem]">
+        <h3 className="t-headline text-[1.5rem] transition-colors group-hover:text-accent sm:text-[1.9rem]">
           {project.name}
         </h3>
         <span className="t-serif text-dim text-lg">

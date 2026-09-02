@@ -48,7 +48,7 @@ export default async function CaseStudy({ params }: Params) {
             paddingBottom: "clamp(2.5rem,5vw,4rem)",
           }}
         >
-          <Link href="/work" className="t-label text-dim hover:text-signal">
+          <Link href="/work" className="t-label text-dim hover:text-accent">
             ← Work
           </Link>
           <h1
@@ -113,7 +113,7 @@ export default async function CaseStudy({ params }: Params) {
           <div>
             <p className="t-label text-dim">Next project</p>
             <p
-              className="t-headline mt-4 transition-colors group-hover:text-signal"
+              className="t-headline mt-4 transition-colors group-hover:text-accent"
               style={{ fontSize: "clamp(2rem, 6vw, 4rem)" }}
             >
               {next.name}
