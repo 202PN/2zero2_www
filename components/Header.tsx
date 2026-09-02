@@ -7,7 +7,9 @@ const NAV = [
   { label: "Work", href: "/work" },
   { label: "Services", href: "/#services" },
   { label: "Studio", href: "/#studio" },
-  { label: "Contact", href: "/#contact" },
+  /* Boxed in the desktop nav — the site's only nav affordance that reads as a
+     control, standing in for the CTA the hero deliberately doesn't carry. */
+  { label: "Contact", href: "/#contact", boxed: true },
 ];
 
 export default function Header() {
@@ -65,15 +67,25 @@ export default function Header() {
           </Link>
 
           <nav className="hidden items-center gap-9 md:flex">
-            {NAV.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="t-label text-paper/70 transition-colors hover:text-signal"
-              >
-                {item.label}
-              </Link>
-            ))}
+            {NAV.map((item) =>
+              item.boxed ? (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="t-label border border-paper/45 px-3.5 py-2 text-paper transition-colors hover:border-signal hover:bg-signal hover:text-ink"
+                >
+                  {item.label}
+                </Link>
+              ) : (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="t-label text-paper/70 transition-colors hover:text-signal"
+                >
+                  {item.label}
+                </Link>
+              ),
+            )}
             <span
               className="t-label flex items-center gap-2 text-paper/60"
               title="Currently taking new projects"

@@ -168,10 +168,15 @@ always on screen and the contact section is one anchor away; the booking link
 lives down there too, where offering it is an answer rather than a pitch.
 
 **The Nouns Rule.** Section headers are nouns, not sentences and not questions.
-`CAPABILITIES`, `SELECTED WORK`, `SMALL ON PURPOSE`, `START A PROJECT`. The hero
+`CAPABILITIES`, `SELECTED WORK`, `START A PROJECT`. The hero
 h1 is the wordmark itself — grotesque `2ZERO2` with the logo's own tagline,
 `digital design`, set in the script face beneath it. Explaining goes in the mono
 eyebrow above or the body line below, never in the header.
+
+The studio section is the one deliberate exception: it states a claim
+("Your dedicated team for digital growth.") because that section is where the
+site is allowed to make one. Everywhere else, explaining goes in the mono
+eyebrow above or the body line below — not in the header.
 
 **The Bold/Script Rule.** Script never stands alone. It is always the small,
 warm counterweight to something large and cold — a tagline under a wordmark,
@@ -286,15 +291,18 @@ smallest scale, and the only saturated fill on the site. Keep it stamp-sized
 (96–128px) — at billboard scale it stops reading as a mark and starts reading
 as a banner. Rotation stops under `prefers-reduced-motion`.
 
+### Navigation
+Mono micro-labels at 70% paper, going Signal on hover. `Contact` is the one
+exception: a bordered cell that inverts to a Signal fill on hover. It is the
+only nav item that reads as a control, and it exists precisely because the hero
+carries no call to action (see The Quiet Hero Rule) — the path to contact has to
+live somewhere permanent, and the header is always on screen. Do not box a
+second item; the affordance works because it is alone.
+
 ### Buttons / Links
 Text on a 2px bottom rule, uppercase Archivo, with an arrow that translates 4px on
 hover. Rule and text both go Signal on hover. No filled buttons anywhere except the
 selected form pill.
-
-### Service index
-Numbered rows separated by hairlines. Hovering one row drops its siblings to 34%
-opacity and turns the hovered name Signal. Clicking pre-selects that project type
-in the contact form via a `service:select` event.
 
 ### Form fields
 Borderless inputs on a single bottom rule at 30% paper, rising to 55% on hover and
@@ -333,7 +341,8 @@ Transforms and opacity only. Everything above is disabled under
 - **Do** desaturate any new photographic asset at the asset level.
 - **Do** hold every text color to 4.5:1 against its background.
 - **Do** keep motion to transforms and opacity, and honor reduced motion.
-- **Do** keep new section headers to nouns (see The Nouns Rule).
+- **Do** keep new section headers to nouns (see The Nouns Rule), and keep the
+  studio section the only place that states a claim.
 - **Do** reach for a spec label when a section needs to enumerate what is
   actually delivered — that is what the form is for.
 

@@ -203,10 +203,10 @@ export default function Home() {
             <div className="mt-10 grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
               <Reveal>
                 <h2
-                  className="t-headline max-w-[14ch]"
-                  style={{ fontSize: "clamp(2rem, 5vw, 3.6rem)" }}
+                  className="t-headline max-w-[19ch]"
+                  style={{ fontSize: "clamp(1.85rem, 4.4vw, 3.3rem)" }}
                 >
-                  Small on purpose
+                  Your dedicated team for digital growth.
                 </h2>
                 <div className="mt-8 flex flex-col gap-6">
                   {ABOUT.map((line) => (

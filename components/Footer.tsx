@@ -18,7 +18,7 @@ export default function Footer() {
             className="h-9 w-auto"
           />
           <p className="t-label mt-6 text-dim">
-            Digital agency · Washington DC
+            Digital agency · Worldwide
           </p>
         </div>
 
