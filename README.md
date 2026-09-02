@@ -14,8 +14,8 @@ from there, it is not invented in components.
 - [React 19](https://react.dev) · TypeScript
 - [Tailwind CSS 4](https://tailwindcss.com)
 - [Lenis](https://lenis.darkroom.engineering) for smooth scroll (~3KB, lazily imported)
-- `next/font` — Archivo and Milkstore self-hosted (subset to woff2), Instrument
-  Serif + JetBrains Mono from Google
+- `next/font` — Archivo self-hosted (subset to woff2); Yellowtail, Instrument
+  Serif + JetBrains Mono from Google. All SIL OFL 1.1.
 
 ## Getting started
 
@@ -94,14 +94,15 @@ JavaScript and the contact form falls back to a plain `POST`.
 
 ## Fonts
 
-Archivo and Milkstore are self-hosted and subset to Latin + punctuation with
-`fontTools`, which takes Archivo from 652KB to 62KB (both variable axes intact)
-and Milkstore from 92KB to 25KB. To re-subset after replacing a source file:
+Every face is SIL OFL 1.1: **Archivo** (display + body, self-hosted),
+**Yellowtail** (script accents), **Instrument Serif** (numerals), **JetBrains
+Mono** (labels). The wordmark's own commercial face appears only as outlined
+SVG artwork under `public/brand/`, never as a webfont — keep it that way.
+
+Archivo is subset to Latin + punctuation with `fontTools`, which takes it from
+652KB to 62KB with both variable axes (`wght`, `wdth`) intact. To re-subset
+after replacing the source:
 
 ```bash
 python3 -m fontTools.subset SOURCE.ttf --unicodes="U+0020-007E,U+00A0,U+2010-2015,U+2018-201D,U+2022,U+2026,U+2192,U+00B7,U+00A9,U+00D7" --flavor=woff2 --layout-features='*' --output-file=app/fonts/OUT.woff2
 ```
-
-**Licensing:** Milkstore is a commercial font. Confirm the licence covers
-webfont embedding before this goes to production — a desktop licence often does
-not, and it is only used for a handful of display words.

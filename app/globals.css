@@ -16,7 +16,7 @@
   --font-display: var(--font-archivo), "Helvetica Neue", Arial, sans-serif;
   --font-serif: var(--font-instrument), Georgia, serif;
   --font-mono: var(--font-jetbrains), ui-monospace, monospace;
-  --font-script: var(--font-milkstore), "Brush Script MT", cursive;
+  --font-script: var(--font-script-face), "Brush Script MT", cursive;
 }
 
 :root {

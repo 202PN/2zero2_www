@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import localFont from "next/font/local";
-import { Instrument_Serif, JetBrains_Mono } from "next/font/google";
+import { Instrument_Serif, JetBrains_Mono, Yellowtail } from "next/font/google";
 import "./globals.css";
 
 /* Archivo variable (OFL) — self-hosted so the wdth axis is available and
@@ -13,13 +13,15 @@ const archivo = localFont({
   variable: "--font-archivo",
 });
 
-/* Milkstore — the face the 2zero2 wordmark is drawn in. Used only as the
-   script half of the bold/script contrast, never for reading copy. */
-const milkstore = localFont({
-  src: "./fonts/Milkstore-Clean.woff2",
+/* The script half of the bold/script contrast. Yellowtail is the closest
+   open-licensed match to the brush face the wordmark is drawn in — same slant
+   and weight, so it holds up next to the display grotesque where a lighter
+   calligraphic script would not. */
+const yellowtail = Yellowtail({
+  subsets: ["latin"],
   weight: "400",
   display: "swap",
-  variable: "--font-milkstore",
+  variable: "--font-script-face",
 });
 
 /* Numerals and editorial accents only — the intro counter, section
@@ -60,7 +62,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${archivo.variable} ${milkstore.variable} ${instrument.variable} ${jetbrains.variable}`}
+      className={`${archivo.variable} ${yellowtail.variable} ${instrument.variable} ${jetbrains.variable}`}
     >
       <head>
         {/* Runs before the first paint and decides whether the intro plays at

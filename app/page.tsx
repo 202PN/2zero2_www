@@ -91,20 +91,6 @@ export default function Home() {
               Web applications, marketing sites, and launch design — for
               owners, founders, DJs, and promoters.
             </p>
-            <div className="mt-10 flex flex-wrap items-center gap-x-10 gap-y-4">
-              <Link
-                href="#contact"
-                className="t-headline group flex items-center gap-3 border-b-2 border-b-paper pb-1 text-[1.4rem] transition-colors hover:border-b-signal hover:text-signal"
-              >
-                Start a project
-                <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">
-                  &rarr;
-                </span>
-              </Link>
-              <a href={BOOKING_URL} className="t-label text-dim hover:text-signal">
-                Or book 30 minutes
-              </a>
-            </div>
           </div>
         </section>
 
@@ -273,6 +259,12 @@ export default function Home() {
                 The people who scope your project are the people who build it.
                 No account managers, no handoffs.
               </p>
+              <a
+                href={BOOKING_URL}
+                className="t-label mt-8 inline-block border-b border-b-dim/50 pb-1 text-dim transition-colors hover:border-b-signal hover:text-signal"
+              >
+                Or book 30 minutes →
+              </a>
             </Reveal>
             <Reveal delay={80}>
               <ContactForm />

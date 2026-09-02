@@ -31,7 +31,7 @@ typography:
     fontWeight: 400
     lineHeight: 1.6
   script:
-    fontFamily: "Milkstore, Brush Script MT, cursive"
+    fontFamily: "Yellowtail, Brush Script MT, cursive"
     fontWeight: 400
     lineHeight: 0.9
   label:
@@ -74,7 +74,8 @@ typographic voice, and one accent.
 - Radius 0 on every rectangle. No shadows. No gradients used as color.
 - Hairline rules at 12–14% ink are the only dividers.
 - Five type roles, four families: Archivo (display + body), JetBrains Mono
-  (labels), Instrument Serif (numerals), Milkstore (script accents).
+  (labels), Instrument Serif (numerals), Yellowtail (script accents). Every
+  face is SIL OFL — see Typography.
 - Bold against script: the wordmark's own face is the counterweight to the
   monumental grotesque.
 
@@ -124,8 +125,16 @@ display type from reading as default Helvetica — headlines run `wdth 112`,
 sub-heads `wdth 105`, body `wdth 100`.
 **Label:** JetBrains Mono, 11px, `0.2em` tracking, uppercase.
 **Serif:** Instrument Serif, numerals and editorial accents only.
-**Script:** Milkstore Clean — the face the 2zero2 wordmark itself is drawn in,
-self-hosted and subset. Display sizes only.
+**Script:** Yellowtail — the closest open-licensed match to the brush face the
+wordmark is drawn in: same slant and weight, so it holds its own beside the
+display grotesque where a lighter calligraphic script would look weak.
+Display sizes only.
+
+**The Open Licence Rule.** Every face on the site is SIL OFL 1.1 — Archivo
+(self-hosted, subset), Yellowtail, Instrument Serif, JetBrains Mono. The
+wordmark's actual face is a commercial licence, so it lives on the site only as
+outlined SVG artwork (`public/brand/*.svg`), never as a webfont. Any face added
+later has to clear the same bar.
 
 ### Hierarchy
 - **Display** (`.t-display`): the page h1 only. `clamp(3.2rem, 10.5vw, 9rem)`,
@@ -138,8 +147,8 @@ self-hosted and subset. Display sizes only.
   used for prose, never italic.
 - **Script** (`.t-script`): the other half of the bold/script contrast. One or
   two words at a time, always adjacent to something set in the display face —
-  never a line of its own, never body copy. It is the logo speaking, so it
-  carries the logo's yellow where it appears against black.
+  never a line of its own, never body copy. It stands in for the wordmark's
+  voice, so it carries the logo's yellow where it appears against black.
 - **Outline** (`.t-outline`): display type with the fill knocked out and a 1px
   stroke on `currentColor`. Used once per page at most, as a plate overlay — on
   the home page it is "TWO ZERO TWO" across the studio band. Knock out the fill
@@ -152,10 +161,16 @@ self-hosted and subset. Display sizes only.
 buttons — is uppercase. Only body prose and form input text are sentence case.
 No italics anywhere.
 
+**The Quiet Hero Rule.** The hero carries no call to action. Plate, eyebrow,
+wordmark, one factual line — that is all. A button in the first viewport reads
+as eager, and eager is the opposite of the register this site is in. The nav is
+always on screen and the contact section is one anchor away; the booking link
+lives down there too, where offering it is an answer rather than a pitch.
+
 **The Nouns Rule.** Section headers are nouns, not sentences and not questions.
 `CAPABILITIES`, `SELECTED WORK`, `SMALL ON PURPOSE`, `START A PROJECT`. The hero
 h1 is the wordmark itself — grotesque `2ZERO2` with the logo's own tagline,
-`digital design`, set in Milkstore beneath it. Explaining goes in the mono
+`digital design`, set in the script face beneath it. Explaining goes in the mono
 eyebrow above or the body line below, never in the header.
 
 **The Bold/Script Rule.** Script never stands alone. It is always the small,
@@ -328,6 +343,8 @@ Transforms and opacity only. Everything above is disabled under
   the seal a saturated fill.
 - **Don't** set a line of copy in the script face, or use it without something
   in the display face next to it.
+- **Don't** put a call to action in the hero (see The Quiet Hero Rule).
+- **Don't** add a face that isn't open-licensed (see The Open Licence Rule).
 - **Don't** introduce a second accent color, or use Signal as a background for prose.
 - **Don't** set prose in Instrument Serif, or use italics anywhere.
 - **Don't** let the aperture become load-bearing. It must stay server-rendered
