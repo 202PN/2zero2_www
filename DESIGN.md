@@ -350,26 +350,12 @@ why this is the one component allowed borders. Spec rows live in
 `SERVICE_SPECS` in `components/content.ts`, keyed by service name; keys stay
 one short word so they fit the key column.
 
-### Wireframe (signature)
-`components/Wireframe.tsx`. A hand-drawn browser wireframe floating in the
-cloud plate, annotated in Signal like a red-pen markup pass. The concept is
-literal rather than decorative: wireframes are the first thing listed under
-Brand & launch kits, so the hero shows the studio's own first deliverable
-sketched into the sky instead of a stock device mockup.
-
-Every rule is a shallow quadratic rather than a straight line, with rounded
-joins, so it reads as drawn by hand against the machined type around it. The
-structure inherits `currentColor` and follows the theme; the annotation is the
-one place Signal behaves like a pen.
-
-It sits *in* the plate rather than on it: a hair of rotation so it reads as
-pinned rather than placed, and a radial mask so the drawing dissolves into the
-haze at its edges instead of stopping at a hard boundary. Hidden below `md`,
-where the hero has no room to spare.
-
-**The plate carries no pattern.** Earlier passes ran a square grid, then
-construction lines, then a quilted lattice over the photograph; all are gone.
-A photograph is already texture, and a second one competes with it.
+### The plate
+The hero photograph carries nothing over it. Earlier passes ran a square grid,
+then construction lines, then a quilted lattice, then a hand-drawn wireframe;
+all are gone. A photograph is already texture, and anything laid across it
+competes rather than combines. The only things in the plate are the scrim and
+the sun.
 
 ### Sun (signature)
 `components/Sun.tsx`. The theme control, disguised as the sun breaking through

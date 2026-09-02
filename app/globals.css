@@ -506,25 +506,3 @@ body {
 .on-light { display: none; }
 :root[data-theme="light"] .on-dark { display: none; }
 :root[data-theme="light"] .on-light { display: block; }
-
-/* --------------------------------------------------------------------------
-   Hero wireframe
-
-   Sits in the plate rather than on it: a hair of rotation so it reads as
-   pinned rather than placed, and a soft mask that lets the drawing dissolve
-   into the haze at its edges instead of stopping at a hard boundary.
-   -------------------------------------------------------------------------- */
-
-.wireframe-plate {
-  transform: rotate(-1.4deg);
-  -webkit-mask-image: radial-gradient(
-    ellipse 78% 82% at 50% 48%,
-    #000 62%,
-    transparent 100%
-  );
-  mask-image: radial-gradient(
-    ellipse 78% 82% at 50% 48%,
-    #000 62%,
-    transparent 100%
-  );
-}
