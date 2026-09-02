@@ -34,6 +34,10 @@ typography:
     fontFamily: "Yellowtail, Brush Script MT, cursive"
     fontWeight: 400
     lineHeight: 0.9
+  pixel:
+    fontFamily: "Silkscreen, ui-monospace, monospace"
+    fontWeight: 700
+    lineHeight: 1
   label:
     fontFamily: "JetBrains Mono, ui-monospace, monospace"
     fontSize: "0.6875rem"
@@ -73,9 +77,9 @@ typographic voice, and one accent.
   out of it, growing until the page is simply open.
 - Radius 0 on every rectangle. No shadows. No gradients used as color.
 - Hairline rules at 12–14% ink are the only dividers.
-- Five type roles, four families: Archivo (display + body), JetBrains Mono
-  (labels), Instrument Serif (numerals), Yellowtail (script accents). Every
-  face is SIL OFL — see Typography.
+- Six type roles, five families: Archivo (display + body), JetBrains Mono
+  (labels), Instrument Serif (numerals), Yellowtail (script accents),
+  Silkscreen (bitmap accents). Every face is SIL OFL — see Typography.
 - Bold against script: the wordmark's own face is the counterweight to the
   monumental grotesque.
 
@@ -125,13 +129,18 @@ display type from reading as default Helvetica — headlines run `wdth 112`,
 sub-heads `wdth 105`, body `wdth 100`.
 **Label:** JetBrains Mono, 11px, `0.2em` tracking, uppercase.
 **Serif:** Instrument Serif, numerals and editorial accents only.
+**Pixel:** Silkscreen 700 — a square bitmap face, chosen over rounder pixel
+fonts because its caps-like lowercase holds weight beside the script. One word
+in the hero lockup, nowhere else.
+
 **Script:** Yellowtail — the closest open-licensed match to the brush face the
 wordmark is drawn in: same slant and weight, so it holds its own beside the
 display grotesque where a lighter calligraphic script would look weak.
 Display sizes only.
 
 **The Open Licence Rule.** Every face on the site is SIL OFL 1.1 — Archivo
-(self-hosted, subset), Yellowtail, Instrument Serif, JetBrains Mono. The
+(self-hosted, subset), Yellowtail, Silkscreen, Instrument Serif, JetBrains
+Mono. The
 wordmark's actual face is a commercial licence, so it lives on the site only as
 outlined SVG artwork (`public/brand/*.svg`), never as a webfont. Any face added
 later has to clear the same bar.
@@ -149,6 +158,9 @@ later has to clear the same bar.
   two words at a time, always adjacent to something set in the display face —
   never a line of its own, never body copy. It stands in for the wordmark's
   voice, so it carries the logo's yellow where it appears against black.
+- **Pixel** (`.t-pixel`): the bitmap register. One word at a time, inside a
+  lockup, never a line of copy and never small enough that the pixel grid stops
+  reading as deliberate.
 - **Outline** (`.t-outline`): display type with the fill knocked out and a 1px
   stroke on `currentColor`. Used once per page at most, as a plate overlay — on
   the home page it is "TWO ZERO TWO" across the studio band. Knock out the fill
@@ -178,9 +190,12 @@ The studio section is the one deliberate exception: it states a claim
 site is allowed to make one. Everywhere else, explaining goes in the mono
 eyebrow above or the body line below — not in the header.
 
-**The Bold/Script Rule.** Script never stands alone. It is always the small,
-warm counterweight to something large and cold — a tagline under a wordmark,
-a name inside a stamp. Two registers of the same voice, never two voices.
+**The Three Registers Rule.** The hero lockup is the one place the type system
+shows its whole range at once: `2ZERO2` in the display grotesque, `DIGITAL` in
+the bitmap face, `design` in the script — machine, arcade, hand, stacked into a
+single mark. It works because the three are locked together and share a
+baseline. Neither the script nor the pixel face may stand alone elsewhere:
+both exist only as counterweights to something set in the display face.
 
 **The Serif-Is-Numerals Rule.** Instrument Serif exists to set numbers against the
 grotesque. The moment it sets a sentence, the system has drifted.
@@ -342,8 +357,8 @@ Transforms and opacity only. Everything above is disabled under
 - **Don't** add a shadow, a glow, a color gradient, or a rounded rectangle.
 - **Don't** draw a box outside the label system, and don't give anything a
   large saturated fill.
-- **Don't** set a line of copy in the script face, or use it without something
-  in the display face next to it.
+- **Don't** set a line of copy in the script or pixel face, or use either
+  without something in the display face next to it.
 - **Don't** put a call to action in the hero (see The Quiet Hero Rule).
 - **Don't** add a face that isn't open-licensed (see The Open Licence Rule).
 - **Don't** introduce a second accent color, or use Signal as a background for prose.

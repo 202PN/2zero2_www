@@ -78,12 +78,21 @@ export default function Home() {
               >
                 2zero2
               </span>
-              {/* The logo's own tagline, in the logo's own face. */}
-              <span
-                className="t-script -mt-[0.12em] self-end pr-[0.06em] text-signal"
-                style={{ fontSize: "clamp(1.6rem, 5vw, 4rem)" }}
-              >
-                digital design
+              {/* The logo's tagline, split across two registers: bitmap
+                  against script, both against the display grotesque above. */}
+              <span className="-mt-[0.12em] flex items-baseline gap-[0.3em] self-end pr-[0.06em] text-signal">
+                <span
+                  className="t-pixel"
+                  style={{ fontSize: "clamp(1.05rem, 3.3vw, 2.65rem)" }}
+                >
+                  digital
+                </span>
+                <span
+                  className="t-script"
+                  style={{ fontSize: "clamp(1.6rem, 5vw, 4rem)" }}
+                >
+                  design
+                </span>
               </span>
             </h1>
             <p className="t-body mt-9 max-w-[46ch] text-[1.05rem] text-paper/80">

@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import localFont from "next/font/local";
-import { Instrument_Serif, JetBrains_Mono, Yellowtail } from "next/font/google";
+import {
+  Instrument_Serif,
+  JetBrains_Mono,
+  Silkscreen,
+  Yellowtail,
+} from "next/font/google";
 import "./globals.css";
 
 /* Archivo variable (OFL) — self-hosted so the wdth axis is available and
@@ -33,6 +38,16 @@ const instrument = Instrument_Serif({
   variable: "--font-instrument",
 });
 
+/* Retro bitmap face, used for exactly one word in the hero lockup. Silkscreen
+   over a rounder pixel face because its square pixels and caps-like lowercase
+   hold weight next to the script. */
+const silkscreen = Silkscreen({
+  subsets: ["latin"],
+  weight: "700",
+  display: "swap",
+  variable: "--font-pixel-face",
+});
+
 const jetbrains = JetBrains_Mono({
   subsets: ["latin"],
   weight: ["400"],
@@ -62,7 +77,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${archivo.variable} ${yellowtail.variable} ${instrument.variable} ${jetbrains.variable}`}
+      className={`${archivo.variable} ${yellowtail.variable} ${silkscreen.variable} ${instrument.variable} ${jetbrains.variable}`}
     >
       <head>
         {/* Runs before the first paint and decides whether the intro plays at

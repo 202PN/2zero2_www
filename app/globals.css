@@ -17,6 +17,7 @@
   --font-serif: var(--font-instrument), Georgia, serif;
   --font-mono: var(--font-jetbrains), ui-monospace, monospace;
   --font-script: var(--font-script-face), "Brush Script MT", cursive;
+  --font-pixel: var(--font-pixel-face), ui-monospace, monospace;
 }
 
 :root {
@@ -110,6 +111,16 @@ body {
   text-transform: none;
   letter-spacing: 0.01em;
   line-height: 0.9;
+}
+
+/* Retro bitmap. One word at a time, inside a lockup — never a line of copy,
+   and never at a size where its pixel grid stops being legible. */
+.t-pixel {
+  font-family: var(--font-pixel);
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: 0.01em;
+  line-height: 1;
 }
 
 /* Outline display type — the "TWO / ZERO / TWO" plate treatment. */

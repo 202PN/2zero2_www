@@ -14,8 +14,8 @@ from there, it is not invented in components.
 - [React 19](https://react.dev) · TypeScript
 - [Tailwind CSS 4](https://tailwindcss.com)
 - [Lenis](https://lenis.darkroom.engineering) for smooth scroll (~3KB, lazily imported)
-- `next/font` — Archivo self-hosted (subset to woff2); Yellowtail, Instrument
-  Serif + JetBrains Mono from Google. All SIL OFL 1.1.
+- `next/font` — Archivo self-hosted (subset to woff2); Yellowtail, Silkscreen,
+  Instrument Serif + JetBrains Mono from Google. All SIL OFL 1.1.
 
 ## Getting started
 
@@ -94,8 +94,8 @@ JavaScript and the contact form falls back to a plain `POST`.
 ## Fonts
 
 Every face is SIL OFL 1.1: **Archivo** (display + body, self-hosted),
-**Yellowtail** (script accents), **Instrument Serif** (numerals), **JetBrains
-Mono** (labels). The wordmark's own commercial face appears only as outlined
+**Yellowtail** (script accents), **Silkscreen** (bitmap accents), **Instrument
+Serif** (numerals), **JetBrains Mono** (labels). The wordmark's own commercial face appears only as outlined
 SVG artwork under `public/brand/`, never as a webfont — keep it that way.
 
 Archivo is subset to Latin + punctuation with `fontTools`, which takes it from
