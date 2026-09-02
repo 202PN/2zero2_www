@@ -79,7 +79,9 @@
   /* #8a8a8a fails AA on a light ground; this clears 5.1:1. */
   --color-dim: #6b6b6b;
 
-  --accent-text: #0a0a0a;
+  /* No --accent-text override: interaction accents stay Signal on both
+     prints, so hovers, focus, error text and the success heading behave
+     identically. The two prints differ only in black and white. */
   --rule-dark: rgba(10, 10, 10, 0.16);
   --rule-light: rgba(255, 255, 255, 0.16);
   --grid-line: rgba(10, 10, 10, 0.05);
