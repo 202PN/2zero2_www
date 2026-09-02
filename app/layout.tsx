@@ -4,7 +4,7 @@ import localFont from "next/font/local";
 import {
   Instrument_Serif,
   JetBrains_Mono,
-  Silkscreen,
+  Press_Start_2P,
   Yellowtail,
 } from "next/font/google";
 import "./globals.css";
@@ -38,12 +38,13 @@ const instrument = Instrument_Serif({
   variable: "--font-instrument",
 });
 
-/* Retro bitmap face, used for exactly one word in the hero lockup. Silkscreen
-   over a rounder pixel face because its square pixels and caps-like lowercase
-   hold weight next to the script. */
-const silkscreen = Silkscreen({
+/* Retro bitmap face, used for exactly one word in the hero lockup. Press Start
+   2P is the only pixel face compared that pairs true lowercase (with a real
+   descender, so it sits with the script rather than shouting over it) with
+   enough weight to hold beside it. */
+const pressStart = Press_Start_2P({
   subsets: ["latin"],
-  weight: "700",
+  weight: "400",
   display: "swap",
   variable: "--font-pixel-face",
 });
@@ -77,7 +78,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${archivo.variable} ${yellowtail.variable} ${silkscreen.variable} ${instrument.variable} ${jetbrains.variable}`}
+      className={`${archivo.variable} ${yellowtail.variable} ${pressStart.variable} ${instrument.variable} ${jetbrains.variable}`}
     >
       <head>
         {/* Runs before the first paint and decides whether the intro plays at

@@ -14,7 +14,7 @@ from there, it is not invented in components.
 - [React 19](https://react.dev) · TypeScript
 - [Tailwind CSS 4](https://tailwindcss.com)
 - [Lenis](https://lenis.darkroom.engineering) for smooth scroll (~3KB, lazily imported)
-- `next/font` — Archivo self-hosted (subset to woff2); Yellowtail, Silkscreen,
+- `next/font` — Archivo self-hosted (subset to woff2); Yellowtail, Press Start 2P,
   Instrument Serif + JetBrains Mono from Google. All SIL OFL 1.1.
 
 ## Getting started
@@ -94,7 +94,7 @@ JavaScript and the contact form falls back to a plain `POST`.
 ## Fonts
 
 Every face is SIL OFL 1.1: **Archivo** (display + body, self-hosted),
-**Yellowtail** (script accents), **Silkscreen** (bitmap accents), **Instrument
+**Yellowtail** (script accents), **Press Start 2P** (bitmap accents), **Instrument
 Serif** (numerals), **JetBrains Mono** (labels). The wordmark's own commercial face appears only as outlined
 SVG artwork under `public/brand/`, never as a webfont — keep it that way.
 

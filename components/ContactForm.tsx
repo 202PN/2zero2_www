@@ -61,7 +61,7 @@ export default function ContactForm() {
       <div className="rule-t rule-b py-14">
         <p className="t-headline text-[2rem] text-signal">Received.</p>
         <p className="t-body mt-4 max-w-[42ch] text-dim">
-          We read every brief ourselves. Expect a reply within one business day.
+          We read every message ourselves. Expect a reply within one business day.
         </p>
       </div>
     );
@@ -138,7 +138,7 @@ export default function ContactForm() {
         disabled={status === "submitting"}
         className="t-headline group flex w-fit items-center gap-4 border-b-2 border-b-paper pb-2 text-[1.75rem] transition-colors hover:border-b-signal hover:text-signal disabled:opacity-50 sm:text-[2.25rem]"
       >
-        {status === "submitting" ? "Sending" : "Send the brief"}
+        {status === "submitting" ? "Sending" : "Send"}
         <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">
           →
         </span>

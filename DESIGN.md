@@ -35,8 +35,9 @@ typography:
     fontWeight: 400
     lineHeight: 0.9
   pixel:
-    fontFamily: "Silkscreen, ui-monospace, monospace"
-    fontWeight: 700
+    fontFamily: "Press Start 2P, ui-monospace, monospace"
+    fontWeight: 400
+    textTransform: lowercase
     lineHeight: 1
   label:
     fontFamily: "JetBrains Mono, ui-monospace, monospace"
@@ -79,7 +80,7 @@ typographic voice, and one accent.
 - Hairline rules at 12–14% ink are the only dividers.
 - Six type roles, five families: Archivo (display + body), JetBrains Mono
   (labels), Instrument Serif (numerals), Yellowtail (script accents),
-  Silkscreen (bitmap accents). Every face is SIL OFL — see Typography.
+  Press Start 2P (bitmap accents). Every face is SIL OFL — see Typography.
 - Bold against script: the wordmark's own face is the counterweight to the
   monumental grotesque.
 
@@ -129,9 +130,11 @@ display type from reading as default Helvetica — headlines run `wdth 112`,
 sub-heads `wdth 105`, body `wdth 100`.
 **Label:** JetBrains Mono, 11px, `0.2em` tracking, uppercase.
 **Serif:** Instrument Serif, numerals and editorial accents only.
-**Pixel:** Silkscreen 700 — a square bitmap face, chosen over rounder pixel
-fonts because its caps-like lowercase holds weight beside the script. One word
-in the hero lockup, nowhere else.
+**Pixel:** Press Start 2P — the only bitmap face compared that pairs true
+lowercase (with a real descender) with enough weight to hold beside the script.
+Set lowercase on purpose: caps would shout over the script instead of sitting
+with it. It is wide, so it runs at roughly 0.64× the script's size to balance.
+One word in the hero lockup, nowhere else.
 
 **Script:** Yellowtail — the closest open-licensed match to the brush face the
 wordmark is drawn in: same slant and weight, so it holds its own beside the
@@ -139,7 +142,7 @@ display grotesque where a lighter calligraphic script would look weak.
 Display sizes only.
 
 **The Open Licence Rule.** Every face on the site is SIL OFL 1.1 — Archivo
-(self-hosted, subset), Yellowtail, Silkscreen, Instrument Serif, JetBrains
+(self-hosted, subset), Yellowtail, Press Start 2P, Instrument Serif, JetBrains
 Mono. The
 wordmark's actual face is a commercial licence, so it lives on the site only as
 outlined SVG artwork (`public/brand/*.svg`), never as a webfont. Any face added
@@ -191,10 +194,10 @@ site is allowed to make one. Everywhere else, explaining goes in the mono
 eyebrow above or the body line below — not in the header.
 
 **The Three Registers Rule.** The hero lockup is the one place the type system
-shows its whole range at once: `2ZERO2` in the display grotesque, `DIGITAL` in
+shows its whole range at once: `2ZERO2` in the display grotesque, `digital` in
 the bitmap face, `design` in the script — machine, arcade, hand, stacked into a
-single mark. It works because the three are locked together and share a
-baseline. Neither the script nor the pixel face may stand alone elsewhere:
+single mark. It works because the three are locked together, share a baseline,
+and the lower two are both lowercase; setting the pixel word in caps breaks it. Neither the script nor the pixel face may stand alone elsewhere:
 both exist only as counterweights to something set in the display face.
 
 **The Serif-Is-Numerals Rule.** Instrument Serif exists to set numbers against the

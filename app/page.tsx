@@ -83,7 +83,7 @@ export default function Home() {
               <span className="-mt-[0.12em] flex items-baseline gap-[0.3em] self-end pr-[0.06em] text-signal">
                 <span
                   className="t-pixel"
-                  style={{ fontSize: "clamp(1.05rem, 3.3vw, 2.65rem)" }}
+                  style={{ fontSize: "clamp(1rem, 3.2vw, 2.55rem)" }}
                 >
                   digital
                 </span>
