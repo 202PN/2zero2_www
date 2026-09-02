@@ -8,7 +8,7 @@ import { PROJECTS } from "@/components/content";
 export const metadata: Metadata = {
   title: "Work",
   description:
-    "Selected work from 2zero2 — web applications, marketing sites, and launch design, shipped and running.",
+    "Selected work from 2zero2. Web applications, marketing sites, and launch design, shipped and running.",
 };
 
 export default function WorkIndex() {

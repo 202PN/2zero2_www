@@ -42,7 +42,7 @@ export default function Footer() {
       </div>
 
       <p className="t-label mt-14 text-dim">
-        © {new Date().getFullYear()} 2zero2 — All rights reserved
+        © {new Date().getFullYear()} 2zero2 · All rights reserved
       </p>
     </footer>
   );

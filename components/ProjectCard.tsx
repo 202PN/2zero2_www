@@ -16,7 +16,7 @@ export default function ProjectCard({
     <Link
       href={`/work/${project.slug}`}
       className={`group block ${className}`}
-      aria-label={`${project.name} — ${project.type}`}
+      aria-label={`${project.name}, ${project.type}`}
     >
       <Plate
         src={project.images[0].src}

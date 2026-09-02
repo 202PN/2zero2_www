@@ -43,13 +43,13 @@ const jetbrains = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://2zero2.build"),
   title: {
-    default: "2zero2 — Digital agency",
+    default: "2zero2 · Digital agency",
     template: "%s · 2zero2",
   },
   description:
     "2zero2 is a digital agency building web applications, marketing sites, and launch design for owners, founders, DJs, and promoters. Scoping crew is the build crew.",
   openGraph: {
-    title: "2zero2 — Digital agency",
+    title: "2zero2 · Digital agency",
     description:
       "Web applications, marketing sites, and launch design. Shipped fast, built to last.",
     images: [{ url: "/brand/og.jpg", width: 1200, height: 630 }],

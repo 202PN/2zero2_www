@@ -13,7 +13,7 @@ export default function Seal({ className = "" }: { className?: string }) {
       viewBox="0 0 200 200"
       className={className}
       role="img"
-      aria-label="2zero2 — digital agency, worldwide, established 2024"
+      aria-label="2zero2, digital agency, worldwide, established 2024"
     >
       <defs>
         {/* Inset from the edge, and started at the bottom so the text reads

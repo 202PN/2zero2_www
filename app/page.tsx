@@ -88,8 +88,7 @@ export default function Home() {
               </span>
             </h1>
             <p className="t-body mt-9 max-w-[46ch] text-[1.05rem] text-paper/80">
-              Web applications, marketing sites, and launch design — for
-              owners, founders, DJs, and promoters.
+              Web applications, marketing sites, and launch design.
             </p>
           </div>
         </section>

@@ -47,7 +47,7 @@ export const SERVICES: Service[] = [
   {
     tag: "Launch",
     name: "Brand & launch kits",
-    copy: "Wireframes, landing pages, identity, and pitch decks — the pieces a first release needs before anyone writes production code.",
+    copy: "Wireframes, landing pages, identity, and pitch decks. Everything a first release needs before anyone writes production code.",
     type: "Brand & launch kit",
   },
   {
@@ -84,7 +84,7 @@ export const SERVICE_SPECS: Record<string, [string, string][]> = {
   "Brand & launch kits": [
     ["Output", "Wireframes · Landing page · Identity"],
     ["Also", "Pitch deck design"],
-    ["Note", "Design and first release — not a full build"],
+    ["Note", "Design and first release, not a full build"],
   ],
   "Events & nightlife": [
     ["Output", "Flyers · Social posts · Mockups"],

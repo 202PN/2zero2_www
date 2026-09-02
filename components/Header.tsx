@@ -53,7 +53,7 @@ export default function Header() {
         >
           <Link
             href="/"
-            aria-label="2zero2 — home"
+            aria-label="2zero2, home"
             className="shrink-0 transition-opacity hover:opacity-70"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
