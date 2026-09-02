@@ -38,7 +38,7 @@ export default function Header() {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 transition-colors duration-500 ${
+        className={`intro-enter-fade fixed inset-x-0 top-0 z-50 ${
           solid ? "bg-ink/90 backdrop-blur-md rule-b" : "bg-transparent"
         }`}
       >

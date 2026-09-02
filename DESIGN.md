@@ -126,13 +126,23 @@ sub-heads `wdth 105`, body `wdth 100`.
 - **Serif** (`.t-serif`): index numbers, project years, the intro counter. Never
   used for prose, never italic.
 - **Outline** (`.t-outline`): display type with the fill knocked out and a 1px
-  stroke on `currentColor`. Used once per page at most, as a plate overlay.
+  stroke on `currentColor`. Used once per page at most, as a plate overlay — on
+  the home page it is "TWO ZERO TWO" across the studio band. Knock out the fill
+  with `-webkit-text-fill-color`, never `color`, or the stroke's `currentColor`
+  goes transparent along with it.
 
 ### Named Rules
 
 **The Uppercase Structure Rule.** Everything structural — headings, labels, nav,
 buttons — is uppercase. Only body prose and form input text are sentence case.
 No italics anywhere.
+
+**The Nouns Rule.** Section headers are nouns, not sentences and not questions.
+`CAPABILITIES`, `SELECTED WORK`, `SMALL ON PURPOSE`, `START A PROJECT`. The hero
+h1 is the wordmark itself, set in the display face — the script mark in the
+header and the grotesque `2ZERO2` in the hero are the same name in two
+registers. Explaining goes in the mono eyebrow above or the body line below,
+never in the header.
 
 **The Serif-Is-Numerals Rule.** Instrument Serif exists to set numbers against the
 grotesque. The moment it sets a sentence, the system has drifted.
@@ -176,18 +186,32 @@ the letterforms of the logo itself.
 
 ### The Aperture (signature)
 `components/Aperture.tsx`. A fixed black curtain with the 2zero2 mark knocked out
-of it, laid over an already-rendered page. Two mask layers — the mark and a solid
-fill — composited with `mask-composite: exclude` (`-webkit-mask-composite: xor`)
-give everything-except-the-mark, so the page shows through the letterforms. An
-Instrument Serif counter climbs to 100 against real load progress (`document.fonts.ready`
-plus the hero plate), floored at 1.6s so a warm cache still gets the beat. At 100
-the mask grows to 16× the viewport's larger axis over 1150ms on
-`cubic-bezier(0.76, 0, 0.24, 1)` while the last slivers fade out.
+of it, laid over the page. Two mask layers — the mark and a solid fill —
+composited with `mask-composite: exclude` (`-webkit-mask-composite: xor`) give
+everything-except-the-mark, so the page shows through the letterforms. An
+Instrument Serif counter climbs to 100 against real load progress
+(`document.fonts.ready` plus the hero plate), floored at 1.6s so a warm cache
+still gets the beat. At 100 the mask grows to 16× the viewport's larger axis over
+1150ms on `cubic-bezier(0.76, 0, 0.24, 1)` while the last slivers fade out.
 
-It is built as a knockout precisely so it can never hide content: the site renders
-normally underneath from first paint. It is skipped entirely when the session flag
-is set, under `prefers-reduced-motion`, and where mask compositing is unsupported.
-A 4s watchdog force-opens it if loading stalls.
+**It is server-rendered, so the curtain is in the very first painted frame.**
+Deferring it to a client effect makes the site flash into view before the black
+lands on top of it — the one thing this component exists to prevent.
+
+**It fails closed.** The curtain is `display: none` by default. A blocking
+pre-paint script in `app/layout.tsx` is the only thing that turns it on, by
+setting `data-intro="hold"` on `<html>`. That script bails — leaving the site
+open — on a repeat visit in the session, under `prefers-reduced-motion`, or
+where mask compositing is unsupported, and it is wrapped in a `try` so a throw
+lands in the same place. No JavaScript at all lands there too. A 4s watchdog
+force-opens a stalled load.
+
+`data-intro` is the whole state machine, and it also locks scroll:
+`"hold"` (counter running, header and hero copy held back) → `"open"` (mask
+growing, copy entering behind it) → removed (curtain unmounted, scroll released).
+The session key it reads lives in `components/intro.ts`, a plain module — a
+constant imported from a `"use client"` file would reach the server-rendered
+script as `undefined`.
 
 ### Buttons / Links
 Text on a 2px bottom rule, uppercase Archivo, with an arrow that translates 4px on
@@ -215,7 +239,14 @@ Lenis for weighted smooth scroll; it also owns hash-link navigation, since a nat
 anchor jump fights its scroll position. Reveals are IntersectionObserver-driven,
 24px and 800ms on `cubic-bezier(0.22, 1, 0.36, 1)`, staggered 60–100ms, and gated
 behind `@media (scripting: enabled)` so content is never hidden from a visitor who
-cannot run the observer that would reveal it.
+cannot run the observer that would reveal it. The observer also treats
+"already scrolled past" as revealed — a fast scroll can carry an element from
+below the fold to above it between frames, and it would otherwise stay hidden
+for good.
+
+No `will-change` on the plates: it would promote a compositing layer for every
+plate on the page for the whole session, and rewriting the transform each frame
+gets them composited anyway.
 
 Transforms and opacity only. Everything above is disabled under
 `prefers-reduced-motion`, including Lenis itself.
@@ -229,13 +260,14 @@ Transforms and opacity only. Everything above is disabled under
 - **Do** desaturate any new photographic asset at the asset level.
 - **Do** hold every text color to 4.5:1 against its background.
 - **Do** keep motion to transforms and opacity, and honor reduced motion.
+- **Do** keep new section headers to nouns (see The Nouns Rule).
 
 ### Don't
 - **Don't** add a shadow, a glow, a color gradient, or a rounded rectangle.
 - **Don't** introduce a second accent color, or use Signal as a background for prose.
 - **Don't** set prose in Instrument Serif, or use italics anywhere.
-- **Don't** let the aperture become load-bearing — the site must render open
-  without it.
+- **Don't** let the aperture become load-bearing. It must stay server-rendered
+  (or it flashes) *and* fail closed (or a bad browser gets a black screen).
 - **Don't** fabricate testimonials, metrics, or claims. Copy comes from
   `components/content.ts`, which is product truth.
 - **Don't** write "202" — the agency is always "2zero2".

@@ -26,7 +26,12 @@ export default function Reveal({
     if (!el) return;
     const io = new IntersectionObserver(
       ([entry]) => {
-        if (!entry.isIntersecting) return;
+        // A fast scroll (or a jump to a hash) can carry an element from below
+        // the fold to above it between frames, so it never reports as
+        // intersecting. Treat "already scrolled past" as revealed too,
+        // otherwise it stays invisible for good.
+        const passed = entry.boundingClientRect.bottom < 0;
+        if (!entry.isIntersecting && !passed) return;
         el.classList.add("is-in");
         io.disconnect();
       },

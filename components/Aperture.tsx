@@ -1,64 +1,60 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { INTRO_SESSION_KEY } from "./intro";
 
-const SESSION_KEY = "2z-intro-seen";
-/* Floor on the counter so a warm cache still gets the beat, and a ceiling
-   so a stalled asset can never hold the page shut. */
+/* Floor on the counter so a warm cache still gets the beat, and a ceiling so
+   a stalled asset can never hold the page shut. */
 const MIN_MS = 1600;
 const WATCHDOG_MS = 4000;
-
-function prefersReducedMotion() {
-  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-}
+const OPEN_DELAY_MS = 200;
+const OPEN_MS = 1600;
 
 /**
  * The entrance. A black curtain with the 2zero2 mark knocked out of it sits
- * over the already-rendered page; the hole grows until the page is simply
- * open. See globals.css for why it is built as a knockout.
+ * over the page; the hole grows until the page is simply open.
+ *
+ * This renders on the server so the curtain is part of the very first paint —
+ * otherwise the site flashes into view before the curtain lands on top of it.
+ * Whether it is actually *visible* is decided before paint by the gate script
+ * in app/layout.tsx, which adds `ap-run` to <html>. Without that class the
+ * curtain is `display: none`, so every failure mode (no JS, script error,
+ * reduced motion, repeat visit, no mask support) resolves to an open site.
  *
  * @param preload Images to wait on before opening — the hero plate, so the
  *                reveal never lands on an empty frame.
  */
 export default function Aperture({ preload = [] }: { preload?: string[] }) {
-  // Assume no intro during SSR and the first client paint; the effect turns
-  // it on only when we know it should run. Prevents a curtain flash on
-  // repeat visits and in reduced-motion.
-  const [active, setActive] = useState(false);
+  // Present for SSR and the first client render; CSS decides if it shows.
+  const [mounted, setMounted] = useState(true);
   const [state, setState] = useState<"loading" | "open">("loading");
   const [pct, setPct] = useState(0);
   const rootRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (sessionStorage.getItem(SESSION_KEY) || prefersReducedMotion()) return;
-    setActive(true);
-  }, []);
-
-  useEffect(() => {
-    if (!active) return;
-
     const root = rootRef.current;
-    if (root) {
-      // Size the opening off the viewport rather than a fixed length, so the
-      // mask raster stays bounded on every screen.
-      const reach = Math.max(window.innerWidth, window.innerHeight) * 16;
-      root.style.setProperty("--ap-ms-end", `${Math.round(reach)}px`);
-      root.style.setProperty(
-        "--ap-ms",
-        `${Math.round(Math.min(window.innerWidth * 0.46, 470))}px`,
-      );
+    // The gate script is the single source of truth on whether we run. If it
+    // did not arm us (no JS at parse time, reduced motion, repeat visit, no
+    // mask support), drop the markup and leave the page alone.
+    if (document.documentElement.dataset.intro !== "hold") {
+      setMounted(false);
+      return;
     }
 
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    // Size the opening off the viewport rather than a fixed length, so the
+    // mask raster stays bounded on every screen.
+    const reach = Math.max(window.innerWidth, window.innerHeight) * 16;
+    root?.style.setProperty("--ap-ms-end", `${Math.round(reach)}px`);
 
     let raf = 0;
     let done = false;
+    const timers: number[] = [];
     const started = performance.now();
-    // Real load progress: fonts plus the hero plate. Resolves to 1 when both
-    // are settled; the counter takes whichever is slower, this or the floor.
+
+    // Real load progress: fonts plus the hero plate. The counter takes
+    // whichever is slower, this or the floor.
     let assetsReady = 0;
-    const assets = Promise.all([
+    void Promise.all([
       document.fonts.ready,
       ...preload.map(
         (src) =>
@@ -71,7 +67,16 @@ export default function Aperture({ preload = [] }: { preload?: string[] }) {
     ]).then(() => {
       assetsReady = 1;
     });
-    void assets;
+
+    function finish() {
+      delete document.documentElement.dataset.intro;
+      try {
+        sessionStorage.setItem(INTRO_SESSION_KEY, "1");
+      } catch {
+        /* private mode — the intro just plays again next load */
+      }
+      setMounted(false);
+    }
 
     function open() {
       if (done) return;
@@ -79,52 +84,45 @@ export default function Aperture({ preload = [] }: { preload?: string[] }) {
       cancelAnimationFrame(raf);
       setPct(100);
       // Let 100 land before the hole starts growing.
-      window.setTimeout(() => setState("open"), 200);
-      window.setTimeout(() => {
-        document.body.style.overflow = prevOverflow;
-        sessionStorage.setItem(SESSION_KEY, "1");
-        setActive(false);
-      }, 200 + 1600);
+      timers.push(
+        window.setTimeout(() => {
+          setState("open");
+          // Releases the header and hero copy to enter behind the curtain.
+          document.documentElement.dataset.intro = "open";
+        }, OPEN_DELAY_MS),
+      );
+      timers.push(window.setTimeout(finish, OPEN_DELAY_MS + OPEN_MS));
     }
 
     function tick(now: number) {
-      const elapsed = now - started;
-      const floor = Math.min(elapsed / MIN_MS, 1);
-      // Ease the tail so it decelerates into 100 instead of snapping.
-      const value = Math.min(floor, 0.92 + assetsReady * 0.08) * 100;
-      setPct(Math.min(99, Math.floor(value)));
+      const floor = Math.min((now - started) / MIN_MS, 1);
+      // Hold at 92 until the assets actually land, so the last eight percent
+      // means something.
+      setPct(Math.min(99, Math.floor(Math.min(floor, 0.92 + assetsReady * 0.08) * 100)));
       if (floor >= 1 && assetsReady === 1) return open();
       raf = requestAnimationFrame(tick);
     }
     raf = requestAnimationFrame(tick);
 
-    const watchdog = window.setTimeout(open, WATCHDOG_MS);
+    timers.push(window.setTimeout(open, WATCHDOG_MS));
 
+    // Only cancel work here — deliberately does NOT clear `data-intro`, so a
+    // remount (React StrictMode double-invokes effects in dev) still sees
+    // "hold" and picks the intro back up instead of bailing out of it.
     return () => {
       cancelAnimationFrame(raf);
-      clearTimeout(watchdog);
-      document.body.style.overflow = prevOverflow;
+      timers.forEach(clearTimeout);
     };
-  }, [active, preload]);
+  }, [preload]);
 
-  if (!active) return null;
+  if (!mounted) return null;
 
   return (
-    <div
-      ref={rootRef}
-      className="ap-root fixed inset-0 z-[100]"
-      data-state={state}
-      aria-hidden="true"
-    >
+    <div ref={rootRef} className="ap-root fixed inset-0 z-[100]" data-state={state} aria-hidden="true">
       <div className="ap-curtain grain">
         <div className="ap-grid grid-field absolute inset-0" />
-        {/* Eight hairlines radiating from center — the reference's backdrop. */}
-        <svg
-          className="ap-rays"
-          viewBox="0 0 100 100"
-          preserveAspectRatio="none"
-          aria-hidden="true"
-        >
+        {/* Eight hairlines converging on the mark, as in the reference. */}
+        <svg className="ap-rays" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
           {Array.from({ length: 8 }, (_, i) => {
             const a = (i * Math.PI) / 4;
             return (

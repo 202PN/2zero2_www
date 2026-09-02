@@ -10,6 +10,9 @@ import SiteChrome from "@/components/SiteChrome";
 import { ABOUT, BOOKING_URL, PROJECTS, STEPS } from "@/components/content";
 
 const HERO_PLATE = "/brand/plate-hero.webp";
+/* Module constant so the array identity is stable across renders and the
+   aperture effect does not re-run. */
+const INTRO_PRELOAD = [HERO_PLATE];
 
 /** Section eyebrow — the numbered micro-label that opens every section. */
 function Eyebrow({ n, children }: { n: string; children: React.ReactNode }) {
@@ -31,7 +34,7 @@ const MARQUEE = [
 export default function Home() {
   return (
     <>
-      <Aperture preload={[HERO_PLATE]} />
+      <Aperture preload={INTRO_PRELOAD} />
       <SiteChrome />
 
       <main id="main">
@@ -63,32 +66,19 @@ export default function Home() {
             <div className="grid-field absolute inset-0 opacity-70" />
           </div>
 
-          <span
-            aria-hidden="true"
-            className="t-display t-outline pointer-events-none absolute top-[16vh] right-[var(--gutter)] leading-[0.8] text-paper/30"
-            style={{ fontSize: "clamp(2rem, 4.4vw, 5rem)" }}
-          >
-            Two
-            <br />
-            Zero
-            <br />
-            Two
-          </span>
-
-          <div className="relative max-w-[62rem] pt-32">
+          <div className="intro-enter relative max-w-[62rem] pt-32">
             <p className="t-label text-dim">(00) Digital agency · Est. 2024</p>
+            {/* The wordmark set in the display face — the script mark in the
+                header and this are the same name in two registers. */}
             <h1
               className="t-display mt-7"
-              style={{ fontSize: "clamp(3.2rem, 10.5vw, 9rem)" }}
+              style={{ fontSize: "clamp(3.6rem, 13vw, 11rem)" }}
             >
-              Built with
-              <br />
-              intention
+              2zero2
             </h1>
             <p className="t-body mt-9 max-w-[46ch] text-[1.05rem] text-paper/80">
-              Every screen, every dependency, every line of code earns its
-              place. We design and build web applications, marketing sites, and
-              first releases for owners and founders.
+              Web applications, marketing sites, and first releases for owners
+              and founders.
             </p>
             <div className="mt-10 flex flex-wrap items-center gap-x-10 gap-y-4">
               <Link
@@ -132,12 +122,12 @@ export default function Home() {
           style={{ paddingInline: "var(--gutter)", paddingBlock: "clamp(5rem,11vw,9rem)" }}
         >
           <Reveal>
-            <Eyebrow n="01">Services</Eyebrow>
+            <Eyebrow n="01">Index</Eyebrow>
             <h2
               className="t-headline mt-6 max-w-[16ch]"
               style={{ fontSize: "clamp(2.2rem, 6vw, 4.5rem)" }}
             >
-              What we take on
+              Capabilities
             </h2>
           </Reveal>
           <Reveal delay={80} className="mt-14">
@@ -155,12 +145,12 @@ export default function Home() {
         >
           <Reveal className="rule-b flex flex-wrap items-end justify-between gap-6 pb-8">
             <div>
-              <Eyebrow n="02">Selected work</Eyebrow>
+              <Eyebrow n="02">Index</Eyebrow>
               <h2
                 className="t-headline mt-6 max-w-[14ch]"
                 style={{ fontSize: "clamp(2.2rem, 6vw, 4.5rem)" }}
               >
-                Shipped &amp; running
+                Selected work
               </h2>
             </div>
             <Link href="/work" className="t-label text-dim hover:text-signal">
@@ -194,6 +184,13 @@ export default function Home() {
                   "linear-gradient(to bottom, var(--color-ink) 0%, rgba(10,10,10,0.45) 28%, rgba(10,10,10,0.45) 66%, var(--color-ink) 100%)",
               }}
             />
+            <span
+              aria-hidden="true"
+              className="t-display t-outline pointer-events-none absolute inset-0 flex items-center justify-center text-paper/35"
+              style={{ fontSize: "clamp(2.4rem, 7vw, 7rem)", letterSpacing: "0.02em" }}
+            >
+              Two Zero Two
+            </span>
           </div>
           <div
             style={{ paddingInline: "var(--gutter)", paddingBlock: "clamp(5rem,11vw,9rem)" }}
@@ -249,12 +246,12 @@ export default function Home() {
         >
           <div className="grid gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
             <Reveal>
-              <Eyebrow n="04">Contact</Eyebrow>
+              <Eyebrow n="04">Inquiries</Eyebrow>
               <h2
                 className="t-headline mt-6 max-w-[12ch]"
                 style={{ fontSize: "clamp(2.2rem, 6vw, 4.5rem)" }}
               >
-                Tell us what you&rsquo;re building
+                Start a project
               </h2>
               <p className="t-body mt-8 max-w-[38ch] text-dim">
                 The people who scope your project are the people who build it.
