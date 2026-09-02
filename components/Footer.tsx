@@ -10,7 +10,7 @@ export default function Footer() {
     >
       <div className="flex flex-col gap-10 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <Wordmark className="h-9 w-auto" />
+          <Wordmark className="h-14 w-auto" />
           <p className="t-label mt-6 text-dim">
             Digital agency · Worldwide
           </p>

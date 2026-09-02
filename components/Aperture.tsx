@@ -140,7 +140,7 @@ export default function Aperture({ preload = [] }: { preload?: string[] }) {
       </div>
 
       {/* Outside the curtain so the mask never clips it. */}
-      <div className="ap-counter pointer-events-none absolute inset-0 flex items-end justify-center pb-[14vh]">
+      <div className="ap-counter pointer-events-none absolute inset-0 flex items-end justify-center pb-[7vh]">
         <span
           className="t-serif tabular-nums"
           style={{

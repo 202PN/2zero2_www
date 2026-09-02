@@ -362,8 +362,10 @@ body {
   background: #0a0a0a;
 
   /* Opening size comes from CSS, not JS, so the first painted frame is
-     already correct and nothing animates on arrival. */
-  --ap-ms: min(62vw, 420px);
+     already correct and nothing animates on arrival. Capped on both axes:
+     the mask is square, so a width-only cap overflows a short viewport and
+     crops the badge's wordmark. */
+  --ap-ms: min(72vw, 54vh, 520px);
 
   -webkit-mask-image: url("/brand/2zero2_globe_mask.svg"), linear-gradient(#000, #000);
   mask-image: url("/brand/2zero2_globe_mask.svg"), linear-gradient(#000, #000);
@@ -528,3 +530,12 @@ body {
 .on-light { display: none; }
 :root[data-theme="light"] .on-dark { display: none; }
 :root[data-theme="light"] .on-light { display: block; }
+
+/* The globe badge, painted from one asset and tinted by the colour it
+   inherits — see components/GlobeMark.tsx. */
+.globe-mark {
+  display: block;
+  background-color: currentColor;
+  -webkit-mask: url("/brand/2zero2_globe_mask.svg") center / contain no-repeat;
+  mask: url("/brand/2zero2_globe_mask.svg") center / contain no-repeat;
+}

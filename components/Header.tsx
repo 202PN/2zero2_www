@@ -61,7 +61,7 @@ export default function Header() {
             aria-label="2zero2, home"
             className="shrink-0 transition-opacity hover:opacity-70"
           >
-            <Wordmark className="h-[26px] w-auto sm:h-[30px]" />
+            <Wordmark className="h-[34px] w-auto sm:h-[40px]" />
           </Link>
 
           <nav className="hidden items-center gap-9 md:flex">

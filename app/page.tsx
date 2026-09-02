@@ -8,6 +8,7 @@ import Reveal from "@/components/Reveal";
 import SpecLabel from "@/components/SpecLabel";
 import SiteChrome from "@/components/SiteChrome";
 import Sun from "@/components/Sun";
+import GlobeMark from "@/components/GlobeMark";
 import { ABOUT, BOOKING_URL, PROJECTS, SERVICES, STEPS } from "@/components/content";
 
 const HERO_PLATE = "/brand/plate-hero.webp";
@@ -204,8 +205,9 @@ export default function Home() {
           <div
             style={{ paddingInline: "var(--gutter)", paddingBlock: "clamp(5rem,11vw,9rem)" }}
           >
-            <Reveal>
+            <Reveal className="flex items-start justify-between gap-6">
               <Eyebrow n="03">Studio</Eyebrow>
+              <GlobeMark className="h-28 w-28 shrink-0 opacity-90 sm:h-40 sm:w-40" />
             </Reveal>
             <div className="mt-10 grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
               <Reveal>

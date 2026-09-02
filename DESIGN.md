@@ -287,7 +287,11 @@ the reference does; the globe's wireframe also lets the plate through as fine
 lines rather than solid slabs. The mask asset is
 `public/brand/2zero2_globe_mask.svg`, a pure-white copy of the badge (only
 alpha matters to a mask, but being explicit beats relying on the coloured
-original). Two mask layers — the mark and a solid fill —
+original) — the same file `GlobeMark` paints from.
+
+Its opening size is capped on both axes (`min(72vw, 54vh, 520px)`): the mask is
+square, so a width-only cap overflows a short viewport and crops the badge's
+wordmark. Two mask layers — the mark and a solid fill —
 composited with `mask-composite: exclude` (`-webkit-mask-composite: xor`) give
 everything-except-the-mark, so the page shows through the letterforms. An
 Instrument Serif counter climbs to 100 against real load progress
@@ -333,6 +337,15 @@ White objects laid on the black page — that inversion is the point, and it is
 why this is the one component allowed borders. Spec rows live in
 `SERVICE_SPECS` in `components/content.ts`, keyed by service name; keys stay
 one short word so they fit the key column.
+
+### Globe mark
+`components/GlobeMark.tsx`. The badge — arched wordmark over a wireframe globe
+over `DIGITAL DESIGN` — painted as a CSS mask tinted by `currentColor` rather
+than shipped as an `<img>`. The source art has a periwinkle globe and a
+fixed-colour wordmark, and the system allows one chroma; masking means a single
+asset stays monochrome, follows both prints, and inherits whatever colour it
+sits in. It anchors the studio section and is the shape the intro opens
+through, so the same mark bookends the page.
 
 ### Sun (signature)
 `components/Sun.tsx`. The theme control, disguised as the sun breaking through
