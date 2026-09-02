@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import localFont from "next/font/local";
 import { Instrument_Serif, JetBrains_Mono } from "next/font/google";
-import { INTRO_SESSION_KEY } from "@/components/intro";
 import "./globals.css";
 
 /* Archivo variable (OFL) — self-hosted so the wdth axis is available and
@@ -58,11 +57,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         {/* Runs before the first paint and decides whether the intro plays at
             all. The curtain is hidden by default (see globals.css), so this
             script can only ever turn it ON — if it throws, or never runs, the
-            visitor gets the open site rather than a black screen. */}
+            visitor gets the open site rather than a black screen.
+
+            It only runs on a real page load, which is what keeps the intro
+            from replaying on client-side navigation back to "/". */}
         <script
           dangerouslySetInnerHTML={{
             __html: `(function(){try{
-if(sessionStorage.getItem(${JSON.stringify(INTRO_SESSION_KEY)}))return;
 if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
 if(!(CSS.supports('mask-composite','exclude')||CSS.supports('-webkit-mask-composite','xor')))return;
 document.documentElement.dataset.intro='hold';

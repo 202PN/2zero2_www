@@ -201,17 +201,24 @@ lands on top of it — the one thing this component exists to prevent.
 **It fails closed.** The curtain is `display: none` by default. A blocking
 pre-paint script in `app/layout.tsx` is the only thing that turns it on, by
 setting `data-intro="hold"` on `<html>`. That script bails — leaving the site
-open — on a repeat visit in the session, under `prefers-reduced-motion`, or
-where mask compositing is unsupported, and it is wrapped in a `try` so a throw
-lands in the same place. No JavaScript at all lands there too. A 4s watchdog
-force-opens a stalled load.
+open — under `prefers-reduced-motion` or where mask compositing is unsupported,
+and it is wrapped in a `try` so a throw lands in the same place. No JavaScript
+at all lands there too. A 4s watchdog force-opens a stalled load.
+
+**It plays on every page load.** There is no once-per-session flag: the
+entrance is the brand, and it runs every time someone arrives. What keeps that
+from grating is that the gate script only runs on a real document load, so
+client-side navigation back to `/` unmounts the aperture immediately instead of
+replaying it. Clicking Home from Work does not re-run the intro; refreshing
+does.
 
 `data-intro` is the whole state machine, and it also locks scroll:
 `"hold"` (counter running, header and hero copy held back) → `"open"` (mask
 growing, copy entering behind it) → removed (curtain unmounted, scroll released).
-The session key it reads lives in `components/intro.ts`, a plain module — a
-constant imported from a `"use client"` file would reach the server-rendered
-script as `undefined`.
+
+Anything the gate script needs must come from a plain module, never from a
+`"use client"` file — a constant imported from one reaches the server-rendered
+script as `undefined` rather than its value.
 
 ### Buttons / Links
 Text on a 2px bottom rule, uppercase Archivo, with an arrow that translates 4px on

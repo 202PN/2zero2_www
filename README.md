@@ -71,7 +71,6 @@ app/
   not-found.tsx        404
 components/
   Aperture.tsx         The intro. See DESIGN.md before changing it.
-  intro.ts             Session key — plain module, shared with the gate script
   SiteChrome.tsx       Client shell — smooth scroll + header
   Header.tsx  Footer.tsx  Plate.tsx  ProjectCard.tsx
   ServiceIndex.tsx  ContactForm.tsx  Reveal.tsx

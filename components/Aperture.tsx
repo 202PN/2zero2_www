@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { INTRO_SESSION_KEY } from "./intro";
 
 /* Floor on the counter so a warm cache still gets the beat, and a ceiling so
    a stalled asset can never hold the page shut. */
@@ -17,9 +16,13 @@ const OPEN_MS = 1600;
  * This renders on the server so the curtain is part of the very first paint —
  * otherwise the site flashes into view before the curtain lands on top of it.
  * Whether it is actually *visible* is decided before paint by the gate script
- * in app/layout.tsx, which adds `ap-run` to <html>. Without that class the
+ * in app/layout.tsx, which sets `data-intro="hold"` on <html>. Without that the
  * curtain is `display: none`, so every failure mode (no JS, script error,
- * reduced motion, repeat visit, no mask support) resolves to an open site.
+ * reduced motion, no mask support) resolves to an open site.
+ *
+ * It plays on every page load. The gate script runs only on a real load, so
+ * client-side navigation back to "/" unmounts this immediately instead of
+ * replaying the intro.
  *
  * @param preload Images to wait on before opening — the hero plate, so the
  *                reveal never lands on an empty frame.
@@ -34,8 +37,8 @@ export default function Aperture({ preload = [] }: { preload?: string[] }) {
   useEffect(() => {
     const root = rootRef.current;
     // The gate script is the single source of truth on whether we run. If it
-    // did not arm us (no JS at parse time, reduced motion, repeat visit, no
-    // mask support), drop the markup and leave the page alone.
+    // did not arm us (reduced motion, no mask support, or this is a
+    // client-side navigation), drop the markup and leave the page alone.
     if (document.documentElement.dataset.intro !== "hold") {
       setMounted(false);
       return;
@@ -70,11 +73,6 @@ export default function Aperture({ preload = [] }: { preload?: string[] }) {
 
     function finish() {
       delete document.documentElement.dataset.intro;
-      try {
-        sessionStorage.setItem(INTRO_SESSION_KEY, "1");
-      } catch {
-        /* private mode — the intro just plays again next load */
-      }
       setMounted(false);
     }
 
