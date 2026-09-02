@@ -84,13 +84,13 @@ export default function Home() {
               <span className="-mt-[0.12em] flex items-baseline gap-[0.3em] self-end pr-[0.06em] text-signal">
                 <span
                   className="t-pixel"
-                  style={{ fontSize: "clamp(1rem, 3.2vw, 2.55rem)" }}
+                  style={{ fontSize: "clamp(1.35rem, 4.3vw, 3.4rem)" }}
                 >
                   digital
                 </span>
                 <span
                   className="t-script"
-                  style={{ fontSize: "clamp(1.6rem, 5vw, 4rem)" }}
+                  style={{ fontSize: "clamp(2.7rem, 8.6vw, 6.9rem)" }}
                 >
                   design
                 </span>
@@ -132,7 +132,7 @@ export default function Home() {
               className="t-headline mt-6 max-w-[16ch]"
               style={{ fontSize: "clamp(2.2rem, 6vw, 4.5rem)" }}
             >
-              Capabilities
+              Offerings
             </h2>
           </Reveal>
           <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

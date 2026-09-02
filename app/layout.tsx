@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import localFont from "next/font/local";
 import {
+  DotGothic16,
   Instrument_Serif,
   JetBrains_Mono,
-  Press_Start_2P,
-  Yellowtail,
+  Pinyon_Script,
 } from "next/font/google";
 import "./globals.css";
 
@@ -18,11 +18,10 @@ const archivo = localFont({
   variable: "--font-archivo",
 });
 
-/* The script half of the bold/script contrast. Yellowtail is the closest
-   open-licensed match to the brush face the wordmark is drawn in — same slant
-   and weight, so it holds up next to the display grotesque where a lighter
-   calligraphic script would not. */
-const yellowtail = Yellowtail({
+/* The script half of the lockup. A fine copperplate rather than a brush face:
+   it carries the luxury register the rest of the site is in, and its small
+   x-height is why it runs much larger than the words beside it. */
+const pinyon = Pinyon_Script({
   subsets: ["latin"],
   weight: "400",
   display: "swap",
@@ -38,11 +37,10 @@ const instrument = Instrument_Serif({
   variable: "--font-instrument",
 });
 
-/* Retro bitmap face, used for exactly one word in the hero lockup. Press Start
-   2P is the only pixel face compared that pairs true lowercase (with a real
-   descender, so it sits with the script rather than shouting over it) with
-   enough weight to hold beside it. */
-const pressStart = Press_Start_2P({
+/* Retro bitmap face, used for exactly one word in the hero lockup. Light
+   enough in the stroke to sit beside a fine copperplate — Press Start 2P read
+   as two unrelated objects next to it. */
+const dotGothic = DotGothic16({
   subsets: ["latin"],
   weight: "400",
   display: "swap",
@@ -78,7 +76,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${archivo.variable} ${yellowtail.variable} ${pressStart.variable} ${instrument.variable} ${jetbrains.variable}`}
+      className={`${archivo.variable} ${pinyon.variable} ${dotGothic.variable} ${instrument.variable} ${jetbrains.variable}`}
     >
       <head>
         {/* Applies the saved theme and decides whether the intro plays, both

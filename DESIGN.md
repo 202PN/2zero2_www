@@ -31,11 +31,11 @@ typography:
     fontWeight: 400
     lineHeight: 1.6
   script:
-    fontFamily: "Yellowtail, Brush Script MT, cursive"
+    fontFamily: "Pinyon Script, Apple Chancery, cursive"
     fontWeight: 400
     lineHeight: 0.9
   pixel:
-    fontFamily: "Press Start 2P, ui-monospace, monospace"
+    fontFamily: "DotGothic16, ui-monospace, monospace"
     fontWeight: 400
     textTransform: lowercase
     lineHeight: 1
@@ -81,8 +81,8 @@ typographic voice, and one accent.
 - Two prints, one composition: a dark default and a light theme that swaps
   `ink` and `paper`. Nothing moves between them.
 - Six type roles, five families: Archivo (display + body), JetBrains Mono
-  (labels), Instrument Serif (numerals), Yellowtail (script accents),
-  Press Start 2P (bitmap accents). Every face is SIL OFL — see Typography.
+  (labels), Instrument Serif (numerals), Pinyon Script (script accents),
+  DotGothic16 (bitmap accents). Every face is SIL OFL — see Typography.
 - Bold against script: the wordmark's own face is the counterweight to the
   monumental grotesque.
 
@@ -175,19 +175,18 @@ display type from reading as default Helvetica — headlines run `wdth 112`,
 sub-heads `wdth 105`, body `wdth 100`.
 **Label:** JetBrains Mono, 11px, `0.2em` tracking, uppercase.
 **Serif:** Instrument Serif, numerals and editorial accents only.
-**Pixel:** Press Start 2P — the only bitmap face compared that pairs true
-lowercase (with a real descender) with enough weight to hold beside the script.
-Set lowercase on purpose: caps would shout over the script instead of sitting
-with it. It is wide, so it runs at roughly 0.64× the script's size to balance.
-One word in the hero lockup, nowhere else.
+**Pixel:** DotGothic16 — a bitmap face light enough in the stroke to sit beside
+a fine copperplate. Press Start 2P was tried first and read as two unrelated
+objects next to it: chunky 8-bit against hairline calligraphy is a clash, not a
+contrast. Set lowercase on purpose. One word in the hero lockup, nowhere else.
 
-**Script:** Yellowtail — the closest open-licensed match to the brush face the
-wordmark is drawn in: same slant and weight, so it holds its own beside the
-display grotesque where a lighter calligraphic script would look weak.
-Display sizes only.
+**Script:** Pinyon Script — a fine copperplate, chosen over the brush faces
+that echo the wordmark because the luxury register matters more here than
+matching the logo's stroke. Its x-height is small, so it runs at roughly 0.65×
+the display size rather than the 0.36× a brush face needed. Display sizes only.
 
 **The Open Licence Rule.** Every face on the site is SIL OFL 1.1 — Archivo
-(self-hosted, subset), Yellowtail, Press Start 2P, Instrument Serif, JetBrains
+(self-hosted, subset), Pinyon Script, DotGothic16, Instrument Serif, JetBrains
 Mono. The
 wordmark's actual face is a commercial licence, so it lives on the site only as
 outlined SVG artwork (`public/brand/*.svg`), never as a webfont. Any face added
@@ -241,7 +240,10 @@ eyebrow above or the body line below — not in the header.
 **The Three Registers Rule.** The hero lockup is the one place the type system
 shows its whole range at once: `2ZERO2` in the display grotesque, `digital` in
 the bitmap face, `design` in the script — machine, arcade, hand, stacked into a
-single mark. It works because the three are locked together, share a baseline,
+single mark. The three have to be balanced by weight, not by size: a hairline
+script needs roughly double the point size of a brush one to hold the same
+presence, and the bitmap face has to be chosen to match whichever script is in
+play. It works because the three are locked together, share a baseline,
 and the lower two are both lowercase; setting the pixel word in caps breaks it. Neither the script nor the pixel face may stand alone elsewhere:
 both exist only as counterweights to something set in the display face.
 
