@@ -213,14 +213,6 @@ body {
    -------------------------------------------------------------------------- */
 
 /* 4% grid behind dark sections, carried from the reference backdrop. */
-.grid-field {
-  background-image:
-    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
-  background-size: 88px 88px;
-  background-position: center center;
-}
-
 /* Print grain over photography — reads as texture and covers the
    upscaled source. Pure CSS, no extra request. */
 .grain::after {
@@ -392,8 +384,9 @@ body {
     opacity 420ms linear 680ms;
 }
 
+/* The curtain is dark on both prints, so its construction lines stay light. */
 .ap-root .ap-grid {
-  --grid-line: rgba(255, 255, 255, 0.04);
+  --grid-line: rgba(255, 255, 255, 0.05);
 }
 
 .ap-rays,

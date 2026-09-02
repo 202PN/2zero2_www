@@ -350,6 +350,17 @@ why this is the one component allowed borders. Spec rows live in
 `SERVICE_SPECS` in `components/content.ts`, keyed by service name; keys stay
 one short word so they fit the key column.
 
+### Geo field
+`components/GeoField.tsx`. The texture over photography and empty sections:
+frame diagonals, a diamond on the edge midpoints, an inset frame, and a
+half-scale diamond, drawn at 4–5% ink. It replaced a square grid because a
+rectilinear grid fights a photograph, where lines converging on the centre
+agree with it. `preserveAspectRatio="none"` is deliberate — the geometry
+stretches to its container, so the diamond widens on a landscape hero and
+stands up on a phone while always meeting the edge midpoints; strokes stay
+hairline via `vectorEffect`. It sits behind the hero plate, the intro curtain
+and the 404.
+
 ### Sun (signature)
 `components/Sun.tsx`. The theme control, disguised as the sun breaking through
 the cloud plate: it sits at a percentage position tuned to a bright pocket of

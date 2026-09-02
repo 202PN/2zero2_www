@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import GeoField from "./GeoField";
 
 /* Floor on the counter so a warm cache still gets the beat, and a ceiling so
    a stalled asset can never hold the page shut. */
@@ -118,7 +119,7 @@ export default function Aperture({ preload = [] }: { preload?: string[] }) {
   return (
     <div ref={rootRef} className="ap-root fixed inset-0 z-[100]" data-state={state} aria-hidden="true">
       <div className="ap-curtain grain">
-        <div className="ap-grid grid-field absolute inset-0" />
+        <GeoField className="ap-grid" />
         {/* Eight hairlines converging on the mark, as in the reference. */}
         <svg className="ap-rays" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
           {Array.from({ length: 8 }, (_, i) => {

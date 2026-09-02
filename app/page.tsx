@@ -7,6 +7,7 @@ import ProjectCard from "@/components/ProjectCard";
 import Reveal from "@/components/Reveal";
 import SpecLabel from "@/components/SpecLabel";
 import SiteChrome from "@/components/SiteChrome";
+import GeoField from "@/components/GeoField";
 import Sun from "@/components/Sun";
 import { ABOUT, BOOKING_URL, PROJECTS, SERVICES, STEPS } from "@/components/content";
 
@@ -64,7 +65,7 @@ export default function Home() {
                 background: "var(--hero-scrim)",
               }}
             />
-            <div className="grid-field absolute inset-0 opacity-70" />
+            <GeoField className="opacity-70" />
           </div>
 
           <Sun />
