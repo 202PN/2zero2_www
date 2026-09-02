@@ -1,0 +1,21 @@
+import Link from "next/link";
+
+export default function NotFound() {
+  return (
+    <main
+      className="grid-field flex min-h-[100svh] flex-col justify-center"
+      style={{ paddingInline: "var(--gutter)" }}
+    >
+      <p className="t-serif text-dim text-4xl">404</p>
+      <h1 className="t-display mt-6" style={{ fontSize: "clamp(2.5rem, 8vw, 6rem)" }}>
+        Nothing here
+      </h1>
+      <Link
+        href="/"
+        className="t-headline mt-10 w-fit border-b-2 border-b-paper pb-1 text-[1.4rem] hover:border-b-signal hover:text-signal"
+      >
+        Back to 2zero2
+      </Link>
+    </main>
+  );
+}

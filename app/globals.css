@@ -1,0 +1,272 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   2zero2 — editorial lookbook system.
+   Black and white, hairline rules, one chroma. See DESIGN.md.
+   ========================================================================== */
+
+@theme {
+  --color-ink: #0a0a0a;
+  --color-elevated: #1c1c1c;
+  --color-paper: #ffffff;
+  --color-panel: #f4f4f4;
+  --color-dim: #8a8a8a;
+  --color-signal: #ffcc00;
+
+  --font-display: var(--font-archivo), "Helvetica Neue", Arial, sans-serif;
+  --font-serif: var(--font-instrument), Georgia, serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+}
+
+:root {
+  /* Hairlines: the only dividers in the system. */
+  --rule-dark: rgba(255, 255, 255, 0.14);
+  --rule-light: rgba(10, 10, 10, 0.14);
+  /* Gutter used by the page frame and every full-bleed section. */
+  --gutter: clamp(1.25rem, 4vw, 4.5rem);
+}
+
+html {
+  background: var(--color-ink);
+  /* Lenis drives scrolling; native smooth scroll would fight it. */
+  scroll-behavior: auto;
+}
+
+body {
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-display);
+  font-synthesis-weight: none;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-signal);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-signal);
+  outline-offset: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   Type roles
+   -------------------------------------------------------------------------- */
+
+/* Monumental uppercase grotesque. The width axis is what keeps it from
+   reading like default Helvetica. */
+.t-display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-variation-settings: "wdth" 112;
+  text-transform: uppercase;
+  letter-spacing: -0.025em;
+  line-height: 0.86;
+}
+
+.t-headline {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-variation-settings: "wdth" 105;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 0.94;
+}
+
+/* Micro-labels and eyebrows — the connective tissue. */
+.t-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+/* Numerals and editorial accents only. Never body copy. */
+.t-serif {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: -0.01em;
+}
+
+.t-body {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-variation-settings: "wdth" 100;
+  line-height: 1.6;
+  letter-spacing: 0.004em;
+}
+
+/* Outline display type — the "TWO / ZERO / TWO" plate treatment. */
+/* Knock the fill out but keep `color` intact, so the stroke can ride
+   currentColor and inherit whatever text color the element is given. */
+.t-outline {
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1px currentColor;
+  paint-order: stroke fill;
+}
+
+/* --------------------------------------------------------------------------
+   Surfaces
+   -------------------------------------------------------------------------- */
+
+/* 4% grid behind dark sections, carried from the reference backdrop. */
+.grid-field {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 88px 88px;
+  background-position: center center;
+}
+
+/* Print grain over photography — reads as texture and covers the
+   upscaled source. Pure CSS, no extra request. */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.32;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+}
+
+.rule-t { border-top: 1px solid var(--rule-dark); }
+.rule-b { border-bottom: 1px solid var(--rule-dark); }
+.on-paper .rule-t { border-top-color: var(--rule-light); }
+.on-paper .rule-b { border-bottom-color: var(--rule-light); }
+
+/* --------------------------------------------------------------------------
+   Reveals
+
+   Gated on `scripting: enabled` so content is never hidden from a visitor
+   who cannot run the observer that would reveal it. Browsers without the
+   media feature simply skip the animation and show everything.
+   -------------------------------------------------------------------------- */
+
+@media (scripting: enabled) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}
+
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+/* Scroll-linked plate scale, driven by one rAF loop in useLenis. */
+.plate-img {
+  transform: scale(var(--plate-scale, 1));
+  transform-origin: center;
+  will-change: transform;
+}
+
+/* --------------------------------------------------------------------------
+   Marquee
+   -------------------------------------------------------------------------- */
+
+@keyframes marquee-track {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+.marquee-track {
+  animation: marquee-track 42s linear infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+  .reveal { opacity: 1; transform: none; }
+  .plate-img { transform: none; }
+}
+
+/* --------------------------------------------------------------------------
+   Intro aperture
+
+   The site renders normally underneath from the first paint. This is only a
+   black curtain laid over it with the 2zero2 mark knocked out of it, so you
+   see the page through the letterforms. Growing the mask opens the hole.
+
+   Building it as a knockout (rather than masking the hero itself) means a
+   failure here can never hide content: if masking is unsupported the curtain
+   is suppressed entirely and the site is simply already open.
+   -------------------------------------------------------------------------- */
+
+@property --ap-ms {
+  syntax: "<length>";
+  initial-value: 420px;
+  inherits: true;
+}
+
+.ap-curtain {
+  position: absolute;
+  inset: 0;
+  background: var(--color-ink);
+
+  /* Layer 1 is the mark, layer 2 is a solid fill. Compositing them with
+     `exclude` gives everything-except-the-mark. */
+  -webkit-mask-image: url("/brand/2zero2_mark_white.svg"), linear-gradient(#000, #000);
+  mask-image: url("/brand/2zero2_mark_white.svg"), linear-gradient(#000, #000);
+  -webkit-mask-repeat: no-repeat, no-repeat;
+  mask-repeat: no-repeat, no-repeat;
+  -webkit-mask-position: center, center;
+  mask-position: center, center;
+  -webkit-mask-size: var(--ap-ms) auto, 100% 100%;
+  mask-size: var(--ap-ms) auto, 100% 100%;
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+
+  transition: --ap-ms 1150ms cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+/* The opening. Both the hole growing and the last slivers dissolving. */
+.ap-root[data-state="open"] .ap-curtain {
+  --ap-ms: var(--ap-ms-end, 24000px);
+  opacity: 0;
+  transition:
+    --ap-ms 1150ms cubic-bezier(0.76, 0, 0.24, 1),
+    opacity 420ms linear 680ms;
+}
+
+.ap-rays,
+.ap-grid {
+  position: absolute;
+  inset: 0;
+  transition: opacity 500ms ease-out;
+}
+
+.ap-root[data-state="open"] .ap-rays,
+.ap-root[data-state="open"] .ap-grid {
+  opacity: 0;
+}
+
+.ap-counter {
+  transition:
+    opacity 400ms ease-out,
+    transform 700ms cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.ap-root[data-state="open"] .ap-counter {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+/* No masking support (or reduced motion): never paint the curtain. */
+@supports not ((mask-composite: exclude) or (-webkit-mask-composite: xor)) {
+  .ap-root { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ap-root { display: none; }
+}

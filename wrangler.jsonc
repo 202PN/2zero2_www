@@ -1,0 +1,12 @@
+{
+  "name": "2zero2www",
+  "compatibility_date": "2026-07-01",
+  // Worker handles POST /api/contact; all other paths fall through to the
+  // static Next.js export in ./out (served via the ASSETS binding).
+  "main": "worker/index.ts",
+  "assets": {
+    "directory": "./out",
+    "binding": "ASSETS",
+    "not_found_handling": "404-page"
+  }
+}

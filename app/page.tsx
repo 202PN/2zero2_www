@@ -1,0 +1,274 @@
+import Link from "next/link";
+import Aperture from "@/components/Aperture";
+import ContactForm from "@/components/ContactForm";
+import Footer from "@/components/Footer";
+import Plate from "@/components/Plate";
+import ProjectCard from "@/components/ProjectCard";
+import Reveal from "@/components/Reveal";
+import ServiceIndex from "@/components/ServiceIndex";
+import SiteChrome from "@/components/SiteChrome";
+import { ABOUT, BOOKING_URL, PROJECTS, STEPS } from "@/components/content";
+
+const HERO_PLATE = "/brand/plate-hero.webp";
+
+/** Section eyebrow — the numbered micro-label that opens every section. */
+function Eyebrow({ n, children }: { n: string; children: React.ReactNode }) {
+  return (
+    <p className="t-label text-dim">
+      ({n}) {children}
+    </p>
+  );
+}
+
+const MARQUEE = [
+  "Web applications",
+  "Marketing sites",
+  "Redesign & rebuild",
+  "MVPs for founders",
+  "Support & iteration",
+];
+
+export default function Home() {
+  return (
+    <>
+      <Aperture preload={[HERO_PLATE]} />
+      <SiteChrome />
+
+      <main id="main">
+        {/* ---------------------------------------------------------------
+            Hero
+            --------------------------------------------------------------- */}
+        <section
+          className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden"
+          style={{ paddingInline: "var(--gutter)", paddingBottom: "clamp(3rem,7vh,6rem)" }}
+        >
+          {/* Full-bleed plate. This is what the aperture opens onto, so it
+              has to sit in the first viewport and stay legible under type. */}
+          <div className="absolute inset-0">
+            <Plate
+              src={HERO_PLATE}
+              alt="Cloud formation, monochrome"
+              className="h-full w-full"
+              priority
+            />
+            {/* Scrim: light through the middle where the mark opens, solid
+                at the bottom where the headline sits. */}
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(to bottom, rgba(10,10,10,0.62) 0%, rgba(10,10,10,0.34) 34%, rgba(10,10,10,0.88) 78%, var(--color-ink) 100%)",
+              }}
+            />
+            <div className="grid-field absolute inset-0 opacity-70" />
+          </div>
+
+          <span
+            aria-hidden="true"
+            className="t-display t-outline pointer-events-none absolute top-[16vh] right-[var(--gutter)] leading-[0.8] text-paper/30"
+            style={{ fontSize: "clamp(2rem, 4.4vw, 5rem)" }}
+          >
+            Two
+            <br />
+            Zero
+            <br />
+            Two
+          </span>
+
+          <div className="relative max-w-[62rem] pt-32">
+            <p className="t-label text-dim">(00) Digital agency · Est. 2024</p>
+            <h1
+              className="t-display mt-7"
+              style={{ fontSize: "clamp(3.2rem, 10.5vw, 9rem)" }}
+            >
+              Built with
+              <br />
+              intention
+            </h1>
+            <p className="t-body mt-9 max-w-[46ch] text-[1.05rem] text-paper/80">
+              Every screen, every dependency, every line of code earns its
+              place. We design and build web applications, marketing sites, and
+              first releases for owners and founders.
+            </p>
+            <div className="mt-10 flex flex-wrap items-center gap-x-10 gap-y-4">
+              <Link
+                href="#contact"
+                className="t-headline group flex items-center gap-3 border-b-2 border-b-paper pb-1 text-[1.4rem] transition-colors hover:border-b-signal hover:text-signal"
+              >
+                Start a project
+                <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">
+                  &rarr;
+                </span>
+              </Link>
+              <a href={BOOKING_URL} className="t-label text-dim hover:text-signal">
+                Or book 30 minutes
+              </a>
+            </div>
+          </div>
+        </section>
+
+        {/* Capability ticker */}
+        <section className="rule-t rule-b overflow-hidden py-6" aria-hidden="true">
+          <div className="marquee-track flex w-max gap-12 whitespace-nowrap">
+            {[0, 1].map((copy) => (
+              <div key={copy} className="flex gap-12">
+                {MARQUEE.map((item) => (
+                  <span key={item} className="t-label flex items-center gap-12 text-dim">
+                    {item}
+                    <span className="text-signal">◆</span>
+                  </span>
+                ))}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ---------------------------------------------------------------
+            Services
+            --------------------------------------------------------------- */}
+        <section
+          id="services"
+          className="scroll-mt-24"
+          style={{ paddingInline: "var(--gutter)", paddingBlock: "clamp(5rem,11vw,9rem)" }}
+        >
+          <Reveal>
+            <Eyebrow n="01">Services</Eyebrow>
+            <h2
+              className="t-headline mt-6 max-w-[16ch]"
+              style={{ fontSize: "clamp(2.2rem, 6vw, 4.5rem)" }}
+            >
+              What we take on
+            </h2>
+          </Reveal>
+          <Reveal delay={80} className="mt-14">
+            <ServiceIndex />
+          </Reveal>
+        </section>
+
+        {/* ---------------------------------------------------------------
+            Selected work
+            --------------------------------------------------------------- */}
+        <section
+          id="work"
+          className="scroll-mt-24"
+          style={{ paddingInline: "var(--gutter)", paddingBottom: "clamp(5rem,11vw,9rem)" }}
+        >
+          <Reveal className="rule-b flex flex-wrap items-end justify-between gap-6 pb-8">
+            <div>
+              <Eyebrow n="02">Selected work</Eyebrow>
+              <h2
+                className="t-headline mt-6 max-w-[14ch]"
+                style={{ fontSize: "clamp(2.2rem, 6vw, 4.5rem)" }}
+              >
+                Shipped &amp; running
+              </h2>
+            </div>
+            <Link href="/work" className="t-label text-dim hover:text-signal">
+              All work →
+            </Link>
+          </Reveal>
+
+          <div className="mt-14 grid gap-x-10 gap-y-16 md:grid-cols-2 lg:grid-cols-3">
+            {PROJECTS.map((project, i) => (
+              <Reveal key={project.slug} delay={i * 80}>
+                <ProjectCard project={project} index={i} />
+              </Reveal>
+            ))}
+          </div>
+        </section>
+
+        {/* ---------------------------------------------------------------
+            Studio
+            --------------------------------------------------------------- */}
+        <section id="studio" className="scroll-mt-24">
+          <div className="relative">
+            <Plate
+              src="/brand/plate-band.webp"
+              alt="Cloud formation, monochrome"
+              className="h-[38vh] w-full min-h-[240px]"
+            />
+            <div
+              className="pointer-events-none absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(to bottom, var(--color-ink) 0%, rgba(10,10,10,0.45) 28%, rgba(10,10,10,0.45) 66%, var(--color-ink) 100%)",
+              }}
+            />
+          </div>
+          <div
+            style={{ paddingInline: "var(--gutter)", paddingBlock: "clamp(5rem,11vw,9rem)" }}
+          >
+            <Reveal>
+              <Eyebrow n="03">Studio</Eyebrow>
+            </Reveal>
+            <div className="mt-10 grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
+              <Reveal>
+                <h2
+                  className="t-headline max-w-[14ch]"
+                  style={{ fontSize: "clamp(2rem, 5vw, 3.6rem)" }}
+                >
+                  Small on purpose
+                </h2>
+                <div className="mt-8 flex flex-col gap-6">
+                  {ABOUT.map((line) => (
+                    <p key={line} className="t-body max-w-[52ch] text-[1.05rem] text-paper/75">
+                      {line}
+                    </p>
+                  ))}
+                </div>
+              </Reveal>
+
+              <Reveal delay={100}>
+                <ol className="rule-t">
+                  {STEPS.map((step, i) => (
+                    <li key={step.name} className="rule-b flex gap-6 py-6">
+                      <span className="t-serif text-dim w-8 shrink-0 text-lg">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <div>
+                        <h3 className="t-headline text-[1.15rem]">{step.name}</h3>
+                        <p className="t-body mt-2 max-w-[38ch] text-[0.95rem] text-dim">
+                          {step.copy}
+                        </p>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              </Reveal>
+            </div>
+          </div>
+        </section>
+
+        {/* ---------------------------------------------------------------
+            Contact
+            --------------------------------------------------------------- */}
+        <section
+          id="contact"
+          className="rule-t scroll-mt-24"
+          style={{ paddingInline: "var(--gutter)", paddingBlock: "clamp(5rem,11vw,9rem)" }}
+        >
+          <div className="grid gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
+            <Reveal>
+              <Eyebrow n="04">Contact</Eyebrow>
+              <h2
+                className="t-headline mt-6 max-w-[12ch]"
+                style={{ fontSize: "clamp(2.2rem, 6vw, 4.5rem)" }}
+              >
+                Tell us what you&rsquo;re building
+              </h2>
+              <p className="t-body mt-8 max-w-[38ch] text-dim">
+                The people who scope your project are the people who build it.
+                No account managers, no handoffs.
+              </p>
+            </Reveal>
+            <Reveal delay={80}>
+              <ContactForm />
+            </Reveal>
+          </div>
+        </section>
+      </main>
+
+      <Footer />
+    </>
+  );
+}
