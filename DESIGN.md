@@ -116,11 +116,19 @@ Three things do **not** simply invert, and each is a deliberate token:
 - **The photography.** A negative of a cloud is an ugly cloud. The plates stay
   as shot; only the scrims over them flip (`--hero-scrim`, `--band-scrim`), so
   the same image reads as storm on the dark print and open sky on the light one.
-- **Yellow as text.** `#ffcc00` on near-white is about 1.7:1. `--accent`
-  resolves to Signal on the dark print and to ink on the light one, so hovers,
-  the hero lockup and error text stay legible; the yellow survives as *fills*
-  (the sun, the Contact cell, the selected pill) where near-black type sits on
-  it. `--color-onsignal` is near-black in both prints for exactly that reason.
+- **Yellow as text.** The brand accents stay Signal on both prints — the hero
+  tagline, the marquee marks, the Contact cell's hairline, the sun. None of
+  them carries information: the tagline is logotype (WCAG 1.4.3 exempts text
+  that is part of a logo), the marks are decoration, and the Contact cell is
+  identified by its label, which sits at full paper contrast. Be honest about
+  what that costs: the tagline measures ~1.3:1 against the light hero, versus
+  ~13:1 on the dark one. It reads as a mark, not as a sentence.
+
+  *Interaction* states are the opposite call. `--accent` resolves to Signal on
+  the dark print and to ink on the light one, so link hovers, field focus,
+  error text and the success heading stay readable — yellow there would be a
+  real failure, not an exempt one. `--color-onsignal` is near-black in both
+  prints so type on a Signal fill always clears.
 - **The intro curtain.** Always dark. Black opening onto a light page is a
   better reveal than white onto white, and it keeps the counter and rays
   legible without a second set of tokens.
@@ -287,7 +295,7 @@ the reference does; the globe's wireframe also lets the plate through as fine
 lines rather than solid slabs. The mask asset is
 `public/brand/2zero2_globe_mask.svg`, a pure-white copy of the badge (only
 alpha matters to a mask, but being explicit beats relying on the coloured
-original) — the same file `GlobeMark` paints from.
+original).
 
 Its opening size is capped on both axes (`min(72vw, 54vh, 520px)`): the mask is
 square, so a width-only cap overflows a short viewport and crops the badge's
@@ -338,15 +346,6 @@ why this is the one component allowed borders. Spec rows live in
 `SERVICE_SPECS` in `components/content.ts`, keyed by service name; keys stay
 one short word so they fit the key column.
 
-### Globe mark
-`components/GlobeMark.tsx`. The badge — arched wordmark over a wireframe globe
-over `DIGITAL DESIGN` — painted as a CSS mask tinted by `currentColor` rather
-than shipped as an `<img>`. The source art has a periwinkle globe and a
-fixed-colour wordmark, and the system allows one chroma; masking means a single
-asset stays monochrome, follows both prints, and inherits whatever colour it
-sits in. It anchors the studio section and is the shape the intro opens
-through, so the same mark bookends the page.
-
 ### Sun (signature)
 `components/Sun.tsx`. The theme control, disguised as the sun breaking through
 the cloud plate: it sits at a percentage position tuned to a bright pocket of
@@ -357,9 +356,8 @@ reads as a sticker. On the light print the halo swells and the rays rotate out.
 
 ### Navigation
 Mono micro-labels at 70% paper, going accent on hover. `Contact` is the one
-exception: a Signal-bordered cell that fills Signal on hover — and on the light
-print it is filled by default, because a `#ffcc00` hairline on near-white is
-invisible. Below `md` the nav collapses to a three-bar control that morphs into
+exception: a Signal-bordered cell that fills Signal on hover, identically on
+both prints. Below `md` the nav collapses to a three-bar control that morphs into
 a cross, with the Contact cell staying beside it: on a phone the one thing
 worth reaching is always one tap away, never behind a menu. It is the
 only nav item that reads as a control, and it exists precisely because the hero
@@ -409,8 +407,9 @@ Transforms and opacity only. Everything above is disabled under
 - **Do** desaturate any new photographic asset at the asset level.
 - **Do** hold every text color to 4.5:1 against its background.
 - **Do** keep motion to transforms and opacity, and honor reduced motion.
-- **Do** check both prints when adding colour, and route any new accent text
-  through `--accent` rather than `--color-signal`.
+- **Do** check both prints when adding colour. Route *interaction* accents
+  through `--accent`; reach for `--color-signal` only for brand marks that
+  carry no information.
 - **Do** keep new section headers to nouns (see The Nouns Rule), and keep the
   studio section the only place that states a claim.
 - **Do** reach for a spec label when a section needs to enumerate what is

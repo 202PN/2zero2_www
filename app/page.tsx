@@ -8,7 +8,6 @@ import Reveal from "@/components/Reveal";
 import SpecLabel from "@/components/SpecLabel";
 import SiteChrome from "@/components/SiteChrome";
 import Sun from "@/components/Sun";
-import GlobeMark from "@/components/GlobeMark";
 import { ABOUT, BOOKING_URL, PROJECTS, SERVICES, STEPS } from "@/components/content";
 
 const HERO_PLATE = "/brand/plate-hero.webp";
@@ -83,7 +82,7 @@ export default function Home() {
               </span>
               {/* The logo's tagline, split across two registers: bitmap
                   against script, both against the display grotesque above. */}
-              <span className="-mt-[0.12em] flex items-baseline gap-[0.3em] self-end pr-[0.06em] text-accent">
+              <span className="-mt-[0.12em] flex items-baseline gap-[0.3em] self-end pr-[0.06em] text-signal">
                 <span
                   className="t-pixel"
                   style={{ fontSize: "clamp(1rem, 3.2vw, 2.55rem)" }}
@@ -112,7 +111,7 @@ export default function Home() {
                 {MARQUEE.map((item) => (
                   <span key={item} className="t-label flex items-center gap-12 text-dim">
                     {item}
-                    <span className="text-accent">◆</span>
+                    <span className="text-signal">◆</span>
                   </span>
                 ))}
               </div>
@@ -205,9 +204,8 @@ export default function Home() {
           <div
             style={{ paddingInline: "var(--gutter)", paddingBlock: "clamp(5rem,11vw,9rem)" }}
           >
-            <Reveal className="flex items-start justify-between gap-6">
+            <Reveal>
               <Eyebrow n="03">Studio</Eyebrow>
-              <GlobeMark className="h-28 w-28 shrink-0 opacity-90 sm:h-40 sm:w-40" />
             </Reveal>
             <div className="mt-10 grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
               <Reveal>

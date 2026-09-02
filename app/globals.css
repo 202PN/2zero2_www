@@ -443,9 +443,9 @@ body {
 /* --------------------------------------------------------------------------
    Contact cell
 
-   Outlined on the dark print. On the light print it fills, because a #ffcc00
-   hairline on near-white is invisible — filling keeps the yellow present and
-   puts near-black type on it instead.
+   Outlined on both prints, filling Signal on hover. The hairline is faint on
+   the light print, but the cell is identified by its label, which sits at full
+   paper contrast either way.
    -------------------------------------------------------------------------- */
 
 .contact-cell {
@@ -459,16 +459,6 @@ body {
 .contact-cell:hover {
   background: var(--color-signal);
   color: var(--color-onsignal);
-}
-
-:root[data-theme="light"] .contact-cell {
-  background: var(--color-signal);
-  color: var(--color-onsignal);
-}
-
-:root[data-theme="light"] .contact-cell:hover {
-  background: var(--color-paper);
-  color: var(--color-ink);
 }
 
 /* --------------------------------------------------------------------------
@@ -530,12 +520,3 @@ body {
 .on-light { display: none; }
 :root[data-theme="light"] .on-dark { display: none; }
 :root[data-theme="light"] .on-light { display: block; }
-
-/* The globe badge, painted from one asset and tinted by the colour it
-   inherits — see components/GlobeMark.tsx. */
-.globe-mark {
-  display: block;
-  background-color: currentColor;
-  -webkit-mask: url("/brand/2zero2_globe_mask.svg") center / contain no-repeat;
-  mask: url("/brand/2zero2_globe_mask.svg") center / contain no-repeat;
-}
