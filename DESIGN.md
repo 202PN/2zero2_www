@@ -98,14 +98,14 @@ Defined as Tailwind theme tokens in `app/globals.css`.
 
 ### Named Rules
 
-**The One Percent Rule.** Signal appears only on: the intro counter as it reaches
-100, nav and link hover, the active form pill, the "available" status dot, focus
-rings, the hero's script tagline, and the seal. It is never a fill behind body
-text, never a second accent, and never joined by another saturated color. If a
-new element wants color, it gets white or it gets a rule.
+**The One Percent Rule.** Signal appears only on: the intro counter as it
+reaches 100, nav and link hover, the boxed Contact cell, the active
+form pill, focus rings, and the hero's script tagline. It is never a fill
+behind body text, never a second accent, and never joined by another saturated
+color. If a new element wants color, it gets white or it gets a rule.
 
-The seal is the single exception to "never a fill" — a stamp is small, and the
-yellow is the logo's own. Nothing else on the site may take a saturated fill.
+Nothing on the site takes a large saturated fill. Yellow arrives on
+interaction, or as a few words of script, and that is all.
 
 **The Monochrome Photography Rule.** Every photographic asset is desaturated at the
 asset level, not with a CSS filter — `plate-hero.webp` and `plate-band.webp` ship
@@ -214,9 +214,9 @@ scrims over photography.
 
 ## Shapes
 
-Radius 0 on every rectangle: plates, buttons, fields, pills, the mobile index. The
-only curves in the system are the 6px `rounded-full` status dot in the header and
-the letterforms of the logo itself.
+Radius 0 on every rectangle: plates, buttons, fields, pills, spec labels, the
+boxed Contact cell, the mobile index. There are no curves in the system at all
+beyond the letterforms of the wordmark itself.
 
 **The Square Corner Rule.** Nothing in between — no 4px "softening."
 
@@ -283,17 +283,9 @@ why this is the one component allowed borders. Spec rows live in
 `SERVICE_SPECS` in `components/content.ts`, keyed by service name; keys stay
 one short word so they fit the key column.
 
-### Seal (signature)
-`components/Seal.tsx`. A circular stamp: caps set around the ring on an SVG
-`textPath`, rotating slowly, with the wordmark's script in the middle and
-`TRD · MRK` beneath it. Yellow fill, black ink. The bold/script contrast at its
-smallest scale, and the only saturated fill on the site. Keep it stamp-sized
-(96–128px) — at billboard scale it stops reading as a mark and starts reading
-as a banner. Rotation stops under `prefers-reduced-motion`.
-
 ### Navigation
 Mono micro-labels at 70% paper, going Signal on hover. `Contact` is the one
-exception: a bordered cell that inverts to a Signal fill on hover. It is the
+exception: a Signal-bordered cell that fills Signal on hover. It is the
 only nav item that reads as a control, and it exists precisely because the hero
 carries no call to action (see The Quiet Hero Rule) — the path to contact has to
 live somewhere permanent, and the header is always on screen. Do not box a
@@ -348,8 +340,8 @@ Transforms and opacity only. Everything above is disabled under
 
 ### Don't
 - **Don't** add a shadow, a glow, a color gradient, or a rounded rectangle.
-- **Don't** draw a box outside the label system, and don't give anything but
-  the seal a saturated fill.
+- **Don't** draw a box outside the label system, and don't give anything a
+  large saturated fill.
 - **Don't** set a line of copy in the script face, or use it without something
   in the display face next to it.
 - **Don't** put a call to action in the hero (see The Quiet Hero Rule).

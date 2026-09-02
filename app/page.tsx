@@ -5,7 +5,6 @@ import Footer from "@/components/Footer";
 import Plate from "@/components/Plate";
 import ProjectCard from "@/components/ProjectCard";
 import Reveal from "@/components/Reveal";
-import Seal from "@/components/Seal";
 import SpecLabel from "@/components/SpecLabel";
 import SiteChrome from "@/components/SiteChrome";
 import { ABOUT, BOOKING_URL, PROJECTS, SERVICES, STEPS } from "@/components/content";
@@ -195,9 +194,8 @@ export default function Home() {
           <div
             style={{ paddingInline: "var(--gutter)", paddingBlock: "clamp(5rem,11vw,9rem)" }}
           >
-            <Reveal className="flex items-start justify-between gap-6">
+            <Reveal>
               <Eyebrow n="03">Studio</Eyebrow>
-              <Seal className="h-24 w-24 shrink-0 sm:h-32 sm:w-32" />
             </Reveal>
             <div className="mt-10 grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
               <Reveal>

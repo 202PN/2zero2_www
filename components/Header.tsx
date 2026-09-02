@@ -72,7 +72,7 @@ export default function Header() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="t-label border border-paper/45 px-3.5 py-2 text-paper transition-colors hover:border-signal hover:bg-signal hover:text-ink"
+                  className="t-label border border-signal px-3.5 py-2 text-paper transition-colors hover:bg-signal hover:text-ink"
                 >
                   {item.label}
                 </Link>
@@ -86,16 +86,6 @@ export default function Header() {
                 </Link>
               ),
             )}
-            <span
-              className="t-label flex items-center gap-2 text-paper/60"
-              title="Currently taking new projects"
-            >
-              <span
-                className="inline-block h-[6px] w-[6px] rounded-full bg-signal"
-                aria-hidden="true"
-              />
-              Available
-            </span>
           </nav>
 
           <button

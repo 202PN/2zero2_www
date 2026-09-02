@@ -345,17 +345,3 @@ body {
 .spec-rule {
   border-bottom: 1.5px solid var(--color-ink);
 }
-
-/* The seal: circular lockup, set on a path. */
-.seal-rotate {
-  animation: seal-spin 26s linear infinite;
-  transform-origin: 50% 50%;
-}
-
-@keyframes seal-spin {
-  to { transform: rotate(360deg); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .seal-rotate { animation: none; }
-}

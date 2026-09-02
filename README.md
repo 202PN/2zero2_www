@@ -74,7 +74,6 @@ components/
   Aperture.tsx         The intro. See DESIGN.md before changing it.
   SiteChrome.tsx       Client shell — smooth scroll + header
   SpecLabel.tsx        Services as product labels — the signature component
-  Seal.tsx             Circular stamp, the site's only saturated fill
   Header.tsx  Footer.tsx  Plate.tsx  ProjectCard.tsx  ContactForm.tsx  Reveal.tsx
   useLenis.ts          Smooth scroll, hash links, plate scale loop
   useContactForm.ts    POST /api/contact client
