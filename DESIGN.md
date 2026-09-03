@@ -369,7 +369,10 @@ percentage position tuned to a bright pocket of open sky rather than living in
 the chrome, so switching prints reads as the sky changing. Flat fills and hard
 rays like everything else; the sun's halo is the one soft edge in the system,
 allowed because a sun with no light around it reads as a sticker. The moon
-carries no halo — a glow on a bright sky is invisible anyway.
+carries no halo — a glow on a bright sky is invisible anyway — and takes
+three four-point sparkles in the open sky the crescent leaves, sized unevenly
+so they read as stars rather than as a pattern. They scale on hover, which is
+the moon's answer to the sun's rays turning.
 
 Because it is out of the chrome it does not read as a control on its own, so a
 bracketed mono `[ click ]` label sits under it.

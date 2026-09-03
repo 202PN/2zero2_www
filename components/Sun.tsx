@@ -81,16 +81,30 @@ export default function Sun() {
               {/* The crescent is the disc with a second disc cut out of it. */}
               <mask id="moon-crescent">
                 <rect width="100" height="100" fill="#fff" />
-                <circle cx="67" cy="41" r="30" fill="#000" />
+                <circle cx="70" cy="36" r="28" fill="#000" />
               </mask>
             </defs>
             <circle
-              cx="50"
-              cy="50"
-              r="32"
+              cx="46"
+              cy="54"
+              r="30"
               fill="var(--color-paper)"
               mask="url(#moon-crescent)"
             />
+            {/* Four-point sparkles in the open sky the crescent leaves. Sized
+                unevenly so they read as stars rather than as a pattern. */}
+            <g className="moon-stars" fill="var(--color-paper)">
+              {[
+                [80, 20, 8],
+                [92, 45, 5],
+                [69, 7, 4.5],
+              ].map(([cx, cy, r]) => (
+                <path
+                  key={`${cx}-${cy}`}
+                  d={`M${cx} ${cy - r} Q${cx} ${cy} ${cx + r} ${cy} Q${cx} ${cy} ${cx} ${cy + r} Q${cx} ${cy} ${cx - r} ${cy} Q${cx} ${cy} ${cx} ${cy - r} Z`}
+                />
+              ))}
+            </g>
           </svg>
         </span>
       </span>
