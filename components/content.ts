@@ -6,23 +6,11 @@
 export const CONTACT_EMAIL = "info@2zero2.build";
 export const BOOKING_URL = "https://calendly.com/2zero2works/30min";
 
-export const PROJECT_TYPES = [
-  "Web app",
-  "Marketing site",
-  "Redesign & rebuild",
-  "Brand & launch kit",
-  "Events & nightlife",
-  "Not sure yet",
-];
-
-export const TIMELINES = ["ASAP", "1–3 months", "Flexible"];
 
 export type Service = {
   tag: string;
   name: string;
   copy: string;
-  /** Matches a PROJECT_TYPES pill for form pre-selection; null = none. */
-  type: string | null;
 };
 
 export const SERVICES: Service[] = [
@@ -30,37 +18,31 @@ export const SERVICES: Service[] = [
     tag: "Web app",
     name: "Web applications",
     copy: "Dashboards, portals, and internal tools your business runs on every day.",
-    type: "Web app",
   },
   {
     tag: "Site",
     name: "Marketing sites",
     copy: "A site that loads instantly, reads clearly, and turns visitors into inquiries.",
-    type: "Marketing site",
   },
   {
     tag: "Rebuild",
     name: "Website redesign & rebuild",
     copy: "Your aging site rebuilt from the ground up, without losing what works.",
-    type: "Redesign & rebuild",
   },
   {
     tag: "Launch",
     name: "Brand & launch kits",
     copy: "Wireframes, landing pages, identity, and pitch decks. Everything a first release needs before anyone writes production code.",
-    type: "Brand & launch kit",
   },
   {
     tag: "Events",
     name: "Events & nightlife",
     copy: "Flyers, social posts, and mockups for DJs, promoters, and the nights they put on.",
-    type: "Events & nightlife",
   },
   {
     tag: "Care",
     name: "Support & iteration",
     copy: "Fixes, features, and performance after launch. Handled.",
-    type: null,
   },
 ];
 

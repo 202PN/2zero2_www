@@ -1,7 +1,6 @@
 "use client";
 
 import { SERVICE_SPECS, type Service } from "./content";
-import { selectService } from "./useContactForm";
 
 /**
  * A service rendered as a product spec label — boxed header, bulleted spec
@@ -23,7 +22,6 @@ export default function SpecLabel({
   return (
     <a
       href="#contact"
-      onClick={() => selectService(service.type)}
       className="spec group flex h-full flex-col transition-transform duration-300 hover:-translate-y-1"
     >
       {/* Header: name against the studio stamp. */}

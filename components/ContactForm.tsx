@@ -1,60 +1,16 @@
 "use client";
 
 import type { FormEvent } from "react";
-import { PROJECT_TYPES, TIMELINES } from "./content";
 import { useContactForm } from "./useContactForm";
 
+/* Boxed rather than underlined. A bottom rule reads fine under a single line,
+   but under a five-row textarea it sits far below the label with nothing
+   between, so the field looks like empty page. */
 const field =
-  "t-body w-full border-0 border-b border-b-paper/30 bg-transparent pt-2 pb-3 text-[1.05rem] text-paper transition-colors placeholder:text-dim/70 hover:border-b-paper/55 focus:border-b-accent focus:outline-none";
-
-function Pills({
-  label,
-  options,
-  value,
-  onChange,
-}: {
-  label: string;
-  options: string[];
-  value: string | null;
-  onChange: (v: string | null) => void;
-}) {
-  return (
-    <fieldset>
-      <legend className="t-label text-dim">{label}</legend>
-      <div className="mt-4 flex flex-wrap gap-2">
-        {options.map((option) => {
-          const on = value === option;
-          return (
-            <button
-              key={option}
-              type="button"
-              aria-pressed={on}
-              onClick={() => onChange(on ? null : option)}
-              className={`t-label min-h-11 border px-4 py-2 transition-colors ${
-                on
-                  ? "border-signal bg-signal text-onsignal"
-                  : "border-[color:var(--rule-dark)] text-paper/70 hover:border-paper/50 hover:text-paper"
-              }`}
-            >
-              {option}
-            </button>
-          );
-        })}
-      </div>
-    </fieldset>
-  );
-}
+  "t-body mt-3 w-full border border-paper/25 bg-transparent px-3.5 py-3 text-[1.05rem] text-paper transition-colors placeholder:text-dim/70 hover:border-paper/50 focus:border-accent focus:outline-none";
 
 export default function ContactForm() {
-  const {
-    projectType,
-    setProjectType,
-    timeline,
-    setTimeline,
-    status,
-    error,
-    submit,
-  } = useContactForm();
+  const { status, error, submit } = useContactForm();
 
   if (status === "success") {
     return (
@@ -78,41 +34,27 @@ export default function ContactForm() {
       onSubmit={onSubmit}
       action="/api/contact"
       method="POST"
-      className="flex flex-col gap-12"
+      className="flex flex-col gap-10"
     >
-      <div className="grid gap-10 sm:grid-cols-2">
-        <label className="block">
-          <span className="t-label text-dim">Your name</span>
-          <input name="name" required autoComplete="name" className={field} />
-        </label>
-        <label className="block">
-          <span className="t-label text-dim">Email</span>
-          <input
-            name="email"
-            type="email"
-            required
-            autoComplete="email"
-            className={field}
-          />
-        </label>
-      </div>
-
-      <Pills
-        label="Project type"
-        options={PROJECT_TYPES}
-        value={projectType}
-        onChange={setProjectType}
-      />
-      <Pills
-        label="Timeline"
-        options={TIMELINES}
-        value={timeline}
-        onChange={setTimeline}
-      />
+      <label className="block">
+        <span className="t-label text-dim">Email</span>
+        <input
+          name="email"
+          type="email"
+          required
+          autoComplete="email"
+          className={field}
+        />
+      </label>
 
       <label className="block">
         <span className="t-label text-dim">What are you building?</span>
-        <textarea name="message" required rows={4} className={`${field} resize-none`} />
+        <textarea
+          name="message"
+          required
+          rows={6}
+          className={`${field} block resize-none`}
+        />
       </label>
 
       {/* Honeypot — real people never see it. */}
@@ -124,8 +66,6 @@ export default function ContactForm() {
         aria-hidden="true"
         className="absolute h-0 w-0 overflow-hidden opacity-0"
       />
-      <input type="hidden" name="projectType" value={projectType ?? ""} />
-      <input type="hidden" name="timeline" value={timeline ?? ""} />
 
       {error && (
         <p role="alert" className="t-label text-accent">

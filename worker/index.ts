@@ -53,17 +53,14 @@ async function handleContact(request: Request, env: Env): Promise<Response> {
 
   const str = (v: unknown, max: number) =>
     typeof v === "string" ? v.trim().slice(0, max) : "";
-  const name = str(data.name, 200);
   const email = str(data.email, 320);
   const message = str(data.message, 5000);
-  const projectType = str(data.projectType, 100);
-  const timeline = str(data.timeline, 100);
 
   // Honeypot: real users never fill this hidden field. Silently accept bots.
   if (str(data.company, 10)) return reply(wantsHtml, { ok: true });
 
-  if (!name || !email) {
-    return reply(wantsHtml, { error: "Name and email are required." }, 400);
+  if (!email) {
+    return reply(wantsHtml, { error: "An email address is required." }, 400);
   }
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
     return reply(wantsHtml, { error: "Please enter a valid email address." }, 400);
@@ -82,12 +79,9 @@ async function handleContact(request: Request, env: Env): Promise<Response> {
     headers: { "Content-Type": "application/json", Accept: "application/json" },
     body: JSON.stringify({
       access_key: env.WEB3FORMS_ACCESS_KEY,
-      subject: `New inquiry from ${name}`,
-      from_name: "2zero2 Studio website",
-      name,
+      subject: `New inquiry from ${email}`,
+      from_name: "2zero2 website",
       email, // used as the reply-to on the delivered email
-      project_type: projectType || "—",
-      timeline: timeline || "—",
       message: message || "(no details provided)",
     }),
   });
