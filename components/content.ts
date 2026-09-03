@@ -176,15 +176,15 @@ export const STEPS: Step[] = [
   },
   {
     name: "Build",
-    copy: "Weekly progress you can click, not status decks.",
+    copy: "Weekly progress you can click.",
   },
   {
     name: "Launch",
-    copy: "We ship to production and stay in the room until it's stable.",
+    copy: "We ship to production and stay hands-on until it's stable.",
   },
   {
     name: "Support",
-    copy: "Fixes, features, iteration. Better every week.",
+    copy: "Fixes, features, and performance improvements tied to real outcomes.",
   },
 ];
 

@@ -273,18 +273,7 @@ body {
    Marquee
    -------------------------------------------------------------------------- */
 
-@keyframes marquee-track {
-  from { transform: translate3d(0, 0, 0); }
-  to { transform: translate3d(-50%, 0, 0); }
-}
-
-.marquee-track {
-  animation: marquee-track 42s linear infinite;
-  will-change: transform;
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .marquee-track { animation: none; }
   .reveal { opacity: 1; transform: none; }
   .plate-img { transform: none; }
 }
@@ -558,3 +547,12 @@ body {
 .on-light { display: none; }
 :root[data-theme="light"] .on-dark { display: none; }
 :root[data-theme="light"] .on-light { display: block; }
+
+/* Moving plates fall back to their poster when motion is unwelcome. Handled
+   in CSS so there is no JavaScript branch and nothing to flash. */
+.motion-still { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-only { display: none; }
+  .motion-still { display: block; }
+}

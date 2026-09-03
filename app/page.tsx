@@ -3,6 +3,7 @@ import Aperture from "@/components/Aperture";
 import ContactForm from "@/components/ContactForm";
 import Footer from "@/components/Footer";
 import Plate from "@/components/Plate";
+import PlateVideo from "@/components/PlateVideo";
 import ProjectCard from "@/components/ProjectCard";
 import Reveal from "@/components/Reveal";
 import SpecLabel from "@/components/SpecLabel";
@@ -10,10 +11,12 @@ import SiteChrome from "@/components/SiteChrome";
 import Sun from "@/components/Sun";
 import { BOOKING_URL, PROJECTS, SERVICES, STEPS } from "@/components/content";
 
-const HERO_PLATE = "/brand/plate-hero.webp";
+const HERO_CLIP = "/brand/plate-hero.mp4";
+const HERO_CLIP_NARROW = "/brand/plate-hero-portrait.mp4";
+const HERO_POSTER = "/brand/plate-hero.webp";
 /* Module constant so the array identity is stable across renders and the
    aperture effect does not re-run. */
-const INTRO_PRELOAD = [HERO_PLATE];
+const INTRO_PRELOAD = [HERO_POSTER];
 
 /** Section eyebrow — the numbered micro-label that opens every section. */
 function Eyebrow({ n, children }: { n: string; children: React.ReactNode }) {
@@ -24,14 +27,6 @@ function Eyebrow({ n, children }: { n: string; children: React.ReactNode }) {
   );
 }
 
-const MARQUEE = [
-  "Web applications",
-  "Marketing sites",
-  "Redesign & rebuild",
-  "Brand & launch kits",
-  "Events & nightlife",
-  "Support & iteration",
-];
 
 export default function Home() {
   return (
@@ -50,11 +45,12 @@ export default function Home() {
           {/* Full-bleed plate. This is what the aperture opens onto, so it
               has to sit in the first viewport and stay legible under type. */}
           <div className="absolute inset-0">
-            <Plate
-              src={HERO_PLATE}
+            <PlateVideo
+              src={HERO_CLIP}
+              srcNarrow={HERO_CLIP_NARROW}
+              poster={HERO_POSTER}
               alt="Cloud formation, monochrome"
               className="h-full w-full"
-              priority
             />
             {/* Scrim: light through the middle where the mark opens, solid
                 at the bottom where the headline sits. */}
@@ -99,22 +95,6 @@ export default function Home() {
             <p className="t-body mt-9 max-w-[46ch] text-[1.05rem] text-paper/80">
               Web applications, marketing sites, and launch design.
             </p>
-          </div>
-        </section>
-
-        {/* Capability ticker */}
-        <section className="rule-t rule-b overflow-hidden py-6" aria-hidden="true">
-          <div className="marquee-track flex w-max gap-12 whitespace-nowrap">
-            {[0, 1].map((copy) => (
-              <div key={copy} className="flex gap-12">
-                {MARQUEE.map((item) => (
-                  <span key={item} className="t-label flex items-center gap-12 text-dim">
-                    {item}
-                    <span className="text-signal">◆</span>
-                  </span>
-                ))}
-              </div>
-            ))}
           </div>
         </section>
 
@@ -250,7 +230,6 @@ export default function Home() {
               </h2>
               <p className="t-body mt-8 max-w-[38ch] text-dim">
                 The people who scope your project are the people who build it.
-                No account managers, no handoffs.
               </p>
               <a
                 href={BOOKING_URL}

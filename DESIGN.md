@@ -356,9 +356,24 @@ why this is the one component allowed borders. Spec rows live in
 one short word so they fit the key column.
 
 ### The plate
-The hero photograph carries nothing over it. Earlier passes ran a square grid,
+The hero is a looping clip rather than a still — `components/PlateVideo.tsx`,
+same grain and scroll-linked scale as `Plate`. It is graded to match the still
+it replaced (greyscale, mean ~180, stdev ~25: hazy and flat, not the source's
+dark high-contrast sky) so the treatment reads as one thing.
+
+Two cuts ship. A 16:9 clip cover-cropped into a phone shows about a quarter of
+its width and reads as a grey smear, so a portrait crop is selected by `media`
+on the first `<source>`; only the matching one downloads. Under
+`prefers-reduced-motion` the video is hidden and the poster shows instead,
+chosen in CSS so nothing flashes. The poster is the clip's own first frame.
+
+The clip is graded and re-encoded, not shipped raw: 4.66MB of colour footage
+becomes 0.49MB once it is greyscale and flat, because that is what compresses.
+Its tail is crossfaded over its head so the loop has no cut.
+
+The hero carries nothing over the footage. Earlier passes ran a square grid,
 then construction lines, then a quilted lattice, then a hand-drawn wireframe;
-all are gone. A photograph is already texture, and anything laid across it
+all are gone. Moving footage is already texture, and anything laid across it
 competes rather than combines. The only things in the plate are the scrim and
 the sun.
 
