@@ -126,13 +126,17 @@ Three things do **not** simply invert, and each is a deliberate token:
   It applies everywhere the accent appears: hovers, focus, error text, the
   success heading, the hero tagline, the Contact cell, the selected pill.
 
-  **The sun is the exception**, and has its own token, `--color-sun`. It is
-  yellow on both prints because it is a sun. Its `[ click ]` label is cut out
-  of that light rather than coloured by it: near-black type
-  (`--color-onsun`, constant on both prints) sitting in a radial pool of the
-  sun's yellow. Yellow type failed on the light print — it was the same value
-  as the cloud behind it — and simply flipping the label's colour per print
-  would have made it the one thing near the sun that ignores it.
+  **The theme control is the exception.** It shows a yellow sun
+  (`--color-sun`) on the dark print and a near-black crescent moon on the
+  light one — the mark names the print it switches to, which is why the sun
+  appears while it is night. Both ship and CSS picks one via `.on-dark` /
+  `.on-light`, the same way the wordmark does: the theme is applied before
+  React hydrates, so choosing in JS would flash the wrong mark.
+
+  Its `[ click ]` label follows the page rather than the mark, in
+  `--color-paper` — white on the dark print, near-black on the light one.
+  Yellow type there failed on the light print; it was the same value as the
+  cloud behind it.
 
   `--color-onsignal` — type sitting on a Signal fill — flips with the accent:
   near-black on yellow, near-white on green. Near-black on `#355e3b` is 2.6:1
@@ -359,12 +363,16 @@ competes rather than combines. The only things in the plate are the scrim and
 the sun.
 
 ### Sun (signature)
-`components/Sun.tsx`. The theme control, disguised as the sun breaking through
-the cloud plate: it sits at a percentage position tuned to a bright pocket of
-open sky rather than living in the chrome, so switching prints reads as the
-weather changing. Flat fill and hard rays like everything else; its halo is the
-one soft edge in the system, allowed because a sun with no light around it
-reads as a sticker. On the light print the halo swells and the rays rotate out.
+`components/Sun.tsx`. The theme control, disguised as weather in the cloud
+plate: a sun on the dark print, a crescent moon on the light one. It sits at a
+percentage position tuned to a bright pocket of open sky rather than living in
+the chrome, so switching prints reads as the sky changing. Flat fills and hard
+rays like everything else; the sun's halo is the one soft edge in the system,
+allowed because a sun with no light around it reads as a sticker. The moon
+carries no halo — a glow on a bright sky is invisible anyway.
+
+Because it is out of the chrome it does not read as a control on its own, so a
+bracketed mono `[ click ]` label sits under it.
 
 ### Navigation
 Mono micro-labels at 70% paper, going accent on hover. `Contact` is the one
