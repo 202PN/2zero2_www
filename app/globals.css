@@ -15,6 +15,10 @@
   --color-panel: #f4f4f4;
   --color-dim: #8a8a8a;
   --color-signal: #ffcc00;
+  /* The sun is yellow on both prints — it is a sun. Everything else that
+     carries the accent follows --color-signal, which the light print swaps
+     for green. */
+  --color-sun: #ffcc00;
   /* Type sitting on a Signal fill. Near-black in BOTH themes — it cannot
      ride `ink`, which turns white when the theme flips. */
   --color-onsignal: #0a0a0a;
@@ -78,9 +82,13 @@
   /* #8a8a8a fails AA on a light ground; this clears 5.1:1. */
   --color-dim: #6b6b6b;
 
-  /* No --accent-text override: interaction accents stay Signal on both
-     prints, so hovers, focus, error text and the success heading behave
-     identically. The two prints differ only in black and white. */
+  /* Green replaces the yellow on this print everywhere except the sun. A
+     saturated yellow that sings on black goes weak and acidic on paper;
+     a deep green holds at 7:1 and reads as ink rather than highlighter. */
+  --color-signal: #355e3b;
+  --accent-text: #355e3b;
+  /* Type on a green fill has to be light — near-black on #355e3b is 2.6:1. */
+  --color-onsignal: #fbfbfa;
   --rule-dark: rgba(10, 10, 10, 0.16);
   --rule-light: rgba(255, 255, 255, 0.16);
   --grain-blend: multiply;
@@ -479,7 +487,7 @@ body {
 .sun:hover .sun-disc { transform: scale(1.06); }
 
 .sun-label {
-  color: var(--color-signal);
+  color: var(--color-sun);
   opacity: 0.75;
   letter-spacing: 0.2em;
   /* The tracking pushes the last character off-centre against the mark above. */

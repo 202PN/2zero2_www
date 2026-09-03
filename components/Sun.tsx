@@ -59,13 +59,13 @@ export default function Sun() {
                   y="4"
                   width="3.2"
                   height="13"
-                  fill="var(--color-signal)"
+                  fill="var(--color-sun)"
                   transform={`rotate(${(a * 180) / Math.PI} 50 50)`}
                 />
               );
             })}
           </g>
-          <circle cx="50" cy="50" r="25" fill="var(--color-signal)" />
+          <circle cx="50" cy="50" r="25" fill="var(--color-sun)" />
         </svg>
       </span>
 

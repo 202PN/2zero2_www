@@ -116,26 +116,22 @@ Three things do **not** simply invert, and each is a deliberate token:
 - **The photography.** A negative of a cloud is an ugly cloud. The plates stay
   as shot; only the scrims over them flip (`--hero-scrim`, `--band-scrim`), so
   the same image reads as storm on the dark print and open sky on the light one.
-- **Yellow.** Signal is identical on both prints, everywhere: the hero
-  tagline, the marquee marks, the Contact cell, the sun, and every interaction
-  state — link and card hovers, field focus, error text, the success heading.
-  The two prints differ in black and white and nothing else, which is the
-  point of the theme.
+- **The accent changes colour.** Signal is `#ffcc00` on the dark print and
+  `#355e3b`, a hunter green, on the light one. A saturated yellow that sings on
+  black goes weak and acidic on paper; the green holds at 7.2:1 and reads as
+  ink rather than highlighter. `#013220` was tried and rejected — at 13.6:1 it
+  is so dark it stops registering as an accent at all and just looks like the
+  body text.
 
-  Record the cost rather than hiding it. `#ffcc00` measures ~13:1 on the dark
-  ground and ~1.3–1.7:1 on the light one. On the decorative marks that is
-  fine — the tagline is logotype, which WCAG 1.4.3 exempts, and the Contact
-  cell is identified by its label at full paper contrast. On the interaction
-  states it is a deliberate trade of contrast for brand consistency: a hover
-  or an error message in Signal on the light print is faint. Anything that
-  must be read without the accent still reads, because the accent is always a
-  *change* from an already-legible default, never the only signal.
+  It applies everywhere the accent appears: hovers, focus, error text, the
+  success heading, the hero tagline, the Contact cell, the selected pill.
 
-  `--color-onsignal` is near-black in both prints, so type sitting on a Signal
-  fill always clears.
-- **The intro curtain.** Always dark. Black opening onto a light page is a
-  better reveal than white onto white, and it keeps the counter and rays
-  legible without a second set of tokens.
+  **The sun is the exception**, and has its own token, `--color-sun`. It is
+  yellow on both prints because it is a sun. Its bracketed label follows it.
+
+  `--color-onsignal` — type sitting on a Signal fill — flips with the accent:
+  near-black on yellow, near-white on green. Near-black on `#355e3b` is 2.6:1
+  and would fail.
 
 Light-print `--color-dim` is `#6b6b6b`, not `#8a8a8a`, which would fail AA on a
 light ground. The page is `#fbfbfa` rather than `#ffffff`: a full-bleed pure
@@ -418,8 +414,9 @@ Transforms and opacity only. Everything above is disabled under
 - **Do** desaturate any new photographic asset at the asset level.
 - **Do** hold every text color to 4.5:1 against its background.
 - **Do** keep motion to transforms and opacity, and honor reduced motion.
-- **Do** check both prints when adding colour, and keep them identical apart
-  from black and white — that constraint is the theme.
+- **Do** check both prints when adding colour. Reach for `--color-signal`,
+  which resolves to yellow or green per print; only the sun uses
+  `--color-sun`.
 - **Do** keep new section headers to nouns (see The Nouns Rule).
 - **Do** reach for a spec label when a section needs to enumerate what is
   actually delivered — that is what the form is for.
