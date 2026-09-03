@@ -11,6 +11,11 @@ export const THEME_KEY = "2z-theme";
  * switching prints feels like the weather changing rather than a settings
  * toggle. Placement is a percentage of the hero, tuned to a bright pocket of
  * open sky in `plate-hero.webp`.
+ *
+ * Because it is out of the chrome it has to say what it is, so brackets frame
+ * the mark and a mono label names the print it will switch to. The brackets
+ * open on hover — the one bit of wit — which reads as the control acknowledging
+ * the pointer without moving anything else.
  */
 export default function Sun() {
   const [light, setLight] = useState(false);
@@ -39,30 +44,35 @@ export default function Sun() {
       onClick={toggle}
       aria-pressed={light}
       aria-label={light ? "Switch to the dark theme" : "Switch to the light theme"}
-      title={light ? "Dark" : "Light"}
-      className="sun top-[15%] right-[19%] h-[clamp(2.4rem,4.6vw,3.6rem)] w-[clamp(2.4rem,4.6vw,3.6rem)]"
+      className="sun top-[13%] right-[17%]"
     >
-      <span className="sun-halo" aria-hidden="true" />
-      <svg viewBox="0 0 100 100" className="relative h-full w-full" aria-hidden="true">
-        <g className="sun-rays">
-          {Array.from({ length: 8 }, (_, i) => {
-            const a = (i * Math.PI) / 4;
-            return (
-              <rect
-                key={i}
-                x="48.4"
-                y="4"
-                width="3.2"
-                height="13"
-                rx="0"
-                fill="var(--color-signal)"
-                transform={`rotate(${(a * 180) / Math.PI} 50 50)`}
-              />
-            );
-          })}
-        </g>
-        <circle cx="50" cy="50" r="25" fill="var(--color-signal)" />
-      </svg>
+      <span className="sun-disc h-[clamp(2.2rem,4.2vw,3.3rem)] w-[clamp(2.2rem,4.2vw,3.3rem)]">
+        <span className="sun-halo" aria-hidden="true" />
+        <svg viewBox="0 0 100 100" className="relative h-full w-full" aria-hidden="true">
+          <g className="sun-rays">
+            {Array.from({ length: 8 }, (_, i) => {
+              const a = (i * Math.PI) / 4;
+              return (
+                <rect
+                  key={i}
+                  x="48.4"
+                  y="4"
+                  width="3.2"
+                  height="13"
+                  fill="var(--color-signal)"
+                  transform={`rotate(${(a * 180) / Math.PI} 50 50)`}
+                />
+              );
+            })}
+          </g>
+          <circle cx="50" cy="50" r="25" fill="var(--color-signal)" />
+        </svg>
+      </span>
+
+      {/* The mark alone does not read as a control out here in the plate. */}
+      <span className="t-label sun-label" aria-hidden="true">
+        [ click ]
+      </span>
     </button>
   );
 }
