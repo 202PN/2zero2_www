@@ -8,7 +8,7 @@ import Reveal from "@/components/Reveal";
 import SpecLabel from "@/components/SpecLabel";
 import SiteChrome from "@/components/SiteChrome";
 import Sun from "@/components/Sun";
-import { ABOUT, BOOKING_URL, PROJECTS, SERVICES, STEPS } from "@/components/content";
+import { BOOKING_URL, PROJECTS, SERVICES, STEPS } from "@/components/content";
 
 const HERO_PLATE = "/brand/plate-hero.webp";
 /* Module constant so the array identity is stable across renders and the
@@ -159,7 +159,7 @@ export default function Home() {
                 className="t-headline mt-6 max-w-[14ch]"
                 style={{ fontSize: "clamp(2.2rem, 6vw, 4.5rem)" }}
               >
-                Selected work
+                Work
               </h2>
             </div>
             <Link href="/work" className="t-label text-dim hover:text-accent">
@@ -177,9 +177,9 @@ export default function Home() {
         </section>
 
         {/* ---------------------------------------------------------------
-            Studio
+            Process
             --------------------------------------------------------------- */}
-        <section id="studio" className="scroll-mt-24">
+        <section id="process" className="scroll-mt-24">
           <div className="relative">
             <Plate
               src="/brand/plate-band.webp"
@@ -204,43 +204,30 @@ export default function Home() {
             style={{ paddingInline: "var(--gutter)", paddingBlock: "clamp(5rem,11vw,9rem)" }}
           >
             <Reveal>
-              <Eyebrow n="03">Studio</Eyebrow>
+              <Eyebrow n="03">Four steps</Eyebrow>
+              <h2
+                className="t-headline mt-6"
+                style={{ fontSize: "clamp(2.2rem, 6vw, 4.5rem)" }}
+              >
+                Process
+              </h2>
             </Reveal>
-            <div className="mt-10 grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
-              <Reveal>
-                <h2
-                  className="t-headline max-w-[19ch]"
-                  style={{ fontSize: "clamp(1.85rem, 4.4vw, 3.3rem)" }}
-                >
-                  Your dedicated team for digital growth.
-                </h2>
-                <div className="mt-8 flex flex-col gap-6">
-                  {ABOUT.map((line) => (
-                    <p key={line} className="t-body max-w-[52ch] text-[1.05rem] text-paper/75">
-                      {line}
-                    </p>
-                  ))}
-                </div>
-              </Reveal>
 
-              <Reveal delay={100}>
-                <ol className="rule-t">
-                  {STEPS.map((step, i) => (
-                    <li key={step.name} className="rule-b flex gap-6 py-6">
-                      <span className="t-serif text-dim w-8 shrink-0 text-lg">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <div>
-                        <h3 className="t-headline text-[1.15rem]">{step.name}</h3>
-                        <p className="t-body mt-2 max-w-[38ch] text-[0.95rem] text-dim">
-                          {step.copy}
-                        </p>
-                      </div>
-                    </li>
-                  ))}
-                </ol>
-              </Reveal>
-            </div>
+            {/* Four across, so the sequence reads left to right rather than as
+                a list of unrelated services. */}
+            <ol className="mt-14 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+              {STEPS.map((step, i) => (
+                <Reveal as="li" key={step.name} delay={(i % 4) * 70} className="rule-t pt-6">
+                  <span className="t-serif text-dim block text-2xl">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="t-headline mt-4 text-[1.5rem]">{step.name}</h3>
+                  <p className="t-body mt-3 max-w-[34ch] text-[0.95rem] text-dim">
+                    {step.copy}
+                  </p>
+                </Reveal>
+              ))}
+            </ol>
           </div>
         </section>
 

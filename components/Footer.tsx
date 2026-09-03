@@ -23,8 +23,8 @@ export default function Footer() {
           <Link href="/#services" className="t-label text-paper/70 hover:text-accent">
             Services
           </Link>
-          <Link href="/#studio" className="t-label text-paper/70 hover:text-accent">
-            Studio
+          <Link href="/#process" className="t-label text-paper/70 hover:text-accent">
+            Process
           </Link>
           <a
             href={`mailto:${CONTACT_EMAIL}`}

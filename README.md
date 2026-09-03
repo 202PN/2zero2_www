@@ -65,7 +65,7 @@ npm run build && npx wrangler dev
 ```
 app/
   layout.tsx           Shell, fonts, metadata
-  page.tsx             Home — hero, services, work, studio, contact
+  page.tsx             Home — hero, offerings, work, process, contact
   globals.css          Theme tokens, type roles, aperture, reveals
   work/page.tsx        Work index
   work/[slug]/page.tsx Case study (static params from PROJECTS)

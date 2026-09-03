@@ -206,11 +206,6 @@ export const STEPS: Step[] = [
   },
 ];
 
-export const ABOUT = [
-  "We build software with intention: every screen, every dependency, every line of code earns its place.",
-  "The team is small on purpose. The people who scope your project are the people who build it.",
-  "Our standards are non-negotiable: fast pages, accessible interfaces, readable code, timelines we hit.",
-];
 
 export function projectBySlug(slug: string): Project | undefined {
   return PROJECTS.find((p) => p.slug === slug);

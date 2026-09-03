@@ -210,7 +210,7 @@ later has to clear the same bar.
   reading as deliberate.
 - **Outline** (`.t-outline`): display type with the fill knocked out and a 1px
   stroke on `currentColor`. Used once per page at most, as a plate overlay — on
-  the home page it is "TWO ZERO TWO" across the studio band. Knock out the fill
+  the home page it is "TWO ZERO TWO" across the process band. Knock out the fill
   with `-webkit-text-fill-color`, never `color`, or the stroke's `currentColor`
   goes transparent along with it.
 
@@ -227,15 +227,12 @@ always on screen and the contact section is one anchor away; the booking link
 lives down there too, where offering it is an answer rather than a pitch.
 
 **The Nouns Rule.** Section headers are nouns, not sentences and not questions.
-`CAPABILITIES`, `SELECTED WORK`, `START A PROJECT`. The hero
+`OFFERINGS`, `WORK`, `PROCESS`, `START A PROJECT`. There are no exceptions
+left: the studio section used to state a claim, and it is now four steps under
+a one-word head like everything else. The hero
 h1 is the wordmark itself — grotesque `2ZERO2` with the logo's own tagline,
 `digital design`, set in the script face beneath it. Explaining goes in the mono
 eyebrow above or the body line below, never in the header.
-
-The studio section is the one deliberate exception: it states a claim
-("Your dedicated team for digital growth.") because that section is where the
-site is allowed to make one. Everywhere else, explaining goes in the mono
-eyebrow above or the body line below — not in the header.
 
 **The Three Registers Rule.** The hero lockup is the one place the type system
 shows its whole range at once: `2ZERO2` in the display grotesque, `digital` in
@@ -263,7 +260,8 @@ collapses to an "Index" toggle opening a full-screen list of oversized links.
 
 Grids collapse to one column below `lg`: hero is single-column with content bottom-
 aligned over the plate; services are a `5rem / 1fr / 26rem` index; work is a 3-up
-(home) or 2-up (`/work`) grid; studio is `1.1fr / 0.9fr`; contact is
+(home) or 2-up (`/work`) grid; process is a 4-up collapsing to 2 then 1;
+contact is
 `0.85fr / 1.15fr`.
 
 ## Elevation & Depth
@@ -422,8 +420,7 @@ Transforms and opacity only. Everything above is disabled under
 - **Do** keep motion to transforms and opacity, and honor reduced motion.
 - **Do** check both prints when adding colour, and keep them identical apart
   from black and white — that constraint is the theme.
-- **Do** keep new section headers to nouns (see The Nouns Rule), and keep the
-  studio section the only place that states a claim.
+- **Do** keep new section headers to nouns (see The Nouns Rule).
 - **Do** reach for a spec label when a section needs to enumerate what is
   actually delivered — that is what the form is for.
 - **Do** leave the photography alone. It is the texture; it does not need a

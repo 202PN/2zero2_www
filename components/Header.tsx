@@ -11,7 +11,7 @@ const CONTACT_CELL = "t-label contact-cell";
 const NAV = [
   { label: "Work", href: "/work" },
   { label: "Services", href: "/#services" },
-  { label: "Studio", href: "/#studio" },
+  { label: "Process", href: "/#process" },
   /* Boxed in the desktop nav — the site's only nav affordance that reads as a
      control, standing in for the CTA the hero deliberately doesn't carry. */
   { label: "Contact", href: "/#contact", boxed: true },
