@@ -24,7 +24,13 @@ Requires Node.js 18.18+.
 ```bash
 npm install
 npm run dev        # http://localhost:3000
+npm run dev:lan    # also reachable from a phone on the same Wi-Fi
 ```
+
+`dev:lan` binds to `0.0.0.0` so other devices on the network can reach it at
+`http://<your-lan-ip>:3000`. Note the dev server does not run the Cloudflare
+Worker, so `POST /api/contact` will fail there — use `wrangler dev`, or a
+deployed Worker, to exercise the form.
 
 Note: `npm run build` writes to the same `.next` directory the dev server uses.
 Stop `npm run dev` before building, or the running dev server will 404 on its
