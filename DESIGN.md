@@ -127,7 +127,12 @@ Three things do **not** simply invert, and each is a deliberate token:
   success heading, the hero tagline, the Contact cell, the selected pill.
 
   **The sun is the exception**, and has its own token, `--color-sun`. It is
-  yellow on both prints because it is a sun. Its bracketed label follows it.
+  yellow on both prints because it is a sun. Its `[ click ]` label is cut out
+  of that light rather than coloured by it: near-black type
+  (`--color-onsun`, constant on both prints) sitting in a radial pool of the
+  sun's yellow. Yellow type failed on the light print — it was the same value
+  as the cloud behind it — and simply flipping the label's colour per print
+  would have made it the one thing near the sun that ignores it.
 
   `--color-onsignal` — type sitting on a Signal fill — flips with the accent:
   near-black on yellow, near-white on green. Near-black on `#355e3b` is 2.6:1

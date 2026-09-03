@@ -19,6 +19,9 @@
      carries the accent follows --color-signal, which the light print swaps
      for green. */
   --color-sun: #ffcc00;
+  /* Type sitting on the sun's own light. Near-black on both prints — the glow
+     behind it is what carries the contrast, not the page. */
+  --color-onsun: #0a0a0a;
   /* Type sitting on a Signal fill. Near-black in BOTH themes — it cannot
      ride `ink`, which turns white when the theme flips. */
   --color-onsignal: #0a0a0a;
@@ -486,17 +489,29 @@ body {
 
 .sun:hover .sun-disc { transform: scale(1.06); }
 
+/* Cut out of the sunlight: near-black type on both prints, sitting in a pool
+   of the sun's own glow. Yellow type failed on the light print — it was the
+   same value as the cloud behind it — and a straight colour flip would have
+   made the label the one thing near the sun that ignores it. */
 .sun-label {
-  color: var(--color-sun);
-  opacity: 0.75;
+  position: relative;
+  color: var(--color-onsun);
   letter-spacing: 0.2em;
   /* The tracking pushes the last character off-centre against the mark above. */
   text-indent: 0.2em;
   white-space: nowrap;
-  transition: opacity 420ms ease;
+  padding: 0.34em 0.75em 0.3em;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 204, 0, 0.95) 0%,
+    rgba(255, 204, 0, 0.78) 44%,
+    rgba(255, 204, 0, 0.2) 72%,
+    rgba(255, 204, 0, 0) 100%
+  );
+  transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.sun:hover .sun-label { opacity: 1; }
+.sun:hover .sun-label { transform: scale(1.06); }
 
 .sun-halo {
   position: absolute;
