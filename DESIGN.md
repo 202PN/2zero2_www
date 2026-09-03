@@ -368,10 +368,16 @@ on the first `<source>`; only the matching one downloads. Under
 `prefers-reduced-motion` the video is hidden and the poster shows instead,
 chosen in CSS so nothing flashes. The poster is the clip's own first frame.
 
-The clip is re-encoded, not shipped raw: 18MB becomes 0.47MB. Its tail is
-crossfaded over its head so the loop has no cut, and only a stable stretch of
-the source is used — the footage brightens across its length, and grading the
-whole thing would make the hero lighten as you watch and the loop pulse.
+The clip is re-encoded, not shipped raw, and only a stable stretch of the
+source is used — the footage brightens across its length, so grading the whole
+thing would make the hero lighten as you watch and the loop pulse. Its tail is
+crossfaded over its head so the loop has no cut.
+
+It runs at half speed, which the source frame rate pays for exactly: 50fps
+slowed 2x and written at 25fps shows every original frame once, with no
+duplication and no interpolation. Encoded at 1920x1080 / CRF 21 — deliberately
+heavy at ~3.8MB, traded for quality; CRF 23 is ~2.9MB if that ever needs to
+come down.
 
 **The scrims carry the theme, not the footage.** One clip serves both prints:
 the dark scrim washes it black, and the light scrim darkens the top so the
