@@ -357,9 +357,10 @@ one short word so they fit the key column.
 
 ### The plate
 The hero is a looping clip rather than a still — `components/PlateVideo.tsx`,
-same grain and scroll-linked scale as `Plate`. It is graded to match the still
-it replaced (greyscale, mean ~180, stdev ~25: hazy and flat, not the source's
-dark high-contrast sky) so the treatment reads as one thing.
+same grain and scroll-linked scale as `Plate`. It stays in colour and close
+to its native exposure — an earlier pass desaturated and flattened it to match
+the still it replaced, which made it invisible on the light print, where the
+scrim whitened an already-pale image into nothing.
 
 Two cuts ship. A 16:9 clip cover-cropped into a phone shows about a quarter of
 its width and reads as a grey smear, so a portrait crop is selected by `media`
@@ -367,9 +368,16 @@ on the first `<source>`; only the matching one downloads. Under
 `prefers-reduced-motion` the video is hidden and the poster shows instead,
 chosen in CSS so nothing flashes. The poster is the clip's own first frame.
 
-The clip is graded and re-encoded, not shipped raw: 4.66MB of colour footage
-becomes 0.49MB once it is greyscale and flat, because that is what compresses.
-Its tail is crossfaded over its head so the loop has no cut.
+The clip is re-encoded, not shipped raw: 18MB becomes 0.47MB. Its tail is
+crossfaded over its head so the loop has no cut, and only a stable stretch of
+the source is used — the footage brightens across its length, and grading the
+whole thing would make the hero lighten as you watch and the loop pulse.
+
+**The scrims carry the theme, not the footage.** One clip serves both prints:
+the dark scrim washes it black, and the light scrim darkens the top so the
+footage reads against a pale page, passes through transparent, then hands over
+to white where the headline sits. This is the only place on the site that
+carries colour beyond Signal.
 
 The hero carries nothing over the footage. Earlier passes ran a square grid,
 then construction lines, then a quilted lattice, then a hand-drawn wireframe;
