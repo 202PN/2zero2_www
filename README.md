@@ -119,6 +119,8 @@ worker/index.ts        Static assets + contact endpoint
   belong in `npx wrangler@4 secret put <NAME>`, or `.dev.vars` for local
   `wrangler dev` (ignored). For a confirmed false positive, use
   `git commit --no-verify`.
+- **No attribution trailers.** `.githooks/commit-msg` removes
+  `Co-Authored-By:` and "Generated with" lines from every commit message.
 - `npm run dev:lan` exposes the dev server to your whole network. Only use it
   on a network you trust.
 

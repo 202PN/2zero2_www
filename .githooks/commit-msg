@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Strips co-author trailers and tool attribution lines from every commit
+# message, so they never reach the history whatever wrote the commit.
+msg="$1"
+perl -0pi -e 's/^co-authored-by:.*\n?//gim; s/^.*generated with \[?claude code.*\n?//gim; s/\n+\z/\n/' "$msg"
