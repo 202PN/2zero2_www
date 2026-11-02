@@ -225,6 +225,7 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; }
   .plate-img { transform: none; }
+  .plate-video { display: none; }
 }
 
 /* --------------------------------------------------------------------------

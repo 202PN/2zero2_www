@@ -57,7 +57,11 @@ export default async function CaseStudy({ params }: Params) {
           >
             {project.name}
           </h1>
-          <dl className="rule-t mt-10 grid gap-x-10 gap-y-6 pt-6 sm:grid-cols-3">
+          <dl
+            className={`rule-t mt-10 grid gap-x-10 gap-y-6 pt-6 ${
+              project.url ? "sm:grid-cols-2 lg:grid-cols-4" : "sm:grid-cols-3"
+            }`}
+          >
             {[
               ["Type", project.type],
               ["Stack", project.stack],
@@ -68,13 +72,30 @@ export default async function CaseStudy({ params }: Params) {
                 <dd className="t-body mt-2 text-[0.95rem] text-paper/80">{value}</dd>
               </div>
             ))}
+            {project.url && (
+              <div>
+                <dt className="t-label text-dim">Live site</dt>
+                <dd className="t-body mt-2 text-[0.95rem]">
+                  <a
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="border-b border-b-paper/40 pb-0.5 text-paper/85 transition-colors hover:border-b-accent hover:text-accent"
+                  >
+                    {new URL(project.url).hostname} ↗
+                  </a>
+                </dd>
+              </div>
+            )}
           </dl>
         </header>
 
         <Plate
           src={project.images[0].src}
           alt={project.images[0].alt}
-          className="h-[62vh] min-h-[320px] w-full"
+          video={project.video}
+          // A screen recording is shown whole, at its own 16:10, not cropped.
+          className={project.video ? "aspect-[16/10] w-full" : "h-[62vh] min-h-[320px] w-full"}
           priority
         />
 

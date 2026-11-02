@@ -2,11 +2,14 @@ import type { CSSProperties } from "react";
 
 /**
  * A photographic plate: grain overlay, and a scroll-linked scale driven by
- * the single rAF loop in useLenis (via the `data-plate` hook).
+ * the single rAF loop in useLenis (via the `data-plate` hook). With `video`,
+ * a muted loop plays over the image; the image stays as poster, alt text,
+ * and the reduced-motion fallback.
  */
 export default function Plate({
   src,
   alt,
+  video,
   className = "",
   imgClassName = "",
   priority = false,
@@ -14,6 +17,7 @@ export default function Plate({
 }: {
   src: string;
   alt: string;
+  video?: string;
   className?: string;
   imgClassName?: string;
   priority?: boolean;
@@ -34,6 +38,18 @@ export default function Plate({
         fetchPriority={priority ? "high" : "auto"}
         className={`plate-img h-full w-full object-cover ${imgClassName}`}
       />
+      {video && (
+        <video
+          src={video}
+          poster={src}
+          autoPlay
+          muted
+          loop
+          playsInline
+          aria-hidden="true"
+          className={`plate-img plate-video absolute inset-0 h-full w-full object-cover ${imgClassName}`}
+        />
+      )}
     </div>
   );
 }

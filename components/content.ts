@@ -98,12 +98,62 @@ export type Project = {
   /** One line, always visible; the detail rows collapse beneath it. */
   summary: string;
   images: ProjectImage[];
+  /** The live site, when there is one to link to. */
+  url?: string;
+  /** Screen recording of the live hero. Plays over images[0], its poster. */
+  video?: string;
   problem: string;
   built: string;
   result: string;
 };
 
 export const PROJECTS: Project[] = [
+  {
+    name: "VIP Concierge",
+    slug: "dc-vip-concierge",
+    type: "Marketing site",
+    stack: "Astro · TypeScript · Vercel · Google Tag Manager · GA4",
+    year: "2026",
+    summary:
+      "A discreet, premium site for a DC transportation and concierge company, with every call and booking traced back to ad spend.",
+    images: [
+      {
+        src: "/work/dcvip.webp",
+        alt: "VIP Concierge homepage hero: “First-class Transportation & Concierge” over the Capitol, with the VIP Concierge globe badge",
+      },
+    ],
+    url: "https://dcvipconcierge.com",
+    video: "/work/dcvip_hero.mp4",
+    problem:
+      "A DC-area transportation and concierge company serving government, corporate and diplomatic-delegation clients needed a website that matched the standard of its service. Its clients make decisions on trust, so the site had to feel discreet and premium. It needed to present the full fleet and service lines clearly and turn visitors into booked rides. It also had to prove its value: every call, message and reservation needed to be traceable back to the ad spend that produced it.",
+    built:
+      "A fast static site with 13 routes in Astro and TypeScript. Shared data modules for services and the fleet feed the navigation, service pages, photo galleries and contact form, so the content lives in one place. A custom dark design system, an animated coverage map and hero video set the tone. A multi-step contact form with a date calendar and spam protection handles lead capture. Underneath, GTM, GA4 and Google Ads conversion tracking follow visitors across domains to the third-party booking platform. Hardened security headers ship on Vercel.",
+    result:
+      "The site went from first commit to live on dcvipconcierge.com in about three weeks, with search, analytics and booking attribution set up from day one. After launch, paid clicks rose 34% week over week, and clicks on the armored-transport campaign rose 86%.",
+  },
+  {
+    name: "TickrCom",
+    slug: "tickrcom",
+    type: "Marketing site · pre-launch waitlist",
+    stack: "Vanilla HTML · CSS · JavaScript · Tailwind · Supabase · Resend · Vercel",
+    year: "2026",
+    summary:
+      "A pre-launch page that shows the app before it ships, and a waitlist that doubles as customer research.",
+    images: [
+      {
+        src: "/work/tickrcom.webp",
+        alt: "TickrCom homepage hero: “Where Traders Collaborate and Monetize Their Expertise” beside the Discover dashboard",
+      },
+    ],
+    url: "https://tickrcom.com",
+    video: "/work/tickrcom_hero.mp4",
+    problem:
+      "A trading-community platform still in development needed a public face before the product was. The site had to explain a five-part idea (discovery, identity, trust, real-time collaboration, monetization) to traders who have heard every fintech pitch, show the app instead of describing it, and turn visitors into a waitlist that tells the founder who they are: trader, creator or investor, what they use today, and what’s broken. It also had to survive positioning changes through pre-launch without a rebuild each time.",
+    built:
+      "A single-scroll narrative page in vanilla HTML, CSS and JavaScript, with Tailwind for utilities and a small Node script that assembles modular section files into one self-contained index.html. The hero runs a scripted walkthrough of the real app: cropped product screenshots with the search field, composer and Create Trade Post dialog drawn in HTML on top, so the demo shows flows a screenshot can’t. A live price tape pulls crypto quotes from CoinGecko, cycling channel feeds and a live-session timer keep the product mockups moving, and reduced-motion viewers get still versions. The two-step waitlist form posts to Supabase, where an Edge Function sends an alert to the founder and a confirmation to the signer through Resend.",
+    result:
+      "A fast, self-contained page at tickrcom.com that reads like the product already exists. Every signup arrives with role, market, current platforms and biggest pain point attached, so the waitlist doubles as customer research ahead of the beta. The positioning has been rewritten several times since launch by editing one section file and rebuilding, which is what the structure was for.",
+  },
   {
     name: "LPT",
     slug: "lpt",

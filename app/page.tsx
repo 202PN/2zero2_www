@@ -112,42 +112,11 @@ export default function Home() {
         </section>
 
         {/* ---------------------------------------------------------------
-            Selected work
-            --------------------------------------------------------------- */}
-        <section
-          id="work"
-          className="scroll-mt-24"
-          style={{ paddingInline: "var(--gutter)", paddingBlock: "clamp(5rem,11vw,9rem)" }}
-        >
-          <Reveal className="rule-b flex flex-wrap items-end justify-between gap-6 pb-8">
-            <div>
-              <h2
-                className="t-headline max-w-[14ch]"
-                style={{ fontSize: "clamp(2.2rem, 6vw, 4.5rem)" }}
-              >
-                Work
-              </h2>
-            </div>
-            <Link href="/work" className="t-label text-dim hover:text-accent">
-              All work →
-            </Link>
-          </Reveal>
-
-          <div className="mt-14 grid gap-x-10 gap-y-16 md:grid-cols-2 lg:grid-cols-3">
-            {PROJECTS.map((project, i) => (
-              <Reveal key={project.slug} delay={i * 80}>
-                <ProjectCard project={project} index={i} />
-              </Reveal>
-            ))}
-          </div>
-        </section>
-
-        {/* ---------------------------------------------------------------
             Services
             --------------------------------------------------------------- */}
         <section
           id="services"
-          className="rule-t scroll-mt-24"
+          className="scroll-mt-24"
           style={{ paddingInline: "var(--gutter)", paddingBlock: "clamp(5rem,11vw,9rem)" }}
         >
           <Reveal>
@@ -171,6 +140,37 @@ export default function Home() {
             {SERVICES.map((service, i) => (
               <Reveal key={service.name} delay={(i % 3) * 70} className="h-full">
                 <SpecLabel service={service} index={i} />
+              </Reveal>
+            ))}
+          </div>
+        </section>
+
+        {/* ---------------------------------------------------------------
+            Selected work
+            --------------------------------------------------------------- */}
+        <section
+          id="work"
+          className="rule-t scroll-mt-24"
+          style={{ paddingInline: "var(--gutter)", paddingBlock: "clamp(5rem,11vw,9rem)" }}
+        >
+          <Reveal className="rule-b flex flex-wrap items-end justify-between gap-6 pb-8">
+            <div>
+              <h2
+                className="t-headline max-w-[14ch]"
+                style={{ fontSize: "clamp(2.2rem, 6vw, 4.5rem)" }}
+              >
+                Work
+              </h2>
+            </div>
+            <Link href="/work" className="t-label text-dim hover:text-accent">
+              All work →
+            </Link>
+          </Reveal>
+
+          <div className="mt-14 grid gap-x-10 gap-y-16 md:grid-cols-2">
+            {PROJECTS.slice(0, 2).map((project, i) => (
+              <Reveal key={project.slug} delay={i * 80}>
+                <ProjectCard project={project} index={i} />
               </Reveal>
             ))}
           </div>
