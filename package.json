@@ -7,7 +7,9 @@
     "dev:lan": "next dev -H 0.0.0.0",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prepare": "git config core.hooksPath .githooks || true",
+    "scan-secrets": ".githooks/scan-secrets.sh HEAD"
   },
   "dependencies": {
     "lenis": "^1.1.20",

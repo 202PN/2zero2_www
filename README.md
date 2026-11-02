@@ -111,6 +111,14 @@ worker/index.ts        Static assets + contact endpoint
 - **Dependencies.** `package.json` overrides `postcss` to a patched version,
   because Next 15 pins a vulnerable one. Drop the override after upgrading to
   a Next release that ships a fixed PostCSS. Run `npm audit` before deploys.
+- **No secrets in git.** `.githooks/` blocks any commit or push that adds an
+  env file (`.env*`, `.dev.vars`, keys, certs) or a credential-looking value.
+  Pushes are scanned commit by commit, not just the last one. `npm install`
+  turns the hooks on (the `prepare` script sets `core.hooksPath`), and
+  `npm run scan-secrets` checks the whole history at any time. Real secrets
+  belong in `npx wrangler@4 secret put <NAME>`, or `.dev.vars` for local
+  `wrangler dev` (ignored). For a confirmed false positive, use
+  `git commit --no-verify`.
 - `npm run dev:lan` exposes the dev server to your whole network. Only use it
   on a network you trust.
 
