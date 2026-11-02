@@ -118,6 +118,11 @@ export default function Aperture({ preload = [] }: { preload?: string[] }) {
 
   return (
     <div ref={rootRef} className="ap-root fixed inset-0 z-[100]" data-state={state} aria-hidden="true">
+      {/* What the mark's cut-out shows while the counter runs: one flat
+          brand yellow, so the mark reads cleanly on the black instead of
+          showing the busy hero board through its letterforms. It fades as
+          the opening starts, handing the hole over to the page. */}
+      <div className="ap-fill" />
       <div className="ap-curtain grain">
         {/* Eight hairlines converging on the mark, as in the reference. */}
         <svg className="ap-rays" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">

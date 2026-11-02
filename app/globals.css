@@ -291,6 +291,20 @@ body {
   transition: none;
 }
 
+/* Behind the curtain, in front of the page: the solid colour the mark's
+   cut-out shows during the hold. Literal, like the curtain — the intro looks
+   the same on both prints. */
+.ap-fill {
+  position: absolute;
+  inset: 0;
+  background: #ffcc00;
+  transition: opacity 360ms ease-out;
+}
+
+.ap-root[data-state="open"] .ap-fill {
+  opacity: 0;
+}
+
 .ap-curtain {
   position: absolute;
   inset: 0;

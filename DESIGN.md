@@ -281,6 +281,11 @@ lines rather than solid slabs. The mask asset is
 alpha matters to a mask, but being explicit beats relying on the coloured
 original).
 
+During the hold the cut-out shows a flat `#ffcc00` layer (`.ap-fill`) rather
+than the page, so the mark reads as solid yellow on black; the busy hero
+board seen through the letterforms made it hard to read. The fill fades over
+360ms as the opening starts, and from then on the hole shows the page.
+
 Its opening size is capped on both axes (`min(72vw, 54vh, 520px)`): the mask is
 square, so a width-only cap overflows a short viewport and crops the badge's
 wordmark. Two mask layers — the mark and a solid fill —
