@@ -66,13 +66,16 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             visitor gets the open site rather than a black screen.
 
             It only runs on a real page load, which is what keeps the intro
-            from replaying on client-side navigation back to "/". */}
+            from replaying on client-side navigation back to "/". Only "/"
+            mounts the intro, so any other path must never enter the hold —
+            nothing there would release it. */}
         <script
           dangerouslySetInnerHTML={{
             __html: `(function(){try{
 if(localStorage.getItem('2z-theme')==='light')document.documentElement.dataset.theme='light';
 }catch(e){}
 try{
+if(location.pathname!=='/')return;
 if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
 if(!(CSS.supports('mask-composite','exclude')||CSS.supports('-webkit-mask-composite','xor')))return;
 document.documentElement.dataset.intro='hold';
