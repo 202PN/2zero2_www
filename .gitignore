@@ -6,3 +6,10 @@ out/
 *.tsbuildinfo
 next-env.d.ts
 _source/
+
+# Local AI/editor tooling — never committed
+.claude/
+CLAUDE.md
+CLAUDE.local.md
+.dev.vars
+.env*
