@@ -94,8 +94,11 @@ export default async function CaseStudy({ params }: Params) {
           src={project.images[0].src}
           alt={project.images[0].alt}
           video={project.video}
-          // A screen recording is shown whole, at its own 16:10, not cropped.
-          className={project.video ? "aspect-[16/10] w-full" : "h-[62vh] min-h-[320px] w-full"}
+          // Recordings and screenshots are shown at their own 16:10, not cut
+          // to a viewport height — on a portrait phone that left only the
+          // middle of a landscape image.
+          className="aspect-[16/10] w-full"
+          imgClassName="object-top"
           priority
         />
 

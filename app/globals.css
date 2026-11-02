@@ -97,6 +97,9 @@ html {
   background: var(--color-ink);
   /* Lenis drives scrolling; native smooth scroll would fight it. */
   scroll-behavior: auto;
+  /* No pull-to-refresh or rubber band at either end: a fast flick back to
+     the top on a phone otherwise reloads the page and replays the intro. */
+  overscroll-behavior-y: none;
 }
 
 body {
@@ -219,7 +222,9 @@ body {
    while a plate is in view, which gets it composited anyway. */
 .plate-img {
   transform: scale(var(--plate-scale, 1));
-  transform-origin: center;
+  /* Anchored at the top: the plates are mostly site screenshots, and the
+     top is where their nav and headline sit. */
+  transform-origin: top center;
 }
 
 @media (prefers-reduced-motion: reduce) {

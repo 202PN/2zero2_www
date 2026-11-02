@@ -448,12 +448,19 @@ bordered cells that invert to Signal fill when selected.
 ### Plates
 `components/Plate.tsx`. A photographic surface with the CSS grain overlay and a
 `--plate-scale` custom property driven by one shared rAF loop in `useLenis`
-(1.0 → 1.08 across the viewport pass). Never one observer per plate.
+(1.0 → 1.08 across the viewport pass), anchored at the top. Never one
+observer per plate. Site screenshots are shown at their own 16:10 with
+`object-top`, never cut to a viewport height: on a portrait phone that leaves
+only the middle of a landscape image.
 
 ## Motion
 
 Lenis for weighted smooth scroll; it also owns hash-link navigation, since a native
-anchor jump fights its scroll position. Reveals are IntersectionObserver-driven,
+anchor jump fights its scroll position. It loads only for a mouse or trackpad
+(`(hover: hover) and (pointer: fine)`): on touch it smooths nothing but its
+blocking touchmove listeners make native scroll stick. The root carries
+`overscroll-behavior-y: none`, so a flick to the top never pulls to refresh.
+Reveals are IntersectionObserver-driven,
 24px and 800ms on `cubic-bezier(0.22, 1, 0.36, 1)`, staggered 60–100ms, and gated
 behind `@media (scripting: enabled)` so content is never hidden from a visitor who
 cannot run the observer that would reveal it. The observer also treats

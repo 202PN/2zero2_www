@@ -21,8 +21,9 @@ export default function ProjectCard({
       <Plate
         src={project.images[0].src}
         alt={project.images[0].alt}
-        className="aspect-[4/3] w-full"
-        imgClassName="grayscale transition-[filter,opacity] duration-700 group-hover:grayscale-0 group-hover:opacity-95"
+        // The screenshots' own ratio, so a card shows the whole page width.
+        className="aspect-[16/10] w-full"
+        imgClassName="object-top grayscale transition-[filter,opacity] duration-700 group-hover:grayscale-0 group-hover:opacity-95"
       />
       <div className="rule-b flex items-baseline justify-between pt-5 pb-4">
         <h3 className="t-headline text-[1.5rem] transition-colors group-hover:text-accent sm:text-[1.9rem]">

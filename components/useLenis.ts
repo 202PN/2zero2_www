@@ -14,10 +14,17 @@ const HEADER_OFFSET = -88;
  *
  * All of it is skipped under `prefers-reduced-motion`, where the browser's
  * own anchor behavior is correct on its own.
+ *
+ * Lenis itself only loads for a mouse or trackpad. It smooths wheel input
+ * only, so on a phone it changes nothing — but it still puts blocking
+ * touchmove listeners on the window, which makes native scrolling stick.
+ * Touch devices keep native scroll and anchors (sections carry
+ * `scroll-mt-*` to clear the header); the plate loop runs either way.
  */
 export function useLenis() {
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const smooth = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
     let raf = 0;
     let lenis: {
@@ -68,22 +75,25 @@ export function useLenis() {
       history.replaceState(null, "", hash);
     }
 
-    import("lenis").then(({ default: Lenis }) => {
-      if (cancelled) return;
-      lenis = new Lenis({ duration: 1.1, smoothWheel: true });
-      const loop = (time: number) => {
-        lenis?.raf(time);
-        updatePlates();
-        raf = requestAnimationFrame(loop);
-      };
+    const loop = (time: number) => {
+      lenis?.raf(time);
+      updatePlates();
       raf = requestAnimationFrame(loop);
+    };
+    raf = requestAnimationFrame(loop);
 
-      // If the page was opened at a hash, Lenis needs to be told.
-      if (window.location.hash.length > 1) {
-        const target = document.querySelector<HTMLElement>(window.location.hash);
-        if (target) lenis.scrollTo(target, { offset: HEADER_OFFSET });
-      }
-    });
+    if (smooth) {
+      import("lenis").then(({ default: Lenis }) => {
+        if (cancelled) return;
+        lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+
+        // If the page was opened at a hash, Lenis needs to be told.
+        if (window.location.hash.length > 1) {
+          const target = document.querySelector<HTMLElement>(window.location.hash);
+          if (target) lenis.scrollTo(target, { offset: HEADER_OFFSET });
+        }
+      });
+    }
 
     document.addEventListener("click", onClick);
 
