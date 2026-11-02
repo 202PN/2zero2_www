@@ -44,8 +44,11 @@ export const metadata: Metadata = {
     title: "2zero2 · Web apps, marketing sites & launch design",
     description:
       "Web applications, marketing sites, and launch design. Shipped fast, built to last.",
-    images: [{ url: "/brand/og.jpg", width: 1200, height: 630 }],
+    images: [{ url: "/brand/og-board.jpg", width: 1200, height: 630 }],
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
   },
 };
 
