@@ -24,9 +24,8 @@ export default function WorkIndex() {
         }}
       >
         <Reveal className="rule-b pb-10">
-          <p className="t-label text-dim">Index · {PROJECTS.length} projects</p>
           <h1
-            className="t-display mt-8"
+            className="t-display"
             style={{ fontSize: "clamp(3rem, 10vw, 8rem)" }}
           >
             Work

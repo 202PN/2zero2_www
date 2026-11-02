@@ -85,9 +85,9 @@ export default async function CaseStudy({ params }: Params) {
             paddingBottom: "clamp(4rem,8vw,7rem)",
           }}
         >
-          <Block label="(01) Problem">{project.problem}</Block>
-          <Block label="(02) Built">{project.built}</Block>
-          <Block label="(03) Result">{project.result}</Block>
+          <Block label="Problem">{project.problem}</Block>
+          <Block label="Built">{project.built}</Block>
+          <Block label="Result">{project.result}</Block>
 
           {project.images.length > 1 && (
             <div className="mt-16 grid gap-10 md:grid-cols-2">

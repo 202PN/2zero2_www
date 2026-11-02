@@ -2,10 +2,8 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import localFont from "next/font/local";
 import {
-  DotGothic16,
   Instrument_Serif,
   JetBrains_Mono,
-  Pinyon_Script,
 } from "next/font/google";
 import "./globals.css";
 
@@ -18,16 +16,6 @@ const archivo = localFont({
   variable: "--font-archivo",
 });
 
-/* The script half of the lockup. A fine copperplate rather than a brush face:
-   it carries the luxury register the rest of the site is in, and its small
-   x-height is why it runs much larger than the words beside it. */
-const pinyon = Pinyon_Script({
-  subsets: ["latin"],
-  weight: "400",
-  display: "swap",
-  variable: "--font-script-face",
-});
-
 /* Numerals and editorial accents only — the intro counter, section
    numbers, project years. */
 const instrument = Instrument_Serif({
@@ -35,16 +23,6 @@ const instrument = Instrument_Serif({
   weight: "400",
   display: "swap",
   variable: "--font-instrument",
-});
-
-/* Retro bitmap face, used for exactly one word in the hero lockup. Light
-   enough in the stroke to sit beside a fine copperplate — Press Start 2P read
-   as two unrelated objects next to it. */
-const dotGothic = DotGothic16({
-  subsets: ["latin"],
-  weight: "400",
-  display: "swap",
-  variable: "--font-pixel-face",
 });
 
 const jetbrains = JetBrains_Mono({
@@ -57,13 +35,13 @@ const jetbrains = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://2zero2.build"),
   title: {
-    default: "2zero2 · Digital agency",
+    default: "2zero2 · Web apps, marketing sites & launch design",
     template: "%s · 2zero2",
   },
   description:
-    "2zero2 is a digital agency building web applications, marketing sites, and launch design for owners, founders, DJs, and promoters. Scoping crew is the build crew.",
+    "2zero2 designs and builds web applications, marketing sites, website rebuilds, and brand & launch kits through one defined process: scoped up front, built in signed-off milestones, supported after launch.",
   openGraph: {
-    title: "2zero2 · Digital agency",
+    title: "2zero2 · Web apps, marketing sites & launch design",
     description:
       "Web applications, marketing sites, and launch design. Shipped fast, built to last.",
     images: [{ url: "/brand/og.jpg", width: 1200, height: 630 }],
@@ -76,7 +54,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${archivo.variable} ${pinyon.variable} ${dotGothic.variable} ${instrument.variable} ${jetbrains.variable}`}
+      className={`${archivo.variable} ${instrument.variable} ${jetbrains.variable}`}
     >
       <head>
         {/* Applies the saved theme and decides whether the intro plays, both

@@ -4,10 +4,11 @@ import { useEffect, useRef, useState } from "react";
 
 /* Floor on the counter so a warm cache still gets the beat, and a ceiling so
    a stalled asset can never hold the page shut. */
-const MIN_MS = 1600;
+const MIN_MS = 900;
 const WATCHDOG_MS = 4000;
-const OPEN_DELAY_MS = 200;
-const OPEN_MS = 1600;
+const OPEN_DELAY_MS = 150;
+/* Matches the --ap-ms transition in globals.css, plus a margin. */
+const OPEN_MS = 1150;
 
 /**
  * The entrance. A black curtain with the 2zero2 mark knocked out of it sits

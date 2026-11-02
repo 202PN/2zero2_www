@@ -1,0 +1,18 @@
+# Security headers for every static page and asset, applied by Cloudflare
+# Workers static assets. Responses the Worker builds itself (POST
+# /api/contact) set their own in worker/index.ts — this file doesn't reach
+# them.
+#
+# CSP notes: 'unsafe-inline' on script-src is required by the Next.js static
+# export (it inlines its page data) and by the pre-paint theme script in
+# app/layout.tsx. Everything else is same-origin only; data: covers the CSS
+# grain texture. If you ever add a third-party script, font, or embed, add
+# its origin here or it will be blocked.
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; media-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=()
+  Strict-Transport-Security: max-age=31536000
+  Cross-Origin-Opener-Policy: same-origin

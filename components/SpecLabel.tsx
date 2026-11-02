@@ -1,20 +1,22 @@
 "use client";
 
 import { SERVICE_SPECS, type Service } from "./content";
+import { pickService } from "./useContactForm";
 
 /**
- * A service rendered as a product spec label — boxed header, bulleted spec
- * rows, inverted footer bar. See DESIGN.md "Spec labels" for why this is the
- * one component allowed hard borders.
+ * A service rendered as a product spec label — boxed header, how it's
+ * engaged, the pitch, spec rows, inverted footer bar. See DESIGN.md "Spec labels" for
+ * why this is the one component allowed hard borders.
+ *
+ * The whole label is the call to action: it scrolls to the contact form with
+ * this service already selected.
  */
 export default function SpecLabel({
   service,
   index,
-  total,
 }: {
   service: Service;
   index: number;
-  total: number;
 }) {
   const specs = SERVICE_SPECS[service.name] ?? [];
   const unit = String(index + 1).padStart(2, "0");
@@ -22,50 +24,52 @@ export default function SpecLabel({
   return (
     <a
       href="#contact"
+      onClick={() => pickService(service.name)}
       className="spec group flex h-full flex-col transition-transform duration-300 hover:-translate-y-1"
     >
-      {/* Header: name against the studio stamp. */}
-      <div className="spec-rule flex min-h-[5.5rem] items-stretch">
-        <h3 className="t-headline flex-1 px-4 py-4 text-[1.5rem] leading-[0.92] sm:text-[1.75rem]">
+      {/* Header: name against its index number. */}
+      <div className="spec-rule flex items-start justify-between gap-4 px-4 py-4">
+        <h3 className="t-headline text-[1.5rem] leading-[0.92] sm:text-[1.75rem]">
           {service.name}
         </h3>
-        <div className="t-label flex w-[5.5rem] shrink-0 flex-col justify-center border-l-[1.5px] border-l-ink px-3 py-3 leading-[1.5]">
-          <span>2zero2</span>
-          <span className="text-ink/55">Service</span>
-          <span className="text-ink/55">Unit {unit}</span>
-        </div>
+        <span className="t-serif text-xl leading-none text-ink/55">{unit}</span>
       </div>
 
+      {/* How it's engaged. Fixed scope is outlined, ongoing is solid, so the
+          two kinds read apart at a glance. */}
+      <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 px-4 pt-4">
+        <span
+          className={`t-label px-2 py-1 ${
+            service.engagement.type === "Ongoing"
+              ? "bg-ink text-paper"
+              : "border border-ink"
+          }`}
+        >
+          {service.engagement.type}
+        </span>
+        <span className="t-label text-ink/60">{service.engagement.terms}</span>
+      </div>
+
+      <p className="t-body px-4 pt-3 text-[0.95rem] leading-[1.5]">{service.copy}</p>
+
       {/* Spec rows. */}
-      <dl className="flex-1 px-4 py-4">
+      <dl className="flex-1 px-4 pt-4 pb-5">
         {specs.map(([key, value]) => (
           <div key={key} className="flex gap-2 py-[3px]">
-            <dt className="t-label w-[5.5rem] shrink-0">· {key}:</dt>
+            <dt className="t-label w-[5.5rem] shrink-0 text-ink/60">{key}</dt>
             <dd className="t-body text-[0.8125rem] leading-[1.45]">{value}</dd>
           </div>
         ))}
       </dl>
 
       {/* Inverted footer bar. */}
-      <div className="mx-3 mb-3 flex items-center justify-between gap-3 bg-ink px-3 py-2.5">
-        <span className="t-label text-paper">2zero2.build</span>
-        <span className="t-label flex items-center gap-2 text-paper">
-          {unit} / {String(total).padStart(2, "0")}
-          {/* Abstract code mark — a label's registration glyph, not a real code. */}
-          <svg width="15" height="15" viewBox="0 0 15 15" aria-hidden="true" className="shrink-0">
-            <rect x="0" y="0" width="15" height="15" fill="var(--color-paper)" />
-            {[
-              [1, 1], [3, 1], [7, 1], [11, 1], [13, 1],
-              [1, 3], [5, 3], [9, 3], [13, 3],
-              [3, 5], [7, 5], [11, 5],
-              [1, 7], [5, 7], [9, 7], [13, 7],
-              [3, 9], [7, 9], [11, 9],
-              [1, 11], [5, 11], [9, 11], [13, 11],
-              [1, 13], [3, 13], [7, 13], [11, 13], [13, 13],
-            ].map(([x, y]) => (
-              <rect key={`${x}-${y}`} x={x} y={y} width="1.6" height="1.6" fill="var(--color-ink)" />
-            ))}
-          </svg>
+      <div className="mx-3 mb-3 flex items-center justify-between gap-3 bg-ink px-3 py-2.5 text-paper">
+        <span className="t-label">Start this project</span>
+        <span
+          aria-hidden="true"
+          className="t-label transition-transform duration-300 group-hover:translate-x-1"
+        >
+          →
         </span>
       </div>
     </a>

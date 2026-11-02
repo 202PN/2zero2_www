@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import ThemeSwitch from "./ThemeSwitch";
 import Wordmark from "./Wordmark";
 import { useEffect, useState } from "react";
 
@@ -12,8 +13,8 @@ const NAV = [
   { label: "Work", href: "/work" },
   { label: "Services", href: "/#services" },
   { label: "Process", href: "/#process" },
-  /* Boxed in the desktop nav — the site's only nav affordance that reads as a
-     control, standing in for the CTA the hero deliberately doesn't carry. */
+  /* Boxed — the one nav item that reads as a control, so the way to get in
+     touch is on screen from every scroll position. */
   { label: "Contact", href: "/#contact", boxed: true },
 ];
 
@@ -46,7 +47,7 @@ export default function Header() {
     <>
       <header
         className={`intro-enter-fade fixed inset-x-0 top-0 z-50 ${
-          solid ? "bg-ink/90 backdrop-blur-md rule-b" : "bg-transparent"
+          solid ? "bg-ink/90 backdrop-blur-md rule-b" : "bg-ink/55 backdrop-blur-md"
         }`}
       >
         <div
@@ -65,6 +66,7 @@ export default function Header() {
           </Link>
 
           <nav className="hidden items-center gap-9 md:flex">
+            <ThemeSwitch />
             {NAV.map((item) =>
               item.boxed ? (
                 <Link
@@ -86,7 +88,8 @@ export default function Header() {
             )}
           </nav>
 
-          <div className="flex items-center gap-2.5 md:hidden">
+          <div className="flex items-center gap-1.5 md:hidden">
+            <ThemeSwitch className="pr-1.5" />
             <Link href="/#contact" className={`${CONTACT_CELL} px-3 py-1.5`}>
               Contact
             </Link>

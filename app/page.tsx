@@ -2,31 +2,17 @@ import Link from "next/link";
 import Aperture from "@/components/Aperture";
 import ContactForm from "@/components/ContactForm";
 import Footer from "@/components/Footer";
-import Plate from "@/components/Plate";
-import PlateVideo from "@/components/PlateVideo";
 import ProjectCard from "@/components/ProjectCard";
 import Reveal from "@/components/Reveal";
+import Schematic from "@/components/Schematic";
 import SpecLabel from "@/components/SpecLabel";
 import SiteChrome from "@/components/SiteChrome";
-import Sun from "@/components/Sun";
 import { BOOKING_URL, PROJECTS, SERVICES, STEPS } from "@/components/content";
 
-const HERO_CLIP = "/brand/plate-hero.mp4";
-const HERO_CLIP_NARROW = "/brand/plate-hero-portrait.mp4";
-const HERO_POSTER = "/brand/plate-hero.webp";
+const HERO_LOGO = "/brand/2zero2_wordmark_black.svg";
 /* Module constant so the array identity is stable across renders and the
    aperture effect does not re-run. */
-const INTRO_PRELOAD = [HERO_POSTER];
-
-/** Section eyebrow — the numbered micro-label that opens every section. */
-function Eyebrow({ n, children }: { n: string; children: React.ReactNode }) {
-  return (
-    <p className="t-label text-dim">
-      ({n}) {children}
-    </p>
-  );
-}
-
+const INTRO_PRELOAD = [HERO_LOGO];
 
 export default function Home() {
   return (
@@ -38,89 +24,90 @@ export default function Home() {
         {/* ---------------------------------------------------------------
             Hero
             --------------------------------------------------------------- */}
-        <section
-          className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden"
-          style={{ paddingInline: "var(--gutter)", paddingBottom: "clamp(3rem,7vh,6rem)" }}
-        >
-          {/* Full-bleed plate. This is what the aperture opens onto, so it
-              has to sit in the first viewport and stay legible under type. */}
-          <div className="absolute inset-0">
-            <PlateVideo
-              src={HERO_CLIP}
-              srcNarrow={HERO_CLIP_NARROW}
-              poster={HERO_POSTER}
-              alt="Cloud formation, monochrome"
-              className="h-full w-full"
-            />
-            {/* Scrim: light through the middle where the mark opens, solid
-                at the bottom where the headline sits. */}
+        {/* The hero is the whole first screen. The board runs full-bleed
+            under everything; the header above and the copy panel below are
+            frosted glass laid over it, so the board keeps the space. */}
+        <section className="board relative flex min-h-[100svh] flex-col">
+          {/* What the aperture opens onto. Each sheet is fitted whole and
+              centred (SVG `meet`) in the clear space between the header and
+              the panel's overlap, so no part is ever cropped or under the
+              glass; the section's grid carries on around it, and that is
+              what the frosting blurs. Both sheets ship and CSS shows one by
+              orientation, so a phone gets the portrait sheet. */}
+          <div className="relative min-h-[45svh] flex-1">
             <div
-              className="absolute inset-0"
-              style={{
-                background: "var(--hero-scrim)",
-              }}
-            />
-          </div>
-
-          <Sun />
-
-          <div className="intro-enter relative max-w-[62rem] pt-32">
-            <p className="t-label text-dim">(00) Digital agency · Est. 2022</p>
-            {/* The wordmark set in the display face — the script mark in the
-                header and this are the same name in two registers. */}
-            <h1 className="mt-7 flex flex-col">
-              <span
-                className="t-display"
-                style={{ fontSize: "clamp(3.6rem, 13vw, 11rem)" }}
-              >
-                2zero2
-              </span>
-              {/* The logo's tagline, split across two registers: bitmap
-                  against script, both against the display grotesque above. */}
-              <span className="-mt-[0.12em] flex items-baseline gap-[0.3em] self-end pr-[0.06em] text-signal">
-                <span
-                  className="t-pixel"
-                  style={{ fontSize: "clamp(1.35rem, 4.3vw, 3.4rem)" }}
-                >
-                  digital
-                </span>
-                <span
-                  className="t-script"
-                  style={{ fontSize: "clamp(2.7rem, 8.6vw, 6.9rem)" }}
-                >
-                  design
-                </span>
-              </span>
-            </h1>
-            <p className="t-body mt-9 max-w-[46ch] text-[1.05rem] text-paper/80">
-              Web applications, marketing sites, and launch design.
-            </p>
-          </div>
-        </section>
-
-        {/* ---------------------------------------------------------------
-            Services
-            --------------------------------------------------------------- */}
-        <section
-          id="services"
-          className="scroll-mt-24"
-          style={{ paddingInline: "var(--gutter)", paddingBlock: "clamp(5rem,11vw,9rem)" }}
-        >
-          <Reveal>
-            <Eyebrow n="01">Index</Eyebrow>
-            <h2
-              className="t-headline mt-6 max-w-[16ch]"
-              style={{ fontSize: "clamp(2.2rem, 6vw, 4.5rem)" }}
+              className="board-wide absolute inset-x-0"
+              style={{ top: "var(--header-h)", bottom: "var(--panel-overlap)" }}
             >
-              Offerings
-            </h2>
-          </Reveal>
-          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {SERVICES.map((service, i) => (
-              <Reveal key={service.name} delay={(i % 3) * 70} className="h-full">
-                <SpecLabel service={service} index={i} total={SERVICES.length} />
-              </Reveal>
-            ))}
+              <Schematic logoSrc={HERO_LOGO} layout="wide" />
+            </div>
+            <div
+              className="board-tall absolute inset-x-0"
+              style={{ top: "var(--header-h)", bottom: "var(--panel-overlap)" }}
+            >
+              <Schematic logoSrc={HERO_LOGO} layout="tall" />
+            </div>
+          </div>
+
+          <div
+            className="frost intro-enter relative"
+            style={{
+              marginTop: "calc(-1 * var(--panel-overlap))",
+              paddingInline: "var(--gutter)",
+              paddingBlock: "clamp(1.5rem,4vh,3rem)",
+            }}
+          >
+            <div className="grid gap-x-16 gap-y-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
+              {/* Leads with what we do, plainly. */}
+              <h1
+                className="t-headline max-w-[22ch] text-balance"
+                style={{ fontSize: "clamp(1.65rem, 3.4vw, 3.2rem)" }}
+              >
+                Design and development for websites and web apps
+              </h1>
+              <div>
+                <p className="t-body max-w-[52ch] text-[0.95rem] text-paper/85 sm:text-[1rem]">
+                  Marketing sites, web applications, rebuilds, and launch kits,
+                  delivered through one defined process: scoped up front, built
+                  in signed-off milestones, supported after launch.
+                </p>
+
+                <div className="mt-6 flex flex-wrap items-center gap-x-10 gap-y-5">
+                  <a
+                    href="#contact"
+                    className="t-headline group flex items-center gap-3 border-b-2 border-b-paper pb-1.5 text-[1.3rem] transition-colors hover:border-b-accent hover:text-accent sm:text-[1.5rem]"
+                  >
+                    Start a project
+                    <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">
+                      →
+                    </span>
+                  </a>
+                  <a
+                    href={BOOKING_URL}
+                    className="t-label border-b border-b-paper/40 pb-1 text-paper/85 transition-colors hover:border-b-accent hover:text-accent"
+                  >
+                    Book a 30-minute call →
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* What we do, named once more at the foot of the screen. Full
+                paper rather than dim: dim fails contrast on the glass. Left
+                off phones, where the board needs the room and the services
+                section is the next thing down anyway. */}
+            <ul className="rule-t mt-7 hidden flex-wrap gap-x-8 gap-y-2 pt-5 sm:flex">
+              {SERVICES.map((service) => (
+                <li key={service.name}>
+                  <a
+                    href="#services"
+                    className="t-label text-paper/75 transition-colors hover:text-accent"
+                  >
+                    {service.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
 
@@ -130,13 +117,12 @@ export default function Home() {
         <section
           id="work"
           className="scroll-mt-24"
-          style={{ paddingInline: "var(--gutter)", paddingBottom: "clamp(5rem,11vw,9rem)" }}
+          style={{ paddingInline: "var(--gutter)", paddingBlock: "clamp(5rem,11vw,9rem)" }}
         >
           <Reveal className="rule-b flex flex-wrap items-end justify-between gap-6 pb-8">
             <div>
-              <Eyebrow n="02">Index</Eyebrow>
               <h2
-                className="t-headline mt-6 max-w-[14ch]"
+                className="t-headline max-w-[14ch]"
                 style={{ fontSize: "clamp(2.2rem, 6vw, 4.5rem)" }}
               >
                 Work
@@ -157,40 +143,58 @@ export default function Home() {
         </section>
 
         {/* ---------------------------------------------------------------
+            Services
+            --------------------------------------------------------------- */}
+        <section
+          id="services"
+          className="rule-t scroll-mt-24"
+          style={{ paddingInline: "var(--gutter)", paddingBlock: "clamp(5rem,11vw,9rem)" }}
+        >
+          <Reveal>
+            <div className="flex flex-wrap items-end justify-between gap-x-16 gap-y-6">
+              <div>
+                <h2
+                  className="t-headline"
+                  style={{ fontSize: "clamp(2.2rem, 6vw, 4.5rem)" }}
+                >
+                  Services
+                </h2>
+              </div>
+              <p className="t-body max-w-[46ch] text-dim">
+                Five defined engagements, each run through the same four-step
+                framework. Fixed-scope projects are quoted once scope is agreed;
+                support runs on a monthly plan.
+              </p>
+            </div>
+          </Reveal>
+          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {SERVICES.map((service, i) => (
+              <Reveal key={service.name} delay={(i % 3) * 70} className="h-full">
+                <SpecLabel service={service} index={i} />
+              </Reveal>
+            ))}
+          </div>
+        </section>
+
+        {/* ---------------------------------------------------------------
             Process
             --------------------------------------------------------------- */}
-        <section id="process" className="scroll-mt-24">
-          <div className="relative">
-            <Plate
-              src="/brand/plate-band.webp"
-              alt="Cloud formation, monochrome"
-              className="h-[38vh] w-full min-h-[240px]"
-            />
-            <div
-              className="pointer-events-none absolute inset-0"
-              style={{
-                background: "var(--band-scrim)",
-              }}
-            />
-            <span
-              aria-hidden="true"
-              className="t-display t-outline pointer-events-none absolute inset-0 flex items-center justify-center text-paper/35"
-              style={{ fontSize: "clamp(2.4rem, 7vw, 7rem)", letterSpacing: "0.02em" }}
-            >
-              Two Zero Two
-            </span>
-          </div>
+        <section id="process" className="rule-t scroll-mt-24">
           <div
             style={{ paddingInline: "var(--gutter)", paddingBlock: "clamp(5rem,11vw,9rem)" }}
           >
-            <Reveal>
-              <Eyebrow n="03">Four steps</Eyebrow>
+            <Reveal className="flex flex-wrap items-end justify-between gap-x-16 gap-y-6">
               <h2
-                className="t-headline mt-6"
+                className="t-headline"
                 style={{ fontSize: "clamp(2.2rem, 6vw, 4.5rem)" }}
               >
                 Process
               </h2>
+              <p className="t-body max-w-[46ch] text-dim">
+                The same four steps on every project, so you always know what
+                happens next and what you&rsquo;ll have in hand when it&rsquo;s
+                done.
+              </p>
             </Reveal>
 
             {/* Four across, so the sequence reads left to right rather than as
@@ -205,6 +209,7 @@ export default function Home() {
                   <p className="t-body mt-3 max-w-[34ch] text-[0.95rem] text-dim">
                     {step.copy}
                   </p>
+                  <p className="t-label mt-5 text-paper/80">→ {step.output}</p>
                 </Reveal>
               ))}
             </ol>
@@ -221,21 +226,21 @@ export default function Home() {
         >
           <div className="grid gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
             <Reveal>
-              <Eyebrow n="04">Inquiries</Eyebrow>
               <h2
-                className="t-headline mt-6 max-w-[12ch]"
+                className="t-headline max-w-[12ch]"
                 style={{ fontSize: "clamp(2.2rem, 6vw, 4.5rem)" }}
               >
                 Start a project
               </h2>
               <p className="t-body mt-8 max-w-[38ch] text-dim">
-                The people who scope your project are the people who build it.
+                Tell us what you&rsquo;re building, and we&rsquo;ll follow up
+                with next steps and a time for the scoping session.
               </p>
               <a
                 href={BOOKING_URL}
                 className="t-label mt-8 inline-block border-b border-b-dim/50 pb-1 text-dim transition-colors hover:border-b-accent hover:text-accent"
               >
-                Or book 30 minutes →
+                Or book a 30-minute call →
               </a>
             </Reveal>
             <Reveal delay={80}>

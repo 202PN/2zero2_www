@@ -15,10 +15,6 @@
   --color-panel: #f4f4f4;
   --color-dim: #8a8a8a;
   --color-signal: #ffcc00;
-  /* The sun is yellow on both prints — it is a sun. Everything else that
-     carries the accent follows --color-signal, which the light print swaps
-     for green. */
-  --color-sun: #ffcc00;
   /* Type sitting on a Signal fill. Near-black in BOTH themes — it cannot
      ride `ink`, which turns white when the theme flips. */
   --color-onsignal: #0a0a0a;
@@ -30,8 +26,6 @@
   --font-display: var(--font-archivo), "Helvetica Neue", Arial, sans-serif;
   --font-serif: var(--font-instrument), Georgia, serif;
   --font-mono: var(--font-jetbrains), ui-monospace, monospace;
-  --font-script: var(--font-script-face), "Apple Chancery", cursive;
-  --font-pixel: var(--font-pixel-face), ui-monospace, monospace;
 }
 
 :root {
@@ -40,27 +34,27 @@
   --rule-light: rgba(10, 10, 10, 0.14);
   /* Gutter used by the page frame and every full-bleed section. */
   --gutter: clamp(1.25rem, 4vw, 4.5rem);
+  /* How far the hero's frosted copy panel rides up over the board. */
+  --panel-overlap: clamp(2.5rem, 7vh, 5rem);
+  /* The fixed header's height: wordmark plus its block padding. */
+  --header-h: calc(34px + 2 * clamp(0.9rem, 1.6vw, 1.35rem));
+
+  /* The hero board. The same on both prints — it is artwork, like the
+     photography, so it does not invert. */
+  --board-bg: #b08a10;
+  --board-ink: #111111;
+  --led-red: #ff3355;
+  --led-green: #2bff88;
+  /* Signal pulses on the traces: neon, but only ever a short comet on a
+     few lines at a time. */
+  --wire-cyan: #12e6ff;
+  --wire-magenta: #ff2e88;
+  --wire-green: #39ff9a;
 
   /* --- Dark theme (default) --------------------------------------------- */
   --accent-text: #ffcc00;
   --grain-blend: overlay;
   --grain-opacity: 0.32;
-  /* Hero scrim: light through the middle where the mark opens, solid at the
-     bottom where the headline sits. */
-  --hero-scrim: linear-gradient(
-    to bottom,
-    rgba(10, 10, 10, 0.62) 0%,
-    rgba(10, 10, 10, 0.34) 34%,
-    rgba(10, 10, 10, 0.88) 78%,
-    var(--color-ink) 100%
-  );
-  --band-scrim: linear-gradient(
-    to bottom,
-    var(--color-ink) 0%,
-    rgba(10, 10, 10, 0.45) 28%,
-    rgba(10, 10, 10, 0.45) 66%,
-    var(--color-ink) 100%
-  );
 }
 
 /* --------------------------------------------------------------------------
@@ -82,7 +76,7 @@
   /* #8a8a8a fails AA on a light ground; this clears 5.1:1. */
   --color-dim: #6b6b6b;
 
-  /* Green replaces the yellow on this print everywhere except the sun. A
+  /* Green replaces the yellow on this print. A
      saturated yellow that sings on black goes weak and acidic on paper;
      a deep green holds at 7:1 and reads as ink rather than highlighter. */
   --color-signal: #355e3b;
@@ -93,21 +87,10 @@
   --rule-light: rgba(255, 255, 255, 0.16);
   --grain-blend: multiply;
   --grain-opacity: 0.16;
-  --hero-scrim: linear-gradient(
-    to bottom,
-    rgba(251, 251, 250, 0.62) 0%,
-    rgba(251, 251, 250, 0.1) 18%,
-    rgba(251, 251, 250, 0) 40%,
-    rgba(251, 251, 250, 0.86) 72%,
-    var(--color-ink) 94%
-  );
-  --band-scrim: linear-gradient(
-    to bottom,
-    var(--color-ink) 0%,
-    rgba(251, 251, 250, 0.3) 28%,
-    rgba(251, 251, 250, 0.3) 66%,
-    var(--color-ink) 100%
-  );
+}
+
+@media (min-width: 640px) {
+  :root { --header-h: calc(40px + 2 * clamp(0.9rem, 1.6vw, 1.35rem)); }
 }
 
 html {
@@ -185,41 +168,10 @@ body {
   letter-spacing: 0.004em;
 }
 
-/* The script half of the bold/script contrast — the wordmark's own face.
-   Display sizes only; it is not legible as copy. */
-.t-script {
-  font-family: var(--font-script);
-  font-weight: 400;
-  text-transform: none;
-  letter-spacing: 0.01em;
-  line-height: 0.9;
-}
-
-/* Retro bitmap. One word at a time, inside a lockup — never a line of copy,
-   and never at a size where its pixel grid stops being legible. */
-.t-pixel {
-  font-family: var(--font-pixel);
-  font-weight: 400;
-  /* Lowercase on purpose, to sit with the script rather than above it. */
-  text-transform: lowercase;
-  letter-spacing: -0.02em;
-  line-height: 1;
-}
-
-/* Outline display type — the "TWO / ZERO / TWO" plate treatment. */
-/* Knock the fill out but keep `color` intact, so the stroke can ride
-   currentColor and inherit whatever text color the element is given. */
-.t-outline {
-  -webkit-text-fill-color: transparent;
-  -webkit-text-stroke: 1px currentColor;
-  paint-order: stroke fill;
-}
-
 /* --------------------------------------------------------------------------
    Surfaces
    -------------------------------------------------------------------------- */
 
-/* 4% grid behind dark sections, carried from the reference backdrop. */
 /* Print grain over photography — reads as texture and covers the
    upscaled source. Pure CSS, no extra request. */
 .grain::after {
@@ -269,10 +221,6 @@ body {
   transform: scale(var(--plate-scale, 1));
   transform-origin: center;
 }
-
-/* --------------------------------------------------------------------------
-   Marquee
-   -------------------------------------------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; }
@@ -368,7 +316,7 @@ body {
   -webkit-mask-composite: xor;
   mask-composite: exclude;
 
-  transition: --ap-ms 1150ms cubic-bezier(0.76, 0, 0.24, 1);
+  transition: --ap-ms 950ms cubic-bezier(0.76, 0, 0.24, 1);
 }
 
 /* The opening: the hole grows, and the last slivers dissolve. */
@@ -376,8 +324,8 @@ body {
   --ap-ms: var(--ap-ms-end, 24000px);
   opacity: 0;
   transition:
-    --ap-ms 1150ms cubic-bezier(0.76, 0, 0.24, 1),
-    opacity 420ms linear 680ms;
+    --ap-ms 950ms cubic-bezier(0.76, 0, 0.24, 1),
+    opacity 380ms linear 560ms;
 }
 
 .ap-rays {
@@ -446,101 +394,151 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   Sun
+   Hero board
 
-   The theme control, sitting in a gap in the cloud plate rather than in the
-   chrome. Flat fill and hard rays like everything else; the one soft edge in
-   the system is its halo, which exists because a sun without light around it
-   reads as a sticker.
-
-   Being out of the chrome, it has to declare itself as a control, so a
-   bracketed mono label sits under the mark. It brightens on hover rather than
-   moving, so the sun stays the only thing in the sky that behaves like
-   weather.
+   The schematic banner (components/Schematic.tsx). Its type is set in the
+   label face at board scale; its LEDs blink and a few traces carry a signal
+   pulse. Both stop under reduced motion, leaving the LEDs lit.
    -------------------------------------------------------------------------- */
 
-.sun {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5em;
+/* The ground: dark yellow under a two-step blueprint grid, drawn in CSS so
+   it fills the whole hero whatever shape the screen is. */
+.board {
+  background-color: var(--board-bg);
+  background-image:
+    linear-gradient(to right, rgb(17 17 17 / 0.16) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(17 17 17 / 0.16) 1px, transparent 1px),
+    linear-gradient(to right, rgb(17 17 17 / 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(17 17 17 / 0.07) 1px, transparent 1px);
+  background-size: 90px 90px, 90px 90px, 18px 18px, 18px 18px;
+  background-position: center;
 }
 
-.sun-mark {
-  position: absolute;
-  inset: 0;
+/* The board ships two sheets; orientation picks one. */
+.board-tall { display: none; }
+
+@media (orientation: portrait) {
+  .board-wide { display: none; }
+  .board-tall { display: block; }
 }
 
-.sun-disc {
-  position: relative;
-  display: grid;
-  place-items: center;
-  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+/* Frosted glass over the board: the page colour at 70% with a blur, so the
+   board reads through as texture without competing with the type. */
+.frost {
+  background: color-mix(in srgb, var(--color-ink) 70%, transparent);
+  -webkit-backdrop-filter: blur(16px) saturate(1.1);
+  backdrop-filter: blur(16px) saturate(1.1);
 }
 
-.sun:hover .sun-disc { transform: scale(1.06); }
-.sun:hover .sun-halo { opacity: 0.85; }
-.sun:hover .sun-rays { transform: rotate(22.5deg); opacity: 1; }
-
-/* The moon's counterpart to the sun's rays turning on hover. */
-.moon-stars {
-  opacity: 0.72;
-  transform-origin: 50% 50%;
-  transition:
-    opacity 500ms ease,
-    transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+.board-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  fill: var(--board-ink);
 }
 
-.sun:hover .moon-stars {
-  opacity: 1;
-  transform: scale(1.1);
+.board-chip {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  fill: var(--board-bg);
 }
 
-/* Reads off the page, not off the sun: --color-paper is white on the dark
-   print and near-black on the light one, which is the inversion the label
-   wants without a token of its own. */
-.sun-label {
-  color: var(--color-paper);
-  opacity: 0.7;
-  letter-spacing: 0.2em;
-  /* The tracking pushes the last character off-centre against the mark above. */
-  text-indent: 0.2em;
-  white-space: nowrap;
-  transition: opacity 420ms ease;
-}
-
-.sun:hover .sun-label { opacity: 1; }
-
-.sun-halo {
-  position: absolute;
-  inset: -85%;
-  border-radius: 9999px;
-  background: radial-gradient(
-    circle,
-    rgba(255, 204, 0, 0.4) 0%,
-    rgba(255, 204, 0, 0.14) 38%,
-    rgba(255, 204, 0, 0) 68%
-  );
-  transition: opacity 700ms ease;
-  opacity: 0.55;
-  pointer-events: none;
-}
-
-.sun-rays {
-  transition:
-    transform 900ms cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 500ms ease;
-  transform-origin: 50% 50%;
+.board-chip-sub {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.16em;
+  fill: var(--board-bg);
   opacity: 0.75;
 }
 
+/* A soft breathe rather than a hard blink — calmer, and it reads as status
+   rather than alarm. */
+.board-led {
+  animation: board-blink 3.2s ease-in-out infinite;
+}
+
+@keyframes board-blink {
+  0%, 55%, 100% { opacity: 1; }
+  70%, 80% { opacity: 0.2; }
+}
+
+.board-pulse {
+  stroke-dasharray: 10 90;
+  stroke-dashoffset: 100;
+  animation: board-pulse 3.6s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+@keyframes board-pulse {
+  to { stroke-dashoffset: 0; }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .sun-disc,
-  .sun-label,
-  .moon-stars,
-  .sun-halo,
-  .sun-rays { transition: none; }
+  .board-led { animation: none; }
+  .board-pulse { display: none; }
+}
+
+/* --------------------------------------------------------------------------
+   Service pills
+
+   Square bordered cells that invert to a Signal fill when selected. The radio
+   inside is visually hidden, so focus is drawn on the cell instead.
+   -------------------------------------------------------------------------- */
+
+.pill {
+  display: inline-flex;
+  cursor: pointer;
+  border: 1px solid color-mix(in srgb, var(--color-paper) 25%, transparent);
+  color: color-mix(in srgb, var(--color-paper) 80%, transparent);
+  padding: 0.6rem 0.85rem;
+  transition:
+    background-color 200ms ease,
+    border-color 200ms ease,
+    color 200ms ease;
+}
+
+.pill:hover {
+  border-color: color-mix(in srgb, var(--color-paper) 55%, transparent);
+  color: var(--color-paper);
+}
+
+.pill:has(:checked) {
+  background: var(--color-signal);
+  border-color: var(--color-signal);
+  color: var(--color-onsignal);
+}
+
+.pill:has(:focus-visible) {
+  outline: 2px solid var(--color-signal);
+  outline-offset: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   Theme switch
+
+   An LED and a label, in the hero board's indicator language: lit green on
+   the dark print, an unlit ring on the light one.
+   -------------------------------------------------------------------------- */
+
+.theme-switch {
+  color: color-mix(in srgb, var(--color-paper) 70%, transparent);
+  transition: color 200ms ease;
+}
+
+.theme-switch:hover { color: var(--color-accent); }
+
+.theme-led {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: var(--led-green);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--led-green) 22%, transparent);
+  transition: background-color 200ms ease, box-shadow 200ms ease;
+}
+
+:root[data-theme="light"] .theme-led {
+  background: transparent;
+  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--color-paper) 45%, transparent);
 }
 
 /* Print-specific assets: both ship, CSS chooses. Avoids a wrong-colour flash
@@ -549,11 +547,3 @@ body {
 :root[data-theme="light"] .on-dark { display: none; }
 :root[data-theme="light"] .on-light { display: block; }
 
-/* Moving plates fall back to their poster when motion is unwelcome. Handled
-   in CSS so there is no JavaScript branch and nothing to flash. */
-.motion-still { display: none; }
-
-@media (prefers-reduced-motion: reduce) {
-  .motion-only { display: none; }
-  .motion-still { display: block; }
-}

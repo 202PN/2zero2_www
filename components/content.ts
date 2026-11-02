@@ -7,76 +7,82 @@ export const CONTACT_EMAIL = "info@2zero2.build";
 export const BOOKING_URL = "https://calendly.com/2zero2works/30min";
 
 
+/**
+ * How a service is engaged. Every project runs through the same framework
+ * (see STEPS); this is the one line that tells a visitor which kind of
+ * engagement they are looking at — no prices, by design.
+ */
+export type Engagement = {
+  type: "Fixed scope" | "Ongoing";
+  terms: string;
+};
+
 export type Service = {
-  tag: string;
   name: string;
   copy: string;
+  engagement: Engagement;
 };
+
+const FIXED: Engagement = { type: "Fixed scope", terms: "Quoted after discovery" };
 
 export const SERVICES: Service[] = [
   {
-    tag: "Web app",
     name: "Web applications",
-    copy: "Dashboards, portals, and internal tools your business runs on every day.",
+    copy: "Dashboards, portals, and internal tools, scoped to a first release and delivered in milestones.",
+    engagement: FIXED,
   },
   {
-    tag: "Site",
     name: "Marketing sites",
-    copy: "A site that loads instantly, reads clearly, and turns visitors into inquiries.",
+    copy: "Fast, clear sites built to turn visitors into inquiries, from structure and copy layout to launch.",
+    engagement: FIXED,
   },
   {
-    tag: "Rebuild",
     name: "Website redesign & rebuild",
-    copy: "Your aging site rebuilt from the ground up, without losing what works.",
+    copy: "Your existing site rebuilt on a modern stack, keeping the URLs, rankings, and content that already work.",
+    engagement: FIXED,
   },
   {
-    tag: "Launch",
     name: "Brand & launch kits",
-    copy: "Wireframes, landing pages, identity, and pitch decks. Everything a first release needs before anyone writes production code.",
+    copy: "Identity, wireframes, a landing page, and pitch deck, plus flyers and social assets for events and nightlife.",
+    engagement: FIXED,
   },
   {
-    tag: "Events",
-    name: "Events & nightlife",
-    copy: "Flyers, social posts, and mockups for DJs, promoters, and the nights they put on.",
-  },
-  {
-    tag: "Care",
     name: "Support & iteration",
-    copy: "Fixes, features, and performance after launch. Handled.",
+    copy: "Fixes, features, and performance work after launch, planned and delivered on a regular cadence.",
+    engagement: { type: "Ongoing", terms: "Monthly plan" },
   },
 ];
 
-/** Spec rows for the label cards in the services section. */
+/**
+ * Spec rows for the label cards in the services section. Every card uses the
+ * same first and last rows — Includes, Delivered — so the services read as
+ * one framework; the middle row is the one thing specific to that service.
+ */
 export const SERVICE_SPECS: Record<string, [string, string][]> = {
   "Web applications": [
-    ["Output", "Dashboards · Portals · Internal tools"],
+    ["Includes", "Dashboards · Portals · Internal tools"],
     ["Stack", "Next.js · TypeScript · Serverless"],
-    ["Handoff", "Production deploy + docs"],
+    ["Delivered", "Production deploy + documentation"],
   ],
   "Marketing sites": [
-    ["Output", "Multi-page site · CMS optional"],
-    ["Built for", "Speed, clarity, inbound"],
-    ["Handoff", "Yours to run, or we run it"],
+    ["Includes", "Multi-page site · CMS optional"],
+    ["Built for", "Speed, clarity, inbound leads"],
+    ["Delivered", "Live site, yours to run or ours"],
   ],
   "Website redesign & rebuild": [
-    ["Output", "Rebuilt site · Same URLs"],
-    ["Keeps", "Rankings, content, what works"],
-    ["Drops", "The parts that never did"],
+    ["Includes", "Audit · Redesign · Rebuild"],
+    ["Keeps", "URLs, rankings, content"],
+    ["Delivered", "Rebuilt site on the same URLs"],
   ],
   "Brand & launch kits": [
-    ["Output", "Wireframes · Landing page · Identity"],
-    ["Also", "Pitch deck design"],
-    ["Note", "Design and first release, not a full build"],
-  ],
-  "Events & nightlife": [
-    ["Output", "Flyers · Social posts · Mockups"],
-    ["For", "DJs · Promoters · Venues"],
-    ["Timing", "Built around your date"],
+    ["Includes", "Identity · Wireframes · Landing page"],
+    ["Also", "Pitch decks · Event flyers · Social"],
+    ["Delivered", "Design files + live landing page"],
   ],
   "Support & iteration": [
-    ["Output", "Fixes · Features · Performance"],
-    ["Cadence", "Ongoing, after launch"],
-    ["Scope", "Whatever the site needs next"],
+    ["Includes", "Fixes · Features · Performance"],
+    ["Cadence", "Planned monthly, or on request"],
+    ["Delivered", "Prioritised updates each cycle"],
   ],
 };
 
@@ -167,24 +173,30 @@ export const PROJECTS: Project[] = [
   },
 ];
 
-export type Step = { name: string; copy: string };
+/** One phase of the framework every project runs through. `output` is what
+    the client has in hand when the phase closes. */
+export type Step = { name: string; copy: string; output: string };
 
 export const STEPS: Step[] = [
   {
-    name: "Discovery",
-    copy: "We learn what you're building and why, then define the first release together.",
+    name: "Scope",
+    copy: "One working session to define goals, users, and the first release, confirmed in writing before any build starts.",
+    output: "Written scope · Milestones",
   },
   {
     name: "Build",
-    copy: "Weekly progress you can click.",
+    copy: "Work moves through the agreed milestones on a live preview link. Each one is reviewed and signed off before the next begins.",
+    output: "Live preview · Sign-offs",
   },
   {
     name: "Launch",
-    copy: "We ship to production and stay hands-on until it's stable.",
+    copy: "Final QA, production deploy, and a clean handover of access and documentation.",
+    output: "Production release · Docs",
   },
   {
     name: "Support",
-    copy: "Fixes, features, and performance improvements tied to real outcomes.",
+    copy: "After launch, fixes, features, and performance work continue on a monthly plan or on request.",
+    output: "Prioritised updates",
   },
 ];
 

@@ -8,5 +8,15 @@
     "directory": "./out",
     "binding": "ASSETS",
     "not_found_handling": "404-page"
-  }
+  },
+  // Contact form limit: 5 submissions per IP per minute, per Cloudflare
+  // location. Requires wrangler 4.36+. namespace_id only has to be unique
+  // within the Cloudflare account.
+  "ratelimits": [
+    {
+      "name": "CONTACT_LIMITER",
+      "namespace_id": "20201",
+      "simple": { "limit": 5, "period": 60 }
+    }
+  ]
 }

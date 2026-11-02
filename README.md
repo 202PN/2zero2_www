@@ -14,8 +14,8 @@ from there, it is not invented in components.
 - [React 19](https://react.dev) · TypeScript
 - [Tailwind CSS 4](https://tailwindcss.com)
 - [Lenis](https://lenis.darkroom.engineering) for smooth scroll (~3KB, lazily imported)
-- `next/font` — Archivo self-hosted (subset to woff2); Pinyon Script, DotGothic16,
-  Instrument Serif + JetBrains Mono from Google. All SIL OFL 1.1.
+- `next/font` — Archivo self-hosted (subset to woff2); Instrument Serif +
+  JetBrains Mono from Google. All SIL OFL 1.1.
 
 ## Getting started
 
@@ -71,14 +71,15 @@ npm run build && npx wrangler dev
 ```
 app/
   layout.tsx           Shell, fonts, metadata
-  page.tsx             Home — hero, offerings, work, process, contact
+  page.tsx             Home — hero, services, work, process, contact
   globals.css          Theme tokens, type roles, aperture, reveals
   work/page.tsx        Work index
   work/[slug]/page.tsx Case study (static params from PROJECTS)
   not-found.tsx        404
 components/
   Aperture.tsx         The intro. See DESIGN.md before changing it.
-  Sun.tsx              Theme control, sited in the cloud plate
+  Schematic.tsx        The hero board — circuit-board banner around the logo
+  ThemeSwitch.tsx      Theme control in the header — LED + label
   Wordmark.tsx         Ships both prints, CSS picks one
   SiteChrome.tsx       Client shell — smooth scroll + header
   SpecLabel.tsx        Services as product labels — the signature component
@@ -87,18 +88,39 @@ components/
   useContactForm.ts    POST /api/contact client
   content.ts           Product truth
 public/
-  brand/               Logo marks, cloud plates, OG image
+  brand/               Logo marks, OG image
   work/                Case-study screenshots
 worker/index.ts        Static assets + contact endpoint
 ```
+
+## Security
+
+- **Headers.** `public/_headers` sets a Content-Security-Policy, HSTS,
+  `nosniff`, `X-Frame-Options: DENY`, a referrer policy, and a permissions
+  policy on every static page. The CSP allows same-origin only; if you add a
+  third-party script, font, or embed, add its origin there or it will be
+  blocked. Responses from the Worker set their own headers in
+  `worker/index.ts`, because `_headers` doesn't reach them.
+- **Contact endpoint.** `POST /api/contact` accepts only same-origin
+  requests, JSON or form bodies up to 32KB, and service names from
+  `SERVICES`. It strips control characters from single-line fields, so
+  nothing typed into them can inject email headers, and it has a honeypot
+  field.
+- **Rate limit.** The `CONTACT_LIMITER` binding in `wrangler.jsonc` allows 5
+  submissions per IP per minute. It needs wrangler 4.36 or later.
+- **Dependencies.** `package.json` overrides `postcss` to a patched version,
+  because Next 15 pins a vulnerable one. Drop the override after upgrading to
+  a Next release that ships a fixed PostCSS. Run `npm audit` before deploys.
+- `npm run dev:lan` exposes the dev server to your whole network. Only use it
+  on a network you trust.
 
 ## Themes
 
 Dark by default; a light theme swaps `--color-ink` and `--color-paper` on
 `:root[data-theme="light"]`, so components need no theme branches. The choice
 lives at `localStorage["2z-theme"]` and is applied by a pre-paint script in
-`app/layout.tsx`, so it never flashes. Photography is not inverted — only the
-scrims over it. See DESIGN.md → "Two prints" before adding colour.
+`app/layout.tsx`, so it never flashes. The hero board and screenshots are not
+inverted. See DESIGN.md → "Two prints" before adding colour.
 
 ## Accessibility
 
@@ -109,8 +131,7 @@ JavaScript and the contact form falls back to a plain `POST`.
 
 ## Fonts
 
-Every face is SIL OFL 1.1: **Archivo** (display + body, self-hosted),
-**Pinyon Script** (script accents), **DotGothic16** (bitmap accents), **Instrument
+Every face is SIL OFL 1.1: **Archivo** (display + body, self-hosted), **Instrument
 Serif** (numerals), **JetBrains Mono** (labels). The wordmark's own commercial face appears only as outlined
 SVG artwork under `public/brand/`, never as a webfont — keep it that way.
 
